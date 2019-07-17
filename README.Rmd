@@ -1,0 +1,163 @@
+---
+output: github_document
+bibliography: bibliography.bib
+csl: chicago-author-date.csl
+nocite: '@*'
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center",
+  fig.path = "man/figures/README-"
+)
+```
+
+# **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+flamingos is a toolbox for the simultaneous clustering (or classification) and 
+segmentation of heterogeneous functional data (i.e time-series ore more 
+generally longitudinal data), with original and flexible functional latent 
+variable models, fitted by unsupervised algorithms, including EM algorithms.
+
+Our nice FLaMingoS are mainly:
+
+* mixRHLP;
+* mixHMM;
+* mixHMMR;
+* PWRM;
+* MixReg;
+* unsupMixReg.
+
+The models and algorithms are developped and written in Matlab by Faicel 
+Chamroukhi, and translated and designed into R packages by Florian Lecocq, 
+Marius Bartcus and Faicel Chamroukhi.
+
+## Installation
+
+You can install the **flamingos** package from [GitHub](https://github.com/fchamroukhi/FLaMingoS) with:
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("fchamroukhi/FLaMingoS")
+```
+
+To build *vignettes* for examples of usage, type the command below instead:
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("fchamroukhi/FLaMingoS", 
+                         build_opts = c("--no-resave-data", "--no-manual"), 
+                         build_vignettes = TRUE)
+```
+
+Use the following command to display vignettes:
+
+```{r, eval = FALSE}
+browseVignettes("FLaMingoS")
+```
+
+# Usage
+
+<details>
+  <summary>mixRHLP</summary>
+
+```{r, message = FALSE}
+library(flamingos)
+
+data("toydataset")
+
+G <- 3 # Number of clusters
+K <- 3 # Number of regimes (polynomial regression components)
+p <- 1 # Degree of the polynomials
+q <- 1 # Order of the logistic regression (by default 1 for contiguous segmentation)
+variance_type <- "heteroskedastic" # "heteroskedastic" or "homoskedastic" model
+
+n_tries <- 1
+max_iter <- 1000
+threshold <- 1e-5
+verbose <- TRUE
+verbose_IRLS <- FALSE
+init_kmeans <- TRUE
+
+mixrhlp <- emMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])), 
+                     G, K, p, q, variance_type, init_kmeans, n_tries, max_iter, 
+                     threshold, verbose, verbose_IRLS)
+
+mixrhlp$summary()
+
+mixrhlp$plot()
+```
+
+</details>
+
+<br />
+
+<details>
+  <summary>mixHMM</summary>
+
+```{r, message = FALSE}
+library(flamingos)
+
+data("toydataset")
+
+K <- 3 # Number of clusters
+R <- 3 # Number of regimes (HMM states)
+variance_type <- "heteroskedastic" # "heteroskedastic" or "homoskedastic" model
+
+ordered_states <- TRUE
+n_tries <- 1
+max_iter <- 1000
+init_kmeans <- TRUE
+threshold <- 1e-6
+verbose <- TRUE
+
+mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K, R, variance_type, ordered_states, init_kmeans, n_tries, max_iter, threshold, verbose)
+
+mixhmm$summary()
+
+mixhmm$plot()
+```
+
+</details>
+
+<br />
+
+<details>
+  <summary>mixHMMR</summary>
+  
+```{r, message = FALSE}
+library(flamingos)
+
+data("toydataset")
+
+K <- 3 # Number of clusters
+R <- 3 # Number of regimes/states
+p <- 2 # Degree of the polynomial regression
+variance_type <- "heteroskedastic" # "heteroskedastic" or "homoskedastic" model
+
+ordered_states <- TRUE
+n_tries <- 1
+max_iter <- 1000
+init_kmeans <- TRUE
+threshold <- 1e-6
+verbose <- TRUE
+
+mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]), K, R, p,
+                     variance_type, ordered_states, init_kmeans, n_tries, max_iter,
+                     threshold, verbose)
+
+mixhmmr$summary()
+
+mixhmmr$plot()
+```
+
+</details>
+
+# References

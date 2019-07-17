@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^bibliography\.bib$
+^chicago-author-date\.csl$
+^flamingos_0\.1\.0\.pdf$

@@ -1,6 +1,6 @@
 Type: Package
 Package: flamingos
-Title: Functional Latent Data Models for Clustering Heterogeneous Time Series
+Title: Functional Latent datA Models for clusterING heterogeneOus Time-Series
 Version: 0.1.0
 Authors@R: c(person("Faicel", "Chamroukhi", role = c("aut"),
     email = "faicel.chamroukhi@unicaen.fr",
@@ -19,10 +19,37 @@ License: GPL (>= 3)
 Depends: 
     R (>= 2.10)
 Imports: 
+    methods,
+    stats,
     Rcpp
+Suggests: 
+    knitr,
+    rmarkdown
 LinkingTo: 
     Rcpp,
     RcppArmadillo
+Collate:
+    flamingos-package.R
+    RcppExports.R
+    utils.R
+    kmeans.R
+    mkStochastic.R
+    FData.R
+    ParamMixHMM.R
+    ParamMixHMMR.R
+    ParamMixRHLP.R
+    StatMixHMM.R
+    StatMixHMMR.R
+    StatMixRHLP.R
+    ModelMixHMMR.R
+    ModelMixHMM.R
+    ModelMixRHLP.R
+    emMixHMM.R
+    emMixHMMR.R
+    emMixRHLP.R
+    cemMixRHLP.R
+    data-toydataset.R
+VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
