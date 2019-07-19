@@ -1,6 +1,6 @@
 Type: Package
 Package: flamingos
-Title: Functional Latent datA Models for clusterING heterogeneOus Time-Series
+Title: Functional latent data models for clustering heterogeneous time-series ('FLaMingoS')
 Version: 0.1.0
 Authors@R: c(person("Faicel", "Chamroukhi", role = c("aut"),
     email = "faicel.chamroukhi@unicaen.fr",
@@ -9,10 +9,10 @@ Authors@R: c(person("Faicel", "Chamroukhi", role = c("aut"),
     email = "marius.bartcus@gmail.com"),
     person("Florian", "Lecocq", role = c("aut", "cre"),
     email = "florian.lecocq@outlook.com"))
-Description: flamingos is a toolbox for the simultaneous clustering (or 
-    classification) and segmentation of heterogeneous functional data (i.e 
-    time series ore more generally longitudinal data), with original and 
-    flexible functional latent variable models, fitted by unsupervised 
+Description: flamingos is an opent sources toolbox (available in R and in Matlab) 
+    for the simultaneous clustering (or classification) and segmentation of heterogeneous 
+    functional data (i.e time series ore more generally longitudinal data), with original 
+    and flexible functional latent variable models, fitted by unsupervised 
     algorithms, including EM algorithms.
 URL: https://github.com/fchamroukhi/FLaMingoS
 License: GPL (>= 3)

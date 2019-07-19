@@ -1,43 +1,34 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
+**FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
+=================================================================================================================
 
 <!-- badges: start -->
-
 <!-- badges: end -->
-
-flamingos is a toolbox for the simultaneous clustering (or
-classification) and segmentation of heterogeneous functional data (i.e
-time-series ore more generally longitudinal data), with original and
-flexible functional latent variable models, fitted by unsupervised
-algorithms, including EM algorithms.
+flamingos is a toolbox for the simultaneous clustering (or classification) and segmentation of heterogeneous functional data (i.e time-series ore more generally longitudinal data), with original and flexible functional latent variable models, fitted by unsupervised algorithms, including EM algorithms.
 
 Our nice FLaMingoS are mainly:
 
-  - mixRHLP;
-  - mixHMM;
-  - mixHMMR;
-  - PWRM;
-  - MixReg;
-  - unsupMixReg.
+-   mixRHLP;
+-   mixHMM;
+-   mixHMMR;
+-   PWRM;
+-   MixReg;
+-   unsupMixReg.
 
-The models and algorithms are developped and written in Matlab by Faicel
-Chamroukhi, and translated and designed into R packages by Florian
-Lecocq, Marius Bartcus and Faicel Chamroukhi.
+The models and algorithms are developped and written in Matlab by Faicel Chamroukhi, and translated and designed into R packages by Florian Lecocq, Marius Bartcus and Faicel Chamroukhi.
 
-## Installation
+Installation
+------------
 
-You can install the **flamingos** package from
-[GitHub](https://github.com/fchamroukhi/FLaMingoS) with:
+You can install the **flamingos** package from [GitHub](https://github.com/fchamroukhi/FLaMingoS) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("fchamroukhi/FLaMingoS")
 ```
 
-To build *vignettes* for examples of usage, type the command below
-instead:
+To build *vignettes* for examples of usage, type the command below instead:
 
 ``` r
 # install.packages("devtools")
@@ -52,11 +43,10 @@ Use the following command to display vignettes:
 browseVignettes("FLaMingoS")
 ```
 
-# Usage
+Usage
+=====
 
-<details>
-
-<summary>mixRHLP</summary>
+<details> <summary>mixRHLP</summary>
 
 ``` r
 library(flamingos)
@@ -310,6 +300,20 @@ mixrhlp$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
+#> 1     6.3513369    4.214736   6.6536553
+#> X^1  -0.2449377    0.839666   0.1024863
+#> 
+#> Variances:
+#> 
+#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
+#>      0.9498285     0.9270384      1.001413
+#> 
+#> --------------------
+#> Cluster 2 (G = 2):
+#> 
+#> Regression coefficients:
+#> 
+#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
 #> 1    4.96556671   6.7326717   4.8807183
 #> X^1  0.08880479   0.4984443   0.1350271
 #> 
@@ -319,7 +323,7 @@ mixrhlp$summary()
 #>      0.9559969       1.03849     0.9506928
 #> 
 #> --------------------
-#> Cluster 2 (G = 2):
+#> Cluster 3 (G = 3):
 #> 
 #> Regression coefficients:
 #> 
@@ -331,20 +335,6 @@ mixrhlp$summary()
 #> 
 #>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
 #>       0.981915     0.9787717     0.9702211
-#> 
-#> --------------------
-#> Cluster 3 (G = 3):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
-#> 1     6.3513369    4.214736   6.6536553
-#> X^1  -0.2449377    0.839666   0.1024863
-#> 
-#> Variances:
-#> 
-#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
-#>      0.9498285     0.9270384      1.001413
 
 mixrhlp$plot()
 ```
@@ -355,9 +345,7 @@ mixrhlp$plot()
 
 <br />
 
-<details>
-
-<summary>mixHMM</summary>
+<details> <summary>mixHMM</summary>
 
 ``` r
 library(flamingos)
@@ -409,6 +397,19 @@ mixhmm$summary()
 #> 
 #> Means:
 #> 
+#>     R = 1    R = 2    R = 3
+#>  4.987066 6.963998 4.987279
+#> 
+#> Variances:
+#> 
+#>      R = 1    R = 2    R = 3
+#>  0.9578459 1.045573 0.952294
+#> 
+#> -------------------
+#> Cluster 2 (K = 2):
+#> 
+#> Means:
+#> 
 #>    R = 1    R = 2    R = 3
 #>  7.00202 4.964273 3.979626
 #> 
@@ -418,7 +419,7 @@ mixhmm$summary()
 #>  0.9858726 0.9884542 0.9651437
 #> 
 #> -------------------
-#> Cluster 2 (K = 2):
+#> Cluster 3 (K = 3):
 #> 
 #> Means:
 #> 
@@ -429,19 +430,6 @@ mixhmm$summary()
 #> 
 #>      R = 1     R = 2   R = 3
 #>  0.9571803 0.9504731 1.01553
-#> 
-#> -------------------
-#> Cluster 3 (K = 3):
-#> 
-#> Means:
-#> 
-#>     R = 1    R = 2    R = 3
-#>  4.987066 6.963998 4.987279
-#> 
-#> Variances:
-#> 
-#>      R = 1    R = 2    R = 3
-#>  0.9578459 1.045573 0.952294
 
 mixhmm$plot()
 ```
@@ -452,9 +440,7 @@ mixhmm$plot()
 
 <br />
 
-<details>
-
-<summary>mixHMMR</summary>
+<details> <summary>mixHMMR</summary>
 
 ``` r
 library(flamingos)
@@ -563,98 +549,25 @@ mixhmmr$plot()
 
 </details>
 
-# References
+References
+==========
 
-<div id="refs" class="references">
+Chamroukhi, Faicel, and Hien D. Nguyen. 2019. “Model-Based Clustering and Classification of Functional Data.” *Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery*, jan. <https://chamroukhi.com/papers/MBCC-FDA.pdf>.
 
-<div id="ref-Chamroukhi-FDA-2018">
+Chamroukhi, F. 2016. “Unsupervised Learning of Regression Mixture Models with Unknown Number of Components.” *Journal of Statistical Computation and Simulation* 86 (November): 2308–34. <https://chamroukhi.com/papers/Chamroukhi-JSCS-2015.pdf>.
 
-Chamroukhi, Faicel, and Hien D. Nguyen. 2019. “Model-Based Clustering
-and Classification of Functional Data.” *Wiley Interdisciplinary
-Reviews: Data Mining and Knowledge Discovery*.
-<https://chamroukhi.com/papers/MBCC-FDA.pdf>.
+Chamroukhi, Faicel. 2016. “Piecewise Regression Mixture for Simultaneous Functional Data Clustering and Optimal Segmentation.” *Journal of Classification* 33 (3): 374–411. <https://chamroukhi.com/papers/Chamroukhi-PWRM-JournalClassif-2016.pdf>.
 
-</div>
+Chamroukhi, F. 2015. “Statistical Learning of Latent Data Models for Complex Data Analysis.” Habilitation Thesis (HDR), Université de Toulon.[/Dossier/FChamroukhi-Habilitation.pdf](./Dossier/FChamroukhi-Habilitation.pdf).
 
-<div id="ref-Chamroukhi-RobustEMMixReg2015">
+Chamroukhi, F., H. Glotin, and A. Samé. 2013. “Model-Based Functional Mixture Discriminant Analysis with Hidden Process Regression for Curve Classification.” *Neurocomputing* 112 (july): 153–63. <https://chamroukhi.com/papers/chamroukhi_et_al_neucomp2013a.pdf>.
 
-Chamroukhi, F. 2016. “Unsupervised Learning of Regression Mixture Models
-with Unknown Number of Components.” *Journal of Statistical Computation
-and Simulation* 86 (November): 2308–34.
-<https://chamroukhi.com/papers/Chamroukhi-JSCS-2015.pdf>.
+Chamroukhi, F., and H. Glotin. 2012. “Mixture Model-Based Functional Discriminant Analysis for Curve Classification.” In *Proceedings of the International Joint Conference on Neural Networks (IJCNN), IEEE*, 1–8. Brisbane, Australia. <https://chamroukhi.com/papers/Chamroukhi-ijcnn-2012.pdf>.
 
-</div>
+Chamroukhi, F., A. Samé, P. Aknin, and G. Govaert. 2011. “Model-Based Clustering with Hidden Markov Model Regression for Time Series with Regime Changes.” In *Proceedings of the International Joint Conference on Neural Networks (IJCNN), IEEE*, 2814–21. <https://chamroukhi.com/papers/Chamroukhi-ijcnn-2011.pdf>.
 
-<div id="ref-Chamroukhi-PWRM-2016">
+Samé, A., F. Chamroukhi, Gérard Govaert, and P. Aknin. 2011. “Model-Based Clustering and Segmentation of Time Series with Changes in Regime.” *Advances in Data Analysis and Classification* 5 (4): 301–21. <https://chamroukhi.com/papers/adac-2011.pdf>.
 
-Chamroukhi, Faicel. 2016. “Piecewise Regression Mixture for Simultaneous
-Functional Data Clustering and Optimal Segmentation.” *Journal of
-Classification* 33 (3): 374–411.
-<https://chamroukhi.com/papers/Chamroukhi-PWRM-JournalClassif-2016.pdf>.
+Chamroukhi, F. 2010. “Hidden Process Regression for Curve Modeling, Classification and Tracking.” Ph.D. Thesis, Université de Technologie de Compiègne. <https://chamroukhi.com/papers/FChamroukhi-Thesis.pdf>.
 
-</div>
-
-<div id="ref-Chamroukhi-HDR-2015">
-
-Chamroukhi, F. 2015. “Statistical Learning of Latent Data Models for
-Complex Data Analysis.” Habilitation Thesis (HDR), Université de
-Toulon.[/Dossier/FChamroukhi-Habilitation.pdf](./Dossier/FChamroukhi-Habilitation.pdf).
-
-</div>
-
-<div id="ref-Chamroukhi-FMDA-neucomp2013">
-
-Chamroukhi, F., H. Glotin, and A. Samé. 2013. “Model-Based Functional
-Mixture Discriminant Analysis with Hidden Process Regression for Curve
-Classification.” *Neurocomputing* 112: 153–63.
-<https://chamroukhi.com/papers/chamroukhi_et_al_neucomp2013a.pdf>.
-
-</div>
-
-<div id="ref-Chamroukhi-IJCNN-2012">
-
-Chamroukhi, F., and H. Glotin. 2012. “Mixture Model-Based Functional
-Discriminant Analysis for Curve Classification.” In *Proceedings of the
-International Joint Conference on Neural Networks (IJCNN), IEEE*, 1–8.
-Brisbane, Australia.
-<https://chamroukhi.com/papers/Chamroukhi-ijcnn-2012.pdf>.
-
-</div>
-
-<div id="ref-Chamroukhi-MixRHLP-2011">
-
-Samé, A., F. Chamroukhi, Gérard Govaert, and P. Aknin. 2011.
-“Model-Based Clustering and Segmentation of Time Series with Changes
-in Regime.” *Advances in Data Analysis and Classification* 5 (4):
-301–21. <https://chamroukhi.com/papers/adac-2011.pdf>.
-
-</div>
-
-<div id="ref-Chamroukhi-IJCNN-2011">
-
-Chamroukhi, F., A. Samé, P. Aknin, and G. Govaert. 2011. “Model-Based
-Clustering with Hidden Markov Model Regression for Time Series with
-Regime Changes.” In *Proceedings of the International Joint Conference
-on Neural Networks (IJCNN), IEEE*, 2814–21.
-<https://chamroukhi.com/papers/Chamroukhi-ijcnn-2011.pdf>.
-
-</div>
-
-<div id="ref-chamroukhi_et_al_neurocomp2010">
-
-Chamroukhi, F., A. Samé, G. Govaert, and P. Aknin. 2010. “A Hidden
-Process Regression Model for Functional Data Description. Application to
-Curve Discrimination.” *Neurocomputing* 73 (7-9): 1210–21.
-<https://chamroukhi.com/papers/chamroukhi_neucomp_2010.pdf>.
-
-</div>
-
-<div id="ref-Chamroukhi_PhD_2010">
-
-Chamroukhi, F. 2010. “Hidden Process Regression for Curve Modeling,
-Classification and Tracking.” Ph.D. Thesis, Université de Technologie de
-Compiègne. <https://chamroukhi.com/papers/FChamroukhi-Thesis.pdf>.
-
-</div>
-
-</div>
+Chamroukhi, F., A. Samé, G. Govaert, and P. Aknin. 2010. “A Hidden Process Regression Model for Functional Data Description. Application to Curve Discrimination.” *Neurocomputing* 73 (7-9): 1210–21. <https://chamroukhi.com/papers/chamroukhi_neucomp_2010.pdf>.
