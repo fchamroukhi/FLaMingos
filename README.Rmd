@@ -30,10 +30,7 @@ Our nice FLaMingoS are mainly:
 
 * mixRHLP;
 * mixHMM;
-* mixHMMR;
-* PWRM;
-* MixReg;
-* unsupMixReg.
+* mixHMMR.
 
 The models and algorithms are developped and written in Matlab by Faicel 
 Chamroukhi, and translated and designed into R packages by Florian Lecocq, 

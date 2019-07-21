@@ -31,11 +31,11 @@
 #'
 #' Chamroukhi, Faicel. 2016. \emph{Piecewise Regression Mixture for Simultaneous Functional Data Clustering and Optimal Segmentation.} Journal of Classification 33 (3): 374--411. \url{https://chamroukhi.com/papers/Chamroukhi-PWRM-JournalClassif-2016.pdf}.
 #'
-#' Chamroukhi, F. 2015. \emph{Statistical Learning of Latent Data Models for Complex Data Analysis.} Habilitation Thesis (HDR), Universite de Toulon.
+#' Chamroukhi, F. 2015. \emph{Statistical Learning of Latent Data Models for Complex Data Analysis.} Habilitation Thesis (HDR), Universite de Toulon. \url{https://chamroukhi.com/Dossier/FChamroukhi-Habilitation.pdf}.
 #'
 #' Chamroukhi, F., H. Glotin, and A. Same. 2013. \emph{Model-Based Functional Mixture Discriminant Analysis with Hidden Process Regression for Curve Classification.} Neurocomputing 112: 153--63. \url{https://chamroukhi.com/papers/chamroukhi_et_al_neucomp2013a.pdf}.
 #'
-#' Chamroukhi, F., and H. Glotin. 2012. \emph{Mixture Model-Based Functional Discriminant Analysis for Curve Classification.} In Proceedings of the International Joint Conference on Neural Networks (IJCNN), IEEE, 1-8. Brisbane, Australia. \url{https://chamroukhi.com/papers/Chamroukhi-ijcnn-2012.pdf}.
+#' Chamroukhi, F., and H. Glotin. 2012. \emph{Mixture Model-Based Functional Discriminant Analysis for Curve Classification.} In Proceedings of the International Joint Conference on Neural Networks (IJCNN), IEEE, 1--8. Brisbane, Australia. \url{https://chamroukhi.com/papers/Chamroukhi-ijcnn-2012.pdf}.
 #'
 #' Same, A., F. Chamroukhi, Gerard Govaert, and P. Aknin. 2011. \emph{Model-Based Clustering and Segmentation of Time Series with Changes in Regime.} Advances in Data Analysis and Classification 5 (4): 301--21. \url{https://chamroukhi.com/papers/adac-2011.pdf}.
 #'
