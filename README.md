@@ -9,12 +9,9 @@ flamingos is a toolbox for the simultaneous clustering (or classification) and s
 
 Our nice FLaMingoS are mainly:
 
--   mixRHLP;
--   mixHMM;
--   mixHMMR;
--   PWRM;
--   MixReg;
--   unsupMixReg.
+  - mixRHLP;
+  - mixHMM;
+  - mixHMMR.
 
 The models and algorithms are developped and written in Matlab by Faicel Chamroukhi, and translated and designed into R packages by Florian Lecocq, Marius Bartcus and Faicel Chamroukhi.
 
@@ -300,13 +297,13 @@ mixrhlp$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
-#> 1     6.3513369    4.214736   6.6536553
-#> X^1  -0.2449377    0.839666   0.1024863
+#> 1     6.8902863   5.1134337  3.90153421
+#> X^1   0.9265632  -0.3959402  0.08748466
 #> 
 #> Variances:
 #> 
 #>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
-#>      0.9498285     0.9270384      1.001413
+#>       0.981915     0.9787717     0.9702211
 #> 
 #> --------------------
 #> Cluster 2 (G = 2):
@@ -398,6 +395,19 @@ mixhmm$summary()
 #> Means:
 #> 
 #>     R = 1    R = 2    R = 3
+#>  6.319189 4.583954 6.722627
+#> 
+#> Variances:
+#> 
+#>      R = 1     R = 2   R = 3
+#>  0.9571803 0.9504731 1.01553
+#> 
+#> -------------------
+#> Cluster 2 (K = 2):
+#> 
+#> Means:
+#> 
+#>     R = 1    R = 2    R = 3
 #>  4.987066 6.963998 4.987279
 #> 
 #> Variances:
@@ -406,7 +416,7 @@ mixhmm$summary()
 #>  0.9578459 1.045573 0.952294
 #> 
 #> -------------------
-#> Cluster 2 (K = 2):
+#> Cluster 3 (K = 3):
 #> 
 #> Means:
 #> 
@@ -417,19 +427,6 @@ mixhmm$summary()
 #> 
 #>      R = 1     R = 2     R = 3
 #>  0.9858726 0.9884542 0.9651437
-#> 
-#> -------------------
-#> Cluster 3 (K = 3):
-#> 
-#> Means:
-#> 
-#>     R = 1    R = 2    R = 3
-#>  6.319189 4.583954 6.722627
-#> 
-#> Variances:
-#> 
-#>      R = 1     R = 2   R = 3
-#>  0.9571803 0.9504731 1.01553
 
 mixhmm$plot()
 ```
@@ -503,21 +500,6 @@ mixhmmr$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1      5.139985     2.17167    4.380359
-#> X^1   -3.125108    21.90556    1.459464
-#> X^2    9.744229   -24.65557   -0.852382
-#> 
-#> Variances:
-#> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9509166      1.052753     0.9495063
-#> 
-#> --------------------
-#> Cluster 2 (K = 2):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
 #> 1     6.8643627    64.43719    6.218654
 #> X^1   1.2876344  -462.55911   -3.949075
 #> X^2  -0.1413059   893.93553    1.560385
@@ -526,6 +508,21 @@ mixhmmr$summary()
 #> 
 #>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
 #>      0.9770486     0.8116849      1.029812
+#> 
+#> --------------------
+#> Cluster 2 (K = 2):
+#> 
+#> Regression coefficients:
+#> 
+#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
+#> 1      5.139985     2.17167    4.380359
+#> X^1   -3.125108    21.90556    1.459464
+#> X^2    9.744229   -24.65557   -0.852382
+#> 
+#> Variances:
+#> 
+#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
+#>      0.9509166      1.052753     0.9495063
 #> 
 #> --------------------
 #> Cluster 3 (K = 3):
@@ -571,3 +568,68 @@ Samé, A., F. Chamroukhi, Gérard Govaert, and P. Aknin. 2011. “Model-Based Cl
 Chamroukhi, F. 2010. “Hidden Process Regression for Curve Modeling, Classification and Tracking.” Ph.D. Thesis, Université de Technologie de Compiègne. <https://chamroukhi.com/papers/FChamroukhi-Thesis.pdf>.
 
 Chamroukhi, F., A. Samé, G. Govaert, and P. Aknin. 2010. “A Hidden Process Regression Model for Functional Data Description. Application to Curve Discrimination.” *Neurocomputing* 73 (7-9): 1210–21. <https://chamroukhi.com/papers/chamroukhi_neucomp_2010.pdf>.
+
+<div id="ref-Chamroukhi-HDR-2015">
+
+Chamroukhi, F. 2015. “Statistical Learning of Latent Data Models for
+Complex Data Analysis.” Habilitation Thesis (HDR), Université de Toulon.
+<https://chamroukhi.com/Dossier/FChamroukhi-Habilitation.pdf>.
+
+</div>
+
+<div id="ref-Chamroukhi-FMDA-neucomp2013">
+
+Chamroukhi, F., H. Glotin, and A. Samé. 2013. “Model-Based Functional
+Mixture Discriminant Analysis with Hidden Process Regression for Curve
+Classification.” *Neurocomputing* 112: 153–63.
+<https://chamroukhi.com/papers/chamroukhi_et_al_neucomp2013a.pdf>.
+
+</div>
+
+<div id="ref-Chamroukhi-IJCNN-2012">
+
+Chamroukhi, F., and H. Glotin. 2012. “Mixture Model-Based Functional
+Discriminant Analysis for Curve Classification.” In *Proceedings of the
+International Joint Conference on Neural Networks (IJCNN), IEEE*, 1–8.
+Brisbane, Australia.
+<https://chamroukhi.com/papers/Chamroukhi-ijcnn-2012.pdf>.
+
+</div>
+
+<div id="ref-Chamroukhi-MixRHLP-2011">
+
+Samé, A., F. Chamroukhi, Gérard Govaert, and P. Aknin. 2011.
+“Model-Based Clustering and Segmentation of Time Series with Changes
+in Regime.” *Advances in Data Analysis and Classification* 5 (4):
+301–21. <https://chamroukhi.com/papers/adac-2011.pdf>.
+
+</div>
+
+<div id="ref-Chamroukhi-IJCNN-2011">
+
+Chamroukhi, F., A. Samé, P. Aknin, and G. Govaert. 2011. “Model-Based
+Clustering with Hidden Markov Model Regression for Time Series with
+Regime Changes.” In *Proceedings of the International Joint Conference
+on Neural Networks (IJCNN), IEEE*, 2814–21.
+<https://chamroukhi.com/papers/Chamroukhi-ijcnn-2011.pdf>.
+
+</div>
+
+<div id="ref-chamroukhi_et_al_neurocomp2010">
+
+Chamroukhi, F., A. Samé, G. Govaert, and P. Aknin. 2010. “A Hidden
+Process Regression Model for Functional Data Description. Application to
+Curve Discrimination.” *Neurocomputing* 73 (7-9): 1210–21.
+<https://chamroukhi.com/papers/chamroukhi_neucomp_2010.pdf>.
+
+</div>
+
+<div id="ref-Chamroukhi_PhD_2010">
+
+Chamroukhi, F. 2010. “Hidden Process Regression for Curve Modeling,
+Classification and Tracking.” Ph.D. Thesis, Université de Technologie de
+Compiègne. <https://chamroukhi.com/papers/FChamroukhi-Thesis.pdf>.
+
+</div>
+
+</div>
