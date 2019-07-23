@@ -11,11 +11,11 @@ ModelMixHMM represents an estimated MixHMM model.
 \section{Fields}{
 
 \describe{
-\item{\code{param}}{A \link{ParamMixHMM} object. It contains the
-estimated values of the parameters.}
+\item{\code{param}}{A \link{ParamMixHMM} object. It contains the estimated
+values of the parameters.}
 
-\item{\code{stat}}{A \link{StatMixHMM} object. It contains all the
-statistics associated to the MixHMM model.}
+\item{\code{stat}}{A \link{StatMixHMM} object. It contains all the statistics
+associated to the MixHMM model.}
 }}
 
 \section{Methods}{
@@ -44,6 +44,24 @@ statistics associated to the MixHMM model.}
 }}
 }}
 
+\examples{
+data(toydataset)
+
+mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K = 3, R = 3, verbose = TRUE)
+
+# mixhmm is a ModelMixHMM object. It contains some methods such as 'summary' and 'plot'
+mixhmm$summary()
+mixhmm$plot()
+
+# mixhmm has also two fields, stat and param which are reference classes as well
+
+# Log-likelihood:
+mixhmm$stat$loglik
+
+# Means
+mixhmm$param$mu
+
+}
 \seealso{
 \link{ParamMixHMM}, \link{StatMixHMM}
 }

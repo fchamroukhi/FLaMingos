@@ -47,6 +47,17 @@
 #'   the EM algorithm.
 #' @return EM returns an object of class [ModelMixRHLP][ModelMixRHLP].
 #' @seealso [ModelMixRHLP], [ParamMixRHLP], [StatMixRHLP]
+#' @examples
+#' \dontrun{
+#' data(toydataset)
+#'
+#' mixrhlp <- emMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])),
+#'                      G = 3, K = 3, p = 1, verbose = TRUE)
+#'
+#' mixrhlp$summary()
+#'
+#' mixrhlp$plot()
+#' }
 #' @export
 emMixRHLP <- function(X, Y, G, K, p = 3, q = 1, variance_type = c("heteroskedastic", "homoskedastic"), init_kmeans = TRUE, n_tries = 1, max_iter = 1000, threshold = 1e-5, verbose = FALSE, verbose_IRLS = FALSE) {
 

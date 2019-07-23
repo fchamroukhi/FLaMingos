@@ -46,6 +46,26 @@ By default, all the above graphs are produced.}
 }}
 }}
 
+\examples{
+\dontrun{
+data(toydataset)
+
+mixrhlp <- cemMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])),
+                     G = 3, K = 3, p = 1, verbose = TRUE)
+
+# mixrhlp is a ModelMixRHLP object. It contains some methods such as 'summary' and 'plot'
+mixrhlp$summary()
+mixrhlp$plot()
+
+# mixrhlp has also two fields, stat and param which are reference classes as well
+
+# Log-likelihood:
+mixrhlp$stat$loglik
+
+# Parameters of the polynomial regressions:
+mixrhlp$param$beta
+}
+}
 \seealso{
 \link{ParamMixRHLP}, \link{StatMixRHLP}
 }

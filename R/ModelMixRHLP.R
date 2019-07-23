@@ -7,6 +7,25 @@
 #' @field stat A [StatMixRHLP][StatMixRHLP] object. It contains all the
 #'   statistics associated to the MixRHLP model.
 #' @seealso [ParamMixRHLP], [StatMixRHLP]
+#' @examples
+#' \dontrun{
+#' data(toydataset)
+#'
+#' mixrhlp <- cemMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])),
+#'                      G = 3, K = 3, p = 1, verbose = TRUE)
+#'
+#' # mixrhlp is a ModelMixRHLP object. It contains some methods such as 'summary' and 'plot'
+#' mixrhlp$summary()
+#' mixrhlp$plot()
+#'
+#' # mixrhlp has also two fields, stat and param which are reference classes as well
+#'
+#' # Log-likelihood:
+#' mixrhlp$stat$loglik
+#'
+#' # Parameters of the polynomial regressions:
+#' mixrhlp$param$beta
+#' }
 #' @export
 ModelMixRHLP <- setRefClass(
   "ModelMixRHLP",

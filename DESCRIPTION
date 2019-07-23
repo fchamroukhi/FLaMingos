@@ -9,10 +9,10 @@ Authors@R: c(person("Faicel", "Chamroukhi", role = c("aut"),
     email = "marius.bartcus@gmail.com"),
     person("Florian", "Lecocq", role = c("aut", "cre"),
     email = "florian.lecocq@outlook.com"))
-Description: flamingos is an opent sources toolbox (available in R and in Matlab) 
-    for the simultaneous clustering (or classification) and segmentation of heterogeneous 
-    functional data (i.e time series ore more generally longitudinal data), with original 
-    and flexible functional latent variable models, fitted by unsupervised 
+Description: Provides a variety of original and flexible user-friendly 
+    statistical latent variable models for the simultaneous clustering (or 
+    classification) and segmentation of heterogeneous functional data (i.e 
+    time series or more generally longitudinal data), fitted by unsupervised 
     algorithms, including EM algorithms.
 URL: https://github.com/fchamroukhi/FLaMingoS
 License: GPL (>= 3)

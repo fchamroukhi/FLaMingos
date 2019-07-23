@@ -64,6 +64,16 @@ the class \link{ParamMixHMM}) until convergence (until the relative
 variation of log-likelihood between two steps of the EM algorithm is less
 than the \code{threshold} parameter).
 }
+\examples{
+data(toydataset)
+
+mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K = 3, R = 3, verbose = TRUE)
+
+mixhmm$summary()
+
+mixhmm$plot()
+
+}
 \seealso{
 \link{ModelMixHMM}, \link{ParamMixHMM}, \link{StatMixHMM}
 }

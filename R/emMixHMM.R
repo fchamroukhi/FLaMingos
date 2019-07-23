@@ -42,84 +42,93 @@
 #'   the log-likelihood should be printed during EM iterations.
 #' @return EM returns an object of class [ModelMixHMM][ModelMixHMM].
 #' @seealso [ModelMixHMM], [ParamMixHMM], [StatMixHMM]
+#' @examples
+#' data(toydataset)
+#'
+#' mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K = 3, R = 3, verbose = TRUE)
+#'
+#' mixhmm$summary()
+#'
+#' mixhmm$plot()
+#'
 #' @export
 emMixHMM <- function(Y, K, R, variance_type = c("heteroskedastic", "homoskedastic"), order_constraint = TRUE, init_kmeans = TRUE, n_tries = 1, max_iter = 1000, threshold = 1e-6, verbose = FALSE) {
 
-    fData <- FData$new(X = seq.int(from = 0, to = 1, length.out = ncol(Y)), Y = Y)
+  fData <- FData$new(X = seq.int(from = 0, to = 1, length.out = ncol(Y)), Y = Y)
 
-    try_EM <- 0
-    best_loglik <- -Inf
+  try_EM <- 0
+  best_loglik <- -Inf
 
-    while (try_EM < n_tries) {
-      try_EM <- try_EM + 1
+  while (try_EM < n_tries) {
+    try_EM <- try_EM + 1
 
-      if (n_tries > 1 && verbose) {
-        cat(paste0("EM try number: ", try_EM, "\n\n"))
+    if (n_tries > 1 && verbose) {
+      cat(paste0("EM try number: ", try_EM, "\n\n"))
+    }
+
+    # Initialization
+    variance_type <- match.arg(variance_type)
+    param <- ParamMixHMM$new(fData = fData, K = K, R = R, variance_type = variance_type)
+    param$initParam(order_constraint, init_kmeans, try_EM)
+
+    iter <- 0
+    converged <- FALSE
+    prev_loglik <- -Inf
+
+    stat <- StatMixHMM$new(paramMixHMM = param)
+
+    # EM
+    while ((iter <= max_iter) & !converged) {
+
+      # E-Step
+      stat$EStep(param)
+
+      # M-Step
+      param$MStep(stat, order_constraint)
+
+      iter <- iter + 1
+
+      if (verbose) {
+        cat(paste0("EM: Iteration : ", iter, " || log-likelihood : "  , stat$loglik, "\n"))
       }
 
-      # Initialization
-      variance_type <- match.arg(variance_type)
-      param <- ParamMixHMM$new(fData = fData, K = K, R = R, variance_type = variance_type)
-      param$initParam(order_constraint, init_kmeans, try_EM)
-
-      iter <- 0
-      converged <- FALSE
-      prev_loglik <- -Inf
-
-      stat <- StatMixHMM$new(paramMixHMM = param)
-
-      # EM
-      while ((iter <= max_iter) & !converged) {
-
-        # E-Step
-        stat$EStep(param)
-
-        # M-Step
-        param$MStep(stat, order_constraint)
-
-        iter <- iter + 1
-
-        if (verbose) {
-          cat(paste0("EM: Iteration : ", iter, " || log-likelihood : "  , stat$loglik, "\n"))
-        }
-
-        if (prev_loglik - stat$loglik > 1e-4) {
-          warning(paste0("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, " !"))
-        }
-
-        converged <- (abs((stat$loglik - prev_loglik) / prev_loglik) <= threshold)
-        if (is.na(converged)) {
-          converged <- FALSE
-        } # Basically for the first iteration when prev_loglik is Inf
-
-        prev_loglik <- stat$loglik
-        stat$stored_loglik <- c(stat$stored_loglik, stat$loglik)
-
-      } # End of EM loop
-
-      if (stat$loglik > best_loglik) {
-        statSolution <- stat$copy()
-        paramSolution <- param$copy()
-
-        best_loglik <- stat$loglik
+      if (prev_loglik - stat$loglik > 1e-4) {
+        warning(paste0("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, " !"))
       }
 
-      if (n_tries > 1 && verbose) {
-        cat(paste0("Max value of the log-likelihood: ", stat$loglik, "\n\n"))
-      }
+      converged <- (abs((stat$loglik - prev_loglik) / prev_loglik) <= threshold)
+      if (is.na(converged)) {
+        converged <- FALSE
+      } # Basically for the first iteration when prev_loglik is Inf
 
+      prev_loglik <- stat$loglik
+      stat$stored_loglik <- c(stat$stored_loglik, stat$loglik)
+
+    } # End of EM loop
+
+    if (stat$loglik > best_loglik) {
+      statSolution <- stat$copy()
+      paramSolution <- param$copy()
+
+      best_loglik <- stat$loglik
     }
 
     if (n_tries > 1 && verbose) {
-      cat(paste0("Best value of the log-likelihood: ", statSolution$loglik, "\n\n"))
+      cat(paste0("Max value of the log-likelihood: ", stat$loglik, "\n\n"))
     }
 
-    # Finding the curve partition by using the MAP rule
-    statSolution$MAP()
+  }
 
-    # Finish computation of statSolution
-    statSolution$computeStats(paramSolution)
+  if (n_tries > 1 && verbose) {
+    cat(paste0("Best value of the log-likelihood: ", statSolution$loglik, "\n\n"))
+  }
 
-    return(ModelMixHMM(param = paramSolution, stat = statSolution))
+  # Finding the curve partition by using the MAP rule
+  statSolution$MAP()
+
+  # Finish computation of statSolution
+  statSolution$computeStats(paramSolution)
+
+  return(ModelMixHMM(param = paramSolution, stat = statSolution))
 
 }

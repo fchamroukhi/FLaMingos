@@ -74,6 +74,18 @@ between the E-Step, the C-Step (methods of the class
 variation of log-likelihood between two steps of the EM algorithm is less
 than the \code{threshold} parameter).
 }
+\examples{
+\dontrun{
+data(toydataset)
+
+mixrhlp <- cemMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])),
+                     G = 3, K = 3, p = 1, verbose = TRUE)
+
+mixrhlp$summary()
+
+mixrhlp$plot()
+}
+}
 \seealso{
 \link{ModelMixRHLP}, \link{ParamMixRHLP}, \link{StatMixRHLP}
 }

@@ -2,11 +2,28 @@
 #'
 #' ModelMixHMM represents an estimated MixHMM model.
 #'
-#' @field param A [ParamMixHMM][ParamMixHMM] object. It contains the
-#'   estimated values of the parameters.
-#' @field stat A [StatMixHMM][StatMixHMM] object. It contains all the
-#'   statistics associated to the MixHMM model.
+#' @field param A [ParamMixHMM][ParamMixHMM] object. It contains the estimated
+#'   values of the parameters.
+#' @field stat A [StatMixHMM][StatMixHMM] object. It contains all the statistics
+#'   associated to the MixHMM model.
 #' @seealso [ParamMixHMM], [StatMixHMM]
+#' @examples
+#' data(toydataset)
+#'
+#' mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K = 3, R = 3, verbose = TRUE)
+#'
+#' # mixhmm is a ModelMixHMM object. It contains some methods such as 'summary' and 'plot'
+#' mixhmm$summary()
+#' mixhmm$plot()
+#'
+#' # mixhmm has also two fields, stat and param which are reference classes as well
+#'
+#' # Log-likelihood:
+#' mixhmm$stat$loglik
+#'
+#' # Means
+#' mixhmm$param$mu
+#'
 #' @export
 ModelMixHMM <- setRefClass(
   "ModelMixHMM",

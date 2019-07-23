@@ -7,6 +7,24 @@
 #' @field stat A [StatMixHMMR][StatMixHMMR] object. It contains all the
 #'   statistics associated to the MixHMMR model.
 #' @seealso [ParamMixHMMR], [StatMixHMMR]
+#' @examples
+#' data(toydataset)
+#'
+#' mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]),
+#'                      K = 3, R = 3, p = 1, verbose = TRUE)
+#'
+#' # mixhmmr is a ModelMixHMMR object. It contains some methods such as 'summary' and 'plot'
+#' mixhmmr$summary()
+#' mixhmmr$plot()
+#'
+#' # mixhmmr has also two fields, stat and param which are reference classes as well
+#'
+#' # Log-likelihood:
+#' mixhmmr$stat$loglik
+#'
+#' # Parameters of the polynomial regressions:
+#' mixhmmr$param$beta
+#'
 #' @export
 ModelMixHMMR <- setRefClass(
   "ModelMixHMMR",
@@ -102,8 +120,8 @@ ModelMixHMMR <- setRefClass(
       cat("\n")
 
       tab <- data.frame("log-likelihood" = stat$loglik, "nu" = param$nu,
-          "AIC" = stat$AIC, "BIC" = stat$BIC, "ICL" = stat$ICL1,
-          row.names = "", check.names = FALSE)
+                        "AIC" = stat$AIC, "BIC" = stat$BIC, "ICL" = stat$ICL1,
+                        row.names = "", check.names = FALSE)
       print(tab, digits = digits)
 
       cat("\nClustering table (Number of curves in each clusters):\n")
