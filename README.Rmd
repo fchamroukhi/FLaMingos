@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/fchamroukhi/FLaMingoS.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingoS)
 <!-- badges: end -->
 
 # **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries

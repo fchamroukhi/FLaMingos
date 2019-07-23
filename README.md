@@ -3,6 +3,8 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/fchamroukhi/FLaMingoS.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingoS)
 <!-- badges: end -->
 
 # **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
@@ -309,20 +311,6 @@ mixrhlp$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
-#> 1     6.8902863   5.1134337  3.90153421
-#> X^1   0.9265632  -0.3959402  0.08748466
-#> 
-#> Variances:
-#> 
-#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
-#>       0.981915     0.9787717     0.9702211
-#> 
-#> --------------------
-#> Cluster 2 (G = 2):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
 #> 1    4.96556671   6.7326717   4.8807183
 #> X^1  0.08880479   0.4984443   0.1350271
 #> 
@@ -330,6 +318,20 @@ mixrhlp$summary()
 #> 
 #>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
 #>      0.9559969       1.03849     0.9506928
+#> 
+#> --------------------
+#> Cluster 2 (G = 2):
+#> 
+#> Regression coefficients:
+#> 
+#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
+#> 1     6.8902863   5.1134337  3.90153421
+#> X^1   0.9265632  -0.3959402  0.08748466
+#> 
+#> Variances:
+#> 
+#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
+#>       0.981915     0.9787717     0.9702211
 #> 
 #> --------------------
 #> Cluster 3 (G = 3):
@@ -404,19 +406,6 @@ mixhmm$summary()
 #> 
 #> Means:
 #> 
-#>     R = 1    R = 2    R = 3
-#>  6.319189 4.583954 6.722627
-#> 
-#> Variances:
-#> 
-#>      R = 1     R = 2   R = 3
-#>  0.9571803 0.9504731 1.01553
-#> 
-#> -------------------
-#> Cluster 2 (K = 2):
-#> 
-#> Means:
-#> 
 #>    R = 1    R = 2    R = 3
 #>  7.00202 4.964273 3.979626
 #> 
@@ -426,7 +415,7 @@ mixhmm$summary()
 #>  0.9858726 0.9884542 0.9651437
 #> 
 #> -------------------
-#> Cluster 3 (K = 3):
+#> Cluster 2 (K = 2):
 #> 
 #> Means:
 #> 
@@ -437,6 +426,19 @@ mixhmm$summary()
 #> 
 #>      R = 1    R = 2    R = 3
 #>  0.9578459 1.045573 0.952294
+#> 
+#> -------------------
+#> Cluster 3 (K = 3):
+#> 
+#> Means:
+#> 
+#>     R = 1    R = 2    R = 3
+#>  6.319189 4.583954 6.722627
+#> 
+#> Variances:
+#> 
+#>      R = 1     R = 2   R = 3
+#>  0.9571803 0.9504731 1.01553
 
 mixhmm$plot()
 ```
@@ -515,13 +517,13 @@ mixhmmr$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1     6.3552432   4.2868818   6.5327846
-#> X^1  -0.2865404   0.6907212   0.2429291
+#> 1      6.870328   5.1511267   3.9901300
+#> X^1    1.204150  -0.4601777  -0.0155753
 #> 
 #> Variances:
 #> 
 #>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9587975     0.9481068       1.01388
+#>      0.9776399     0.9895623       0.96457
 #> 
 #> --------------------
 #> Cluster 2 (K = 2):
@@ -543,13 +545,13 @@ mixhmmr$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1      6.870328   5.1511267   3.9901300
-#> X^1    1.204150  -0.4601777  -0.0155753
+#> 1     6.3552432   4.2868818   6.5327846
+#> X^1  -0.2865404   0.6907212   0.2429291
 #> 
 #> Variances:
 #> 
 #>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9776399     0.9895623       0.96457
+#>      0.9587975     0.9481068       1.01388
 
 mixhmmr$plot()
 ```
