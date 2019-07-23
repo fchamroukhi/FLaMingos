@@ -36,7 +36,7 @@ The models and algorithms are developped and written in Matlab by Faicel
 Chamroukhi, and translated and designed into R packages by Florian Lecocq, 
 Marius Bartcus and Faicel Chamroukhi.
 
-## Installation
+# Installation
 
 You can install the **flamingos** package from [GitHub](https://github.com/fchamroukhi/FLaMingoS) with:
 
@@ -62,12 +62,14 @@ browseVignettes("FLaMingoS")
 
 # Usage
 
+```{r, message = FALSE}
+library(flamingos)
+```
+
 <details>
   <summary>mixRHLP</summary>
 
 ```{r, message = FALSE}
-library(flamingos)
-
 data("toydataset")
 
 G <- 3 # Number of clusters
@@ -94,14 +96,10 @@ mixrhlp$plot()
 
 </details>
 
-<br />
-
 <details>
   <summary>mixHMM</summary>
 
 ```{r, message = FALSE}
-library(flamingos)
-
 data("toydataset")
 
 K <- 3 # Number of clusters
@@ -124,19 +122,15 @@ mixhmm$plot()
 
 </details>
 
-<br />
-
 <details>
   <summary>mixHMMR</summary>
   
 ```{r, message = FALSE}
-library(flamingos)
-
 data("toydataset")
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes/states
-p <- 2 # Degree of the polynomial regression
+p <- 1 # Degree of the polynomial regression
 variance_type <- "heteroskedastic" # "heteroskedastic" or "homoskedastic" model
 
 ordered_states <- TRUE

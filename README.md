@@ -1,11 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
-=================================================================================================================
+
+# **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
 
 <!-- badges: start -->
+
 <!-- badges: end -->
-flamingos is a toolbox for the simultaneous clustering (or classification) and segmentation of heterogeneous functional data (i.e time-series ore more generally longitudinal data), with original and flexible functional latent variable models, fitted by unsupervised algorithms, including EM algorithms.
+
+flamingos is a toolbox for the simultaneous clustering (or
+classification) and segmentation of heterogeneous functional data (i.e
+time-series ore more generally longitudinal data), with original and
+flexible functional latent variable models, fitted by unsupervised
+algorithms, including EM algorithms.
 
 Our nice FLaMingoS are mainly:
 
@@ -13,19 +19,22 @@ Our nice FLaMingoS are mainly:
   - mixHMM;
   - mixHMMR.
 
-The models and algorithms are developped and written in Matlab by Faicel Chamroukhi, and translated and designed into R packages by Florian Lecocq, Marius Bartcus and Faicel Chamroukhi.
+The models and algorithms are developped and written in Matlab by Faicel
+Chamroukhi, and translated and designed into R packages by Florian
+Lecocq, Marius Bartcus and Faicel Chamroukhi.
 
-Installation
-------------
+# Installation
 
-You can install the **flamingos** package from [GitHub](https://github.com/fchamroukhi/FLaMingoS) with:
+You can install the **flamingos** package from
+[GitHub](https://github.com/fchamroukhi/FLaMingoS) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("fchamroukhi/FLaMingoS")
 ```
 
-To build *vignettes* for examples of usage, type the command below instead:
+To build *vignettes* for examples of usage, type the command below
+instead:
 
 ``` r
 # install.packages("devtools")
@@ -40,14 +49,17 @@ Use the following command to display vignettes:
 browseVignettes("FLaMingoS")
 ```
 
-Usage
-=====
-
-<details> <summary>mixRHLP</summary>
+# Usage
 
 ``` r
 library(flamingos)
+```
 
+<details>
+
+<summary>mixRHLP</summary>
+
+``` r
 data("toydataset")
 
 G <- 3 # Number of clusters
@@ -297,6 +309,20 @@ mixrhlp$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
+#> 1     6.3513369    4.214736   6.6536553
+#> X^1  -0.2449377    0.839666   0.1024863
+#> 
+#> Variances:
+#> 
+#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
+#>      0.9498285     0.9270384      1.001413
+#> 
+#> --------------------
+#> Cluster 2 (G = 2):
+#> 
+#> Regression coefficients:
+#> 
+#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
 #> 1     6.8902863   5.1134337  3.90153421
 #> X^1   0.9265632  -0.3959402  0.08748466
 #> 
@@ -306,7 +332,7 @@ mixrhlp$summary()
 #>       0.981915     0.9787717     0.9702211
 #> 
 #> --------------------
-#> Cluster 2 (G = 2):
+#> Cluster 3 (G = 3):
 #> 
 #> Regression coefficients:
 #> 
@@ -318,35 +344,19 @@ mixrhlp$summary()
 #> 
 #>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
 #>      0.9559969       1.03849     0.9506928
-#> 
-#> --------------------
-#> Cluster 3 (G = 3):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
-#> 1     6.8902863   5.1134337  3.90153421
-#> X^1   0.9265632  -0.3959402  0.08748466
-#> 
-#> Variances:
-#> 
-#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
-#>       0.981915     0.9787717     0.9702211
 
 mixrhlp$plot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-5-2.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-5-3.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-5-4.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-5-5.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-2.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-3.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-4.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-5.png" style="display: block; margin: auto;" />
 
 </details>
 
-<br />
+<details>
 
-<details> <summary>mixHMM</summary>
+<summary>mixHMM</summary>
 
 ``` r
-library(flamingos)
-
 data("toydataset")
 
 K <- 3 # Number of clusters
@@ -394,13 +404,13 @@ mixhmm$summary()
 #> 
 #> Means:
 #> 
-#>     R = 1    R = 2    R = 3
-#>  6.319189 4.583954 6.722627
+#>    R = 1    R = 2    R = 3
+#>  7.00202 4.964273 3.979626
 #> 
 #> Variances:
 #> 
-#>      R = 1     R = 2   R = 3
-#>  0.9571803 0.9504731 1.01553
+#>      R = 1     R = 2     R = 3
+#>  0.9858726 0.9884542 0.9651437
 #> 
 #> -------------------
 #> Cluster 2 (K = 2):
@@ -420,33 +430,31 @@ mixhmm$summary()
 #> 
 #> Means:
 #> 
-#>    R = 1    R = 2    R = 3
-#>  7.00202 4.964273 3.979626
+#>     R = 1    R = 2    R = 3
+#>  6.319189 4.583954 6.722627
 #> 
 #> Variances:
 #> 
-#>      R = 1     R = 2     R = 3
-#>  0.9858726 0.9884542 0.9651437
+#>      R = 1     R = 2   R = 3
+#>  0.9571803 0.9504731 1.01553
 
 mixhmm$plot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-2.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-3.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-4.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-5.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-6-6.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-2.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-3.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-4.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-5.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-6.png" style="display: block; margin: auto;" />
 
 </details>
 
-<br />
+<details>
 
-<details> <summary>mixHMMR</summary>
+<summary>mixHMMR</summary>
 
 ``` r
-library(flamingos)
-
 data("toydataset")
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes/states
-p <- 2 # Degree of the polynomial regression
+p <- 1 # Degree of the polynomial regression
 variance_type <- "heteroskedastic" # "heteroskedastic" or "homoskedastic" model
 
 ordered_states <- TRUE
@@ -459,20 +467,27 @@ verbose <- TRUE
 mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]), K, R, p,
                      variance_type, ordered_states, init_kmeans, n_tries, max_iter,
                      threshold, verbose)
-#> EM: Iteration : 1 || log-likelihood : -18777.2031829953
-#> EM: Iteration : 2 || log-likelihood : -15126.4977686182
-#> EM: Iteration : 3 || log-likelihood : -15108.0257218485
-#> EM: Iteration : 4 || log-likelihood : -15099.3886708306
-#> EM: Iteration : 5 || log-likelihood : -15096.2232155737
-#> EM: Iteration : 6 || log-likelihood : -15094.6653710273
-#> EM: Iteration : 7 || log-likelihood : -15093.146042446
-#> EM: Iteration : 8 || log-likelihood : -15092.5333943885
-#> EM: Iteration : 9 || log-likelihood : -15092.3574425426
-#> EM: Iteration : 10 || log-likelihood : -15092.2739302088
-#> EM: Iteration : 11 || log-likelihood : -15092.2246217209
-#> EM: Iteration : 12 || log-likelihood : -15092.1936060862
-#> EM: Iteration : 13 || log-likelihood : -15092.1737135961
-#> EM: Iteration : 14 || log-likelihood : -15092.1608712011
+#> EM: Iteration : 1 || log-likelihood : -18975.6323298895
+#> EM: Iteration : 2 || log-likelihood : -15198.5811534058
+#> EM: Iteration : 3 || log-likelihood : -15118.0350455527
+#> EM: Iteration : 4 || log-likelihood : -15086.2933826057
+#> EM: Iteration : 5 || log-likelihood : -15084.2502053712
+#> EM: Iteration : 6 || log-likelihood : -15083.7770153797
+#> EM: Iteration : 7 || log-likelihood : -15083.3586992156
+#> EM: Iteration : 8 || log-likelihood : -15082.8291034608
+#> EM: Iteration : 9 || log-likelihood : -15082.2407744542
+#> EM: Iteration : 10 || log-likelihood : -15081.6808462523
+#> EM: Iteration : 11 || log-likelihood : -15081.175618676
+#> EM: Iteration : 12 || log-likelihood : -15080.5819574865
+#> EM: Iteration : 13 || log-likelihood : -15079.3118011276
+#> EM: Iteration : 14 || log-likelihood : -15076.8073408977
+#> EM: Iteration : 15 || log-likelihood : -15073.8399600893
+#> EM: Iteration : 16 || log-likelihood : -15067.6884092484
+#> EM: Iteration : 17 || log-likelihood : -15054.9127597414
+#> EM: Iteration : 18 || log-likelihood : -15049.4000307536
+#> EM: Iteration : 19 || log-likelihood : -15049.0221351022
+#> EM: Iteration : 20 || log-likelihood : -15048.997021329
+#> EM: Iteration : 21 || log-likelihood : -15048.9949507534
 
 mixhmmr$summary()
 #> ------------------------
@@ -481,8 +496,8 @@ mixhmmr$summary()
 #> 
 #> MixHMMR model with K = 3 clusters and R = 3 regimes:
 #> 
-#>  log-likelihood nu       AIC      BIC      ICL
-#>       -15092.16 62 -15154.16 -15197.6 -15197.6
+#>  log-likelihood nu       AIC       BIC       ICL
+#>       -15048.99 53 -15101.99 -15139.13 -15139.13
 #> 
 #> Clustering table (Number of curves in each clusters):
 #> 
@@ -500,14 +515,13 @@ mixhmmr$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1     6.8643627    64.43719    6.218654
-#> X^1   1.2876344  -462.55911   -3.949075
-#> X^2  -0.1413059   893.93553    1.560385
+#> 1      6.870328   5.1511267   3.9901300
+#> X^1    1.204150  -0.4601777  -0.0155753
 #> 
 #> Variances:
 #> 
 #>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9770486     0.8116849      1.029812
+#>      0.9776399     0.9895623       0.96457
 #> 
 #> --------------------
 #> Cluster 2 (K = 2):
@@ -515,14 +529,13 @@ mixhmmr$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1      5.139985     2.17167    4.380359
-#> X^1   -3.125108    21.90556    1.459464
-#> X^2    9.744229   -24.65557   -0.852382
+#> 1     4.9512819   6.8393804   4.9076599
+#> X^1   0.2099508   0.2822775   0.1031626
 #> 
 #> Variances:
 #> 
 #>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9509166      1.052753     0.9495063
+#>      0.9576192      1.045043      0.952047
 #> 
 #> --------------------
 #> Cluster 3 (K = 3):
@@ -530,44 +543,51 @@ mixhmmr$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1      6.002044    13.62910    4.934443
-#> X^1    9.248449   -41.99225    4.615747
-#> X^2  -41.739255    47.63765   -2.884340
+#> 1     6.3552432   4.2868818   6.5327846
+#> X^1  -0.2865404   0.6907212   0.2429291
 #> 
 #> Variances:
 #> 
 #>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9961152      1.008064      1.006024
+#>      0.9587975     0.9481068       1.01388
 
 mixhmmr$plot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-2.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-3.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-4.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-5.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-7-6.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-8-2.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-8-3.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-8-4.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-8-5.png" style="display: block; margin: auto;" /><img src="man/figures/README-unnamed-chunk-8-6.png" style="display: block; margin: auto;" />
 
 </details>
 
-References
-==========
+# References
 
-Chamroukhi, Faicel, and Hien D. Nguyen. 2019. “Model-Based Clustering and Classification of Functional Data.” *Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery*, jan. <https://chamroukhi.com/papers/MBCC-FDA.pdf>.
+<div id="refs" class="references">
 
-Chamroukhi, F. 2016. “Unsupervised Learning of Regression Mixture Models with Unknown Number of Components.” *Journal of Statistical Computation and Simulation* 86 (November): 2308–34. <https://chamroukhi.com/papers/Chamroukhi-JSCS-2015.pdf>.
+<div id="ref-Chamroukhi-FDA-2018">
 
-Chamroukhi, Faicel. 2016. “Piecewise Regression Mixture for Simultaneous Functional Data Clustering and Optimal Segmentation.” *Journal of Classification* 33 (3): 374–411. <https://chamroukhi.com/papers/Chamroukhi-PWRM-JournalClassif-2016.pdf>.
+Chamroukhi, Faicel, and Hien D. Nguyen. 2019. “Model-Based Clustering
+and Classification of Functional Data.” *Wiley Interdisciplinary
+Reviews: Data Mining and Knowledge Discovery*.
+<https://chamroukhi.com/papers/MBCC-FDA.pdf>.
 
-Chamroukhi, F. 2015. “Statistical Learning of Latent Data Models for Complex Data Analysis.” Habilitation Thesis (HDR), Université de Toulon.[/Dossier/FChamroukhi-Habilitation.pdf](./Dossier/FChamroukhi-Habilitation.pdf).
+</div>
 
-Chamroukhi, F., H. Glotin, and A. Samé. 2013. “Model-Based Functional Mixture Discriminant Analysis with Hidden Process Regression for Curve Classification.” *Neurocomputing* 112 (july): 153–63. <https://chamroukhi.com/papers/chamroukhi_et_al_neucomp2013a.pdf>.
+<div id="ref-Chamroukhi-RobustEMMixReg2015">
 
-Chamroukhi, F., and H. Glotin. 2012. “Mixture Model-Based Functional Discriminant Analysis for Curve Classification.” In *Proceedings of the International Joint Conference on Neural Networks (IJCNN), IEEE*, 1–8. Brisbane, Australia. <https://chamroukhi.com/papers/Chamroukhi-ijcnn-2012.pdf>.
+Chamroukhi, F. 2016. “Unsupervised Learning of Regression Mixture Models
+with Unknown Number of Components.” *Journal of Statistical Computation
+and Simulation* 86 (November): 2308–34.
+<https://chamroukhi.com/papers/Chamroukhi-JSCS-2015.pdf>.
 
-Chamroukhi, F., A. Samé, P. Aknin, and G. Govaert. 2011. “Model-Based Clustering with Hidden Markov Model Regression for Time Series with Regime Changes.” In *Proceedings of the International Joint Conference on Neural Networks (IJCNN), IEEE*, 2814–21. <https://chamroukhi.com/papers/Chamroukhi-ijcnn-2011.pdf>.
+</div>
 
-Samé, A., F. Chamroukhi, Gérard Govaert, and P. Aknin. 2011. “Model-Based Clustering and Segmentation of Time Series with Changes in Regime.” *Advances in Data Analysis and Classification* 5 (4): 301–21. <https://chamroukhi.com/papers/adac-2011.pdf>.
+<div id="ref-Chamroukhi-PWRM-2016">
 
-Chamroukhi, F. 2010. “Hidden Process Regression for Curve Modeling, Classification and Tracking.” Ph.D. Thesis, Université de Technologie de Compiègne. <https://chamroukhi.com/papers/FChamroukhi-Thesis.pdf>.
+Chamroukhi, Faicel. 2016. “Piecewise Regression Mixture for Simultaneous
+Functional Data Clustering and Optimal Segmentation.” *Journal of
+Classification* 33 (3): 374–411.
+<https://chamroukhi.com/papers/Chamroukhi-PWRM-JournalClassif-2016.pdf>.
 
-Chamroukhi, F., A. Samé, G. Govaert, and P. Aknin. 2010. “A Hidden Process Regression Model for Functional Data Description. Application to Curve Discrimination.” *Neurocomputing* 73 (7-9): 1210–21. <https://chamroukhi.com/papers/chamroukhi_neucomp_2010.pdf>.
+</div>
 
 <div id="ref-Chamroukhi-HDR-2015">
 

@@ -53,7 +53,7 @@ data("toydataset")
 ```{r}
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes/states
-p <- 2 # Degree of the polynomial regression
+p <- 1 # Degree of the polynomial regression
 variance_type <- "heteroskedastic" # "heteroskedastic" or "homoskedastic" model
 ```
 
