@@ -4,7 +4,7 @@
 #' [MixHMMR][ParamMixHMMR] model.
 #'
 #' @field tau_ik Matrix of size \eqn{(n, K)} giving the posterior probabilities
-#'   that the curve \eqn{Y_{i}} originates from the \eqn{k}-th HMM model.
+#'   that the curve \eqn{Y_{i}} originates from the \eqn{k}-th HMMR model.
 #' @field gamma_ikjr Array of size \eqn{(nm, R, K)} giving the posterior
 #'   probabilities that the observation \eqn{Y_{ij}} originates from the
 #'   \eqn{r}-th regime of the \eqn{k}-th HMM model.

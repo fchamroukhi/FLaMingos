@@ -21,8 +21,19 @@ statistics associated to the MixHMM model.}
 \section{Methods}{
 
 \describe{
-\item{\code{plot(...)}}{Plot method
+\item{\code{plot(what = c("clustered", "smoothed", "loglikelihood"), ...)}}{Plot method
 \describe{
+  \item{\code{what}}{The type of graph requested:
+    \itemize{
+      \item \code{"clustered" = } Clustered curves (field
+        \code{klas} of class \link{StatMixHMM}).
+      \item \code{"smoothed" = } Smoothed signal (field
+        \code{smoothed} of class {StatMixHMM}).
+      \item \code{"loglikelihood" = } Value of the log-likelihood for
+        each iteration (field \code{stored_loglik} of class
+        \link{StatMixHMM}).
+    }
+  }
   \item{\code{\dots}}{Other graphics parameters.}
 }}
 

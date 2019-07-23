@@ -16,10 +16,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
-
 <!-- badges: start -->
 <!-- badges: end -->
+
+# **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
 
 flamingos is a toolbox for the simultaneous clustering (or classification) and 
 segmentation of heterogeneous functional data (i.e time-series ore more 

@@ -16,38 +16,66 @@ ModelMixHMM <- setRefClass(
   ),
   methods = list(
 
-    plot = function(...) {
+    plot = function(what = c("clustered", "smoothed", "loglikelihood"), ...) {
       "Plot method
       \\describe{
+        \\item{\\code{what}}{The type of graph requested:
+          \\itemize{
+            \\item \\code{\"clustered\" = } Clustered curves (field
+              \\code{klas} of class \\link{StatMixHMM}).
+            \\item \\code{\"smoothed\" = } Smoothed signal (field
+              \\code{smoothed} of class {StatMixHMM}).
+            \\item \\code{\"loglikelihood\" = } Value of the log-likelihood for
+              each iteration (field \\code{stored_loglik} of class
+              \\link{StatMixHMM}).
+          }
+        }
         \\item{\\code{\\dots}}{Other graphics parameters.}
       }"
+
+      what <- match.arg(what, several.ok = TRUE)
 
       oldpar <- par(no.readonly = TRUE)
       on.exit(par(oldpar), add = TRUE)
 
       # yaxislim <- c(min(param$fData$Y) - 2 * mean(sqrt(apply(param$fData$Y, 1, var))), max(param$fData$Y) + 2 * mean(sqrt(apply(param$fData$Y, 1, var))))
 
-      matplot(t(param$fData$Y), type = "l", lty = "solid", col = "black", xlab = "x", ylab = "y(t)", ...)
-      title(main = "Original time series")
-
       colorsvec <- rainbow(param$K)
-      matplot(t(param$fData$Y), type = "l", lty = "dotted", col = colorsvec[stat$klas], xlab = "x", ylab = "y(t)", ...)
-      title(main = "Clustered time series")
 
-      for (k in 1:param$K) {
-        if (sum(stat$klas == k) >= 1) {# At least one curve belongs to cluster k
+      if (any(what == "clustered")) {
+        par(mfrow = c(1, 1))
+        matplot(param$fData$X, t(param$fData$Y), type = "l", lty = "dotted", col = colorsvec[stat$klas], xlab = "x", ylab = "y", ...)
+        legend("bottomright", legend = sapply(1:param$K, function(x) paste0("Cluster ", x)), col = colorsvec, lty = "dotted", cex = 0.8)
+        title(main = "Clustered curves")
+      }
 
-          if (sum(stat$klas == k) == 1) {# Only one curve in cluster k
-            matplot(param$fData$Y[stat$klas == k,], type = "l", lty = "dotted", col = colorsvec[k], xlab = "x", ylab = "y(t)", ...)
-          } else {
-            matplot(t(param$fData$Y[stat$klas == k,]), type = "l", lty = "dotted", col = colorsvec[k], xlab = "x", ylab = "y(t)", ...)
+      if (any(what == "smoothed")) {
+
+        nonemptyclusters = length(unique(stat$klas))
+        par(mfrow = c(ceiling(sqrt(nonemptyclusters + 1)), round(sqrt(nonemptyclusters + 1))), mai = c(0.6, 0.6, 0.5, 0.25), mgp = c(2, 1, 0))
+
+        matplot(param$fData$X, t(param$fData$Y), type = "l", lty = "solid", col = "black", xlab = "x", ylab = "y", ...)
+        title(main = "Original dataset")
+
+        for (k in 1:param$K) {
+          if (sum(stat$klas == k) >= 1) {# At least one curve belongs to cluster k
+
+            if (sum(stat$klas == k) == 1) {# Only one curve in cluster k
+              matplot(param$fData$X, param$fData$Y[stat$klas == k,], type = "l", lty = "dotted", col = colorsvec[k], xlab = "x", ylab = "y", ...)
+            } else {
+              matplot(param$fData$X, t(param$fData$Y[stat$klas == k,]), type = "l", lty = "dotted", col = colorsvec[k], xlab = "x", ylab = "y", ...)
+            }
+            title(main = sprintf("Cluster %1.1i", k))
+            lines(param$fData$X, stat$smoothed[, k], lwd = 1.5, ...)
           }
-          title(main = sprintf("Cluster %1.1i", k))
-          lines(stat$smoothed[, k], lwd = 1.5, ...)
         }
       }
 
-      plot.default(1:length(stat$stored_loglik), stat$stored_loglik, type = "l", col = "blue", xlab = "EM iteration number", ylab = "Log-likelihood", ...)
+      if (any(what == "loglikelihood")) {
+        par(mfrow = c(1, 1))
+        plot.default(1:length(stat$stored_loglik), stat$stored_loglik, type = "l", col = "blue", xlab = "EM iteration number", ylab = "Log-likelihood", ...)
+        title(main = "Log-likelihood")
+      }
     },
 
     summary = function(digits = getOption("digits")) {
