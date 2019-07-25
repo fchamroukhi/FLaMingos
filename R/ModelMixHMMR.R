@@ -7,6 +7,8 @@
 #' @field stat A [StatMixHMMR][StatMixHMMR] object. It contains all the
 #'   statistics associated to the MixHMMR model.
 #' @seealso [ParamMixHMMR], [StatMixHMMR]
+#' @export
+#'
 #' @examples
 #' data(toydataset)
 #'
@@ -24,8 +26,6 @@
 #'
 #' # Parameters of the polynomial regressions:
 #' mixhmmr$param$beta
-#'
-#' @export
 ModelMixHMMR <- setRefClass(
   "ModelMixHMMR",
   fields = list(

@@ -46,6 +46,8 @@
 #'   the log-likelihood should be printed during EM iterations.
 #' @return EM returns an object of class [ModelMixHMMR][ModelMixHMMR].
 #' @seealso [ModelMixHMMR], [ParamMixHMMR], [StatMixHMMR]
+#' @export
+#'
 #' @examples
 #' data(toydataset)
 #'
@@ -55,8 +57,6 @@
 #' mixhmmr$summary()
 #'
 #' mixhmmr$plot()
-#'
-#' @export
 emMixHMMR <- function(X, Y, K, R, p = 3, variance_type = c("heteroskedastic", "homoskedastic"), order_constraint = TRUE, init_kmeans = TRUE, n_tries = 1, max_iter = 1000, threshold = 1e-6, verbose = FALSE) {
 
   fData <- FData$new(X = X, Y = Y)

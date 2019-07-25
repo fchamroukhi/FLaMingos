@@ -72,7 +72,6 @@ mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K = 3, R = 3, verbose = T
 mixhmm$summary()
 
 mixhmm$plot()
-
 }
 \seealso{
 \link{ModelMixHMM}, \link{ParamMixHMM}, \link{StatMixHMM}

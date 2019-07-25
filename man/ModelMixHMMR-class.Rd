@@ -61,7 +61,6 @@ mixhmmr$stat$loglik
 
 # Parameters of the polynomial regressions:
 mixhmmr$param$beta
-
 }
 \seealso{
 \link{ParamMixHMMR}, \link{StatMixHMMR}

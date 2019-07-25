@@ -7,12 +7,16 @@
 #' @field stat A [StatMixRHLP][StatMixRHLP] object. It contains all the
 #'   statistics associated to the MixRHLP model.
 #' @seealso [ParamMixRHLP], [StatMixRHLP]
+#' @export
+#'
 #' @examples
-#' \dontrun{
 #' data(toydataset)
 #'
-#' mixrhlp <- cemMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])),
-#'                      G = 3, K = 3, p = 1, verbose = TRUE)
+#' # Let's fit a mixRHLP model on a dataset containing 2 clusters:
+#' data <- toydataset[1:190,1:21]
+#'
+#' mixrhlp <- cemMixRHLP(data$x, t(data[,2:ncol(data)]),
+#'                      G = 2, K = 2, p = 1, verbose = TRUE)
 #'
 #' # mixrhlp is a ModelMixRHLP object. It contains some methods such as 'summary' and 'plot'
 #' mixrhlp$summary()
@@ -25,8 +29,6 @@
 #'
 #' # Parameters of the polynomial regressions:
 #' mixrhlp$param$beta
-#' }
-#' @export
 ModelMixRHLP <- setRefClass(
   "ModelMixRHLP",
   fields = list(

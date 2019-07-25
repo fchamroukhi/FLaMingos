@@ -7,6 +7,8 @@
 #' @field stat A [StatMixHMM][StatMixHMM] object. It contains all the statistics
 #'   associated to the MixHMM model.
 #' @seealso [ParamMixHMM], [StatMixHMM]
+#' @export
+#'
 #' @examples
 #' data(toydataset)
 #'
@@ -23,8 +25,6 @@
 #'
 #' # Means
 #' mixhmm$param$mu
-#'
-#' @export
 ModelMixHMM <- setRefClass(
   "ModelMixHMM",
   fields = list(

@@ -60,7 +60,6 @@ mixhmm$stat$loglik
 
 # Means
 mixhmm$param$mu
-
 }
 \seealso{
 \link{ParamMixHMM}, \link{StatMixHMM}

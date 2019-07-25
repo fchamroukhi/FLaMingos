@@ -164,8 +164,8 @@ StatMixRHLP <- setRefClass(
 
         alpha_g <- paramMixRHLP$alpha[g]
         beta_g <- matrix(paramMixRHLP$beta[, , g], nrow = paramMixRHLP$p + 1)
-        Wg <- paramMixRHLP$W[, , g]
-        piik <- multinomialLogit(paramMixRHLP$W[, , g], paramMixRHLP$phi$Xw, ones(nrow(paramMixRHLP$phi$Xw), ncol(paramMixRHLP$W[, , g]) + 1), ones(nrow(paramMixRHLP$phi$Xw), 1))$piik
+        Wg <- matrix(paramMixRHLP$W[, , g], nrow = paramMixRHLP$q + 1)
+        piik <- multinomialLogit(Wg, paramMixRHLP$phi$Xw, ones(nrow(paramMixRHLP$phi$Xw), ncol(Wg) + 1), ones(nrow(paramMixRHLP$phi$Xw), 1))$piik
         pi_jgk[, , g] <<- as.matrix(repmat(piik[1:paramMixRHLP$fData$m,], paramMixRHLP$fData$n, 1))
 
         log_pijgk_fgk_xij <- zeros(paramMixRHLP$fData$n * paramMixRHLP$fData$m, paramMixRHLP$K)

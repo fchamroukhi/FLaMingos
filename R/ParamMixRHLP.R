@@ -282,7 +282,7 @@ ParamMixRHLP <- setRefClass(
         # Maximization w.r.t W
 
         # Setting of W[,,g]
-        Wg_init <- W[, , g]
+        Wg_init <- matrix(W[, , g], nrow = q + 1)
 
         res_irls <- IRLS(phi$Xw[cluster_labels == g,], tauijk, ones(nrow(tauijk), 1), Wg_init, verbose_IRLS)
 
@@ -345,7 +345,7 @@ ParamMixRHLP <- setRefClass(
 
         # Maximization w.r.t W
         # Setting of W[,,g]
-        Wg_init <- W[, , g]
+        Wg_init <- matrix(W[, , g], nrow = q + 1)
 
         res_irls <- IRLS(phi$Xw, tauijk, cluster_weights, Wg_init, verbose_IRLS)
 

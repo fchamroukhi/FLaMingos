@@ -86,7 +86,7 @@ verbose <- TRUE
 verbose_IRLS <- FALSE
 init_kmeans <- TRUE
 
-mixrhlp <- emMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])), 
+mixrhlp <- emMixRHLP(toydataset$x, t(toydataset[,2:ncol(toydataset)]), 
                      G, K, p, q, variance_type, init_kmeans, n_tries, max_iter, 
                      threshold, verbose, verbose_IRLS)
 

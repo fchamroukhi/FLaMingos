@@ -77,7 +77,7 @@ verbose <- TRUE
 verbose_IRLS <- FALSE
 init_kmeans <- TRUE
 
-mixrhlp <- emMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])), 
+mixrhlp <- emMixRHLP(toydataset$x, t(toydataset[,2:ncol(toydataset)]), 
                      G, K, p, q, variance_type, init_kmeans, n_tries, max_iter, 
                      threshold, verbose, verbose_IRLS)
 #> EM: Iteration : 1 || log-likelihood : -18129.8169520025
@@ -311,6 +311,20 @@ mixrhlp$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
+#> 1     6.3513369    4.214736   6.6536553
+#> X^1  -0.2449377    0.839666   0.1024863
+#> 
+#> Variances:
+#> 
+#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
+#>      0.9498285     0.9270384      1.001413
+#> 
+#> --------------------
+#> Cluster 2 (G = 2):
+#> 
+#> Regression coefficients:
+#> 
+#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
 #> 1    4.96556671   6.7326717   4.8807183
 #> X^1  0.08880479   0.4984443   0.1350271
 #> 
@@ -320,7 +334,7 @@ mixrhlp$summary()
 #>      0.9559969       1.03849     0.9506928
 #> 
 #> --------------------
-#> Cluster 2 (G = 2):
+#> Cluster 3 (G = 3):
 #> 
 #> Regression coefficients:
 #> 
@@ -332,20 +346,6 @@ mixrhlp$summary()
 #> 
 #>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
 #>       0.981915     0.9787717     0.9702211
-#> 
-#> --------------------
-#> Cluster 3 (G = 3):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(K = 1) Beta(K = 2) Beta(K = 3)
-#> 1     6.3513369    4.214736   6.6536553
-#> X^1  -0.2449377    0.839666   0.1024863
-#> 
-#> Variances:
-#> 
-#>  Sigma2(K = 1) Sigma2(K = 2) Sigma2(K = 3)
-#>      0.9498285     0.9270384      1.001413
 
 mixrhlp$plot()
 ```
@@ -406,19 +406,6 @@ mixhmm$summary()
 #> 
 #> Means:
 #> 
-#>    R = 1    R = 2    R = 3
-#>  7.00202 4.964273 3.979626
-#> 
-#> Variances:
-#> 
-#>      R = 1     R = 2     R = 3
-#>  0.9858726 0.9884542 0.9651437
-#> 
-#> -------------------
-#> Cluster 2 (K = 2):
-#> 
-#> Means:
-#> 
 #>     R = 1    R = 2    R = 3
 #>  4.987066 6.963998 4.987279
 #> 
@@ -426,6 +413,19 @@ mixhmm$summary()
 #> 
 #>      R = 1    R = 2    R = 3
 #>  0.9578459 1.045573 0.952294
+#> 
+#> -------------------
+#> Cluster 2 (K = 2):
+#> 
+#> Means:
+#> 
+#>    R = 1    R = 2    R = 3
+#>  7.00202 4.964273 3.979626
+#> 
+#> Variances:
+#> 
+#>      R = 1     R = 2     R = 3
+#>  0.9858726 0.9884542 0.9651437
 #> 
 #> -------------------
 #> Cluster 3 (K = 3):
@@ -517,20 +517,6 @@ mixhmmr$summary()
 #> Regression coefficients:
 #> 
 #>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1      6.870328   5.1511267   3.9901300
-#> X^1    1.204150  -0.4601777  -0.0155753
-#> 
-#> Variances:
-#> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9776399     0.9895623       0.96457
-#> 
-#> --------------------
-#> Cluster 2 (K = 2):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
 #> 1     4.9512819   6.8393804   4.9076599
 #> X^1   0.2099508   0.2822775   0.1031626
 #> 
@@ -540,7 +526,7 @@ mixhmmr$summary()
 #>      0.9576192      1.045043      0.952047
 #> 
 #> --------------------
-#> Cluster 3 (K = 3):
+#> Cluster 2 (K = 2):
 #> 
 #> Regression coefficients:
 #> 
@@ -552,6 +538,20 @@ mixhmmr$summary()
 #> 
 #>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
 #>      0.9587975     0.9481068       1.01388
+#> 
+#> --------------------
+#> Cluster 3 (K = 3):
+#> 
+#> Regression coefficients:
+#> 
+#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
+#> 1      6.870328   5.1511267   3.9901300
+#> X^1    1.204150  -0.4601777  -0.0155753
+#> 
+#> Variances:
+#> 
+#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
+#>      0.9776399     0.9895623       0.96457
 
 mixhmmr$plot()
 ```

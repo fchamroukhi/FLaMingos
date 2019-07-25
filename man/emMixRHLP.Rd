@@ -74,16 +74,17 @@ the relative variation of log-likelihood between two steps of the EM
 algorithm is less than the \code{threshold} parameter).
 }
 \examples{
-\dontrun{
 data(toydataset)
 
-mixrhlp <- emMixRHLP(toydataset$x, t(as.matrix(toydataset[,2:ncol(toydataset)])),
-                     G = 3, K = 3, p = 1, verbose = TRUE)
+# Let's fit a mixRHLP model on a dataset containing 2 clusters:
+data <- toydataset[1:190,1:21]
+
+mixrhlp <- emMixRHLP(data$x, t(data[,2:ncol(data)]),
+                     G = 2, K = 2, p = 1, verbose = TRUE)
 
 mixrhlp$summary()
 
 mixrhlp$plot()
-}
 }
 \seealso{
 \link{ModelMixRHLP}, \link{ParamMixRHLP}, \link{StatMixRHLP}

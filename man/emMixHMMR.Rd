@@ -79,7 +79,6 @@ mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]),
 mixhmmr$summary()
 
 mixhmmr$plot()
-
 }
 \seealso{
 \link{ModelMixHMMR}, \link{ParamMixHMMR}, \link{StatMixHMMR}
