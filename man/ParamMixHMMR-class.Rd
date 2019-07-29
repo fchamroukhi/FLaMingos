@@ -23,6 +23,11 @@ ParamMixHMMR contains all the parameters of a MixHMMR model.
 \item{\code{variance_type}}{Character indicating if the model is homoskedastic
 (\code{variance_type = "homoskedastic"}) or heteroskedastic (\code{variance_type = "heteroskedastic"}). By default the model is heteroskedastic.}
 
+\item{\code{order_constraint}}{A logical indicating whether or not a mask
+of order one should be applied to the transition matrix of the Markov
+chain. For the purpose of segmentation, it must be set to \code{TRUE} (which is
+the default value).}
+
 \item{\code{alpha}}{Cluster weights. Matrix of dimension \eqn{(K, 1)}.}
 
 \item{\code{prior}}{The prior probabilities of the Markov chains. \code{prior} is a
@@ -54,7 +59,7 @@ and the logistic regressions.}
 \section{Methods}{
 
 \describe{
-\item{\code{initParam(order_constraint = TRUE, init_kmeans = TRUE, try_algo = 1)}}{Method to initialize parameters \code{alpha}, \code{prior},
+\item{\code{initParam(init_kmeans = TRUE, try_algo = 1)}}{Method to initialize parameters \code{alpha}, \code{prior},
       \code{trans_mat}, \code{beta} and \code{sigma2}.
 
       If \code{init_kmeans = TRUE} then the curve partition is initialized by
@@ -69,7 +74,7 @@ and the logistic regressions.}
 
 \item{\code{initRegressionParam(Y, k, R, phi, variance_type, try_algo)}}{Initialize \code{beta} and \code{sigma2} for the cluster \code{k}.}
 
-\item{\code{MStep(statMixHMMR, order_constraint = TRUE)}}{Method which implements the M-step of the EM algorithm to learn the
+\item{\code{MStep(statMixHMMR)}}{Method which implements the M-step of the EM algorithm to learn the
 parameters of the MixHMMR model based on statistics provided by the
 object \code{statMixHMMR} of class \link{StatMixHMMR} (which contains
 the E-step).}

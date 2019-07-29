@@ -11,10 +11,7 @@
 #' \itemize{
 #' \item mixRHLP;
 #' \item mixHMM;
-#' \item mixHMMR;
-#' \item PWRM;
-#' \item MixReg;
-#' \item unsupMixReg.
+#' \item mixHMMR.
 #' }
 #'
 #' For the advantages/differences of each of them, the user is referred to our

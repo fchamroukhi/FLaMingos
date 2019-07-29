@@ -10,6 +10,10 @@
 #' @field variance_type Character indicating if the model is homoskedastic
 #'   (`variance_type = "homoskedastic"`) or heteroskedastic (`variance_type =
 #'   "heteroskedastic"`). By default the model is heteroskedastic.
+#' @field order_constraint A logical indicating whether or not a mask
+#'   of order one should be applied to the transition matrix of the Markov
+#'   chain. For the purpose of segmentation, it must be set to `TRUE` (which is
+#'   the default value).
 #' @field alpha Cluster weights. Matrix of dimension \eqn{(K, 1)}.
 #' @field prior The prior probabilities of the Markov chains. `prior` is a
 #'   matrix of dimension \eqn{(R, K)}. The k-th column represents the prior
@@ -40,6 +44,7 @@ ParamMixHMMR <- setRefClass(
     R = "numeric", # Number of regimes (HMM states)
     p = "numeric", # Dimension of beta (order of polynomial regression)
     variance_type = "character",
+    order_constraint = "logical",
     nu = "numeric", # Degree of freedom
 
     alpha = "matrix", # Cluster weights
@@ -50,14 +55,7 @@ ParamMixHMMR <- setRefClass(
     mask = "matrix"
   ),
   methods = list(
-    initialize = function(fData = FData(numeric(1), matrix(1)), K = 2, R = 1, p = 3, variance_type = "heteroskedastic") {
-
-      if (variance_type == "homoskedastic") {
-        nu <<- (K - 1) + K * ((R - 1) + R * (R - 1) + R * (p + 1) + 1)
-      }
-      else{
-        nu <<- (K - 1) + K * ((R - 1) + R * (R - 1) + R * (p + 1) + R)
-      }
+    initialize = function(fData = FData(numeric(1), matrix(1)), K = 2, R = 1, p = 3, variance_type = "heteroskedastic", order_constraint = TRUE) {
 
       fData <<- fData
 
@@ -66,7 +64,24 @@ ParamMixHMMR <- setRefClass(
       K <<- K
       R <<- R
       p <<- p
+
       variance_type <<- variance_type
+
+      order_constraint <<- order_constraint
+
+      if (order_constraint) {
+        if (variance_type == "homoskedastic") {
+          nu <<- (K - 1) + K * ((R - 1) + R + (R - 1) + R * (p + 1) + 1)
+        } else {
+          nu <<- (K - 1) + K * ((R - 1) + R + (R - 1) + R * (p + 1) + R)
+        }
+      } else {
+        if (variance_type == "homoskedastic") {
+          nu <<- (K - 1) + K * ((R - 1) + R * (R - 1) + R * (p + 1) + 1)
+        } else {
+          nu <<- (K - 1) + K * ((R - 1) + R * (R - 1) + R * (p + 1) + R)
+        }
+      }
 
       alpha <<- matrix(NA, nrow = K)
       prior <<- matrix(NA, nrow = R, ncol = K)
@@ -82,7 +97,7 @@ ParamMixHMMR <- setRefClass(
 
     },
 
-    initParam = function(order_constraint = TRUE, init_kmeans = TRUE, try_algo = 1) {
+    initParam = function(init_kmeans = TRUE, try_algo = 1) {
       "Method to initialize parameters \\code{alpha}, \\code{prior},
       \\code{trans_mat}, \\code{beta} and \\code{sigma2}.
 
@@ -230,7 +245,7 @@ ParamMixHMMR <- setRefClass(
       }
     },
 
-    MStep = function(statMixHMMR, order_constraint = TRUE) {
+    MStep = function(statMixHMMR) {
       "Method which implements the M-step of the EM algorithm to learn the
       parameters of the MixHMMR model based on statistics provided by the
       object \\code{statMixHMMR} of class \\link{StatMixHMMR} (which contains

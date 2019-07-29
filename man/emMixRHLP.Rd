@@ -4,7 +4,7 @@
 \alias{emMixRHLP}
 \title{emMixRHLP is used to fit a MixRHLP model.}
 \usage{
-emMixRHLP(X, Y, G, K, p = 3, q = 1,
+emMixRHLP(X, Y, K, R, p = 3, q = 1,
   variance_type = c("heteroskedastic", "homoskedastic"),
   init_kmeans = TRUE, n_tries = 1, max_iter = 1000,
   threshold = 1e-05, verbose = FALSE, verbose_IRLS = FALSE)
@@ -17,9 +17,9 @@ emMixRHLP(X, Y, G, K, p = 3, q = 1,
 responses/outputs. \code{Y} consists of \emph{n} functions of \code{X} observed at
 points \eqn{1,\dots,m}.}
 
-\item{G}{The number of clusters (Number of RHLP models).}
+\item{K}{The number of clusters (Number of RHLP models).}
 
-\item{K}{The number of regimes (RHLP components) for each cluster.}
+\item{R}{The number of regimes (RHLP components) for each cluster.}
 
 \item{p}{Optional. The order of the polynomial regression. By default, \code{p} is
 set at 3.}
@@ -39,8 +39,8 @@ curve partition is initialized randomly.}
 providing the highest log-likelihood will be returned.
 
 If \code{n_tries} > 1, then for the first run, parameters are initialized by
-uniformly segmenting the data into K segments, and for the next runs,
-parameters are initialized by randomly segmenting the data into K
+uniformly segmenting the data into R segments, and for the next runs,
+parameters are initialized by randomly segmenting the data into R
 contiguous segments.}
 
 \item{max_iter}{Optional. The maximum number of iterations for the EM
@@ -80,7 +80,7 @@ data(toydataset)
 data <- toydataset[1:190,1:21]
 
 mixrhlp <- emMixRHLP(data$x, t(data[,2:ncol(data)]),
-                     G = 2, K = 2, p = 1, verbose = TRUE)
+                     K = 2, R = 2, p = 1, verbose = TRUE)
 
 mixrhlp$summary()
 

@@ -14,9 +14,9 @@ ParamMixRHLP contains all the parameters of a MixRHLP model.
 \item{\code{fData}}{\link{FData} object representing the sample (covariates/inputs
 \code{X} and observed responses/outputs \code{Y}).}
 
-\item{\code{G}}{The number of clusters (Number of RHLP models).}
+\item{\code{K}}{The number of clusters (Number of RHLP models).}
 
-\item{\code{K}}{The number of regimes (RHLP components) for each cluster.}
+\item{\code{R}}{The number of regimes (RHLP components) for each cluster.}
 
 \item{\code{p}}{The order of the polynomial regression.}
 
@@ -26,28 +26,28 @@ segmentation, it must be set to 1.}
 \item{\code{variance_type}}{Character indicating if the model is homoskedastic
 (\code{variance_type = "homoskedastic"}) or heteroskedastic (\code{variance_type = "heteroskedastic"}). By default the model is heteroskedastic.}
 
-\item{\code{alpha}}{Cluster weights. Matrix of dimension \eqn{(1, G)}.}
+\item{\code{alpha}}{Cluster weights. Matrix of dimension \eqn{(1, K)}.}
 
 \item{\code{W}}{Parameters of the logistic process. \eqn{\boldsymbol{W} =
-  (\boldsymbol{w}_{1},\dots,\boldsymbol{w}_{G})}{W = (w_{1},\dots,w_{G})} is
-an array of dimension \eqn{(q + 1, K - 1, G)}, with \eqn{\boldsymbol{w}_{g}
-  = (\boldsymbol{w}_{g,1},\dots,\boldsymbol{w}_{g,K-1})}{w_{g} =
-  (w_{g,1},\dots,w_{g,K-1})}, \eqn{g = 1,\dots,G}, and \code{q} the order of the
+  (\boldsymbol{w}_{1},\dots,\boldsymbol{w}_{K})}{W = (w_{1},\dots,w_{K})} is
+an array of dimension \eqn{(q + 1, R - 1, K)}, with \eqn{\boldsymbol{w}_{g}
+  = (\boldsymbol{w}_{g,1},\dots,\boldsymbol{w}_{g,R-1})}{w_{g} =
+  (w_{g,1},\dots,w_{g,R-1})}, \eqn{g = 1,\dots,K}, and \code{q} the order of the
 logistic regression. \code{q} is fixed to 1 by default.}
 
 \item{\code{beta}}{Parameters of the polynomial regressions. \eqn{\boldsymbol{\beta}
-  = (\boldsymbol{\beta}_{1},\dots,\boldsymbol{\beta}_{G})}{\beta =
-  (\beta_{1},\dots,\beta_{G})} is an array of dimension \eqn{(p + 1, K, G)},
+  = (\boldsymbol{\beta}_{1},\dots,\boldsymbol{\beta}_{K})}{\beta =
+  (\beta_{1},\dots,\beta_{K})} is an array of dimension \eqn{(p + 1, R, K)},
 with \eqn{\boldsymbol{\beta}_{g} =
-  (\boldsymbol{\beta}_{g,1},\dots,\boldsymbol{\beta}_{g,K})}{\beta_{g} =
-  (\beta_{g,1},\dots,\beta_{g,K})}, \eqn{g = 1,\dots,G}, \code{p} the order of the
+  (\boldsymbol{\beta}_{g,1},\dots,\boldsymbol{\beta}_{g,R})}{\beta_{g} =
+  (\beta_{g,1},\dots,\beta_{g,R})}, \eqn{g = 1,\dots,K}, \code{p} the order of the
 polynomial regression. \code{p} is fixed to 3 by default.}
 
-\item{\code{sigma2}}{The variances for the \code{G} clusters. If MixRHLP model is
+\item{\code{sigma2}}{The variances for the \code{K} clusters. If MixRHLP model is
 heteroskedastic (\code{variance_type = "heteroskedastic"}) then \code{sigma2} is a
-matrix of size \eqn{(K, G)} (otherwise MixRHLP model is homoskedastic
+matrix of size \eqn{(R, K)} (otherwise MixRHLP model is homoskedastic
 (\code{variance_type = "homoskedastic"}) and \code{sigma2} is a matrix of size
-\eqn{(G, 1)}).}
+\eqn{(K, 1)}).}
 
 \item{\code{nu}}{The degree of freedom of the MixRHLP model representing the
 complexity of the model.}
@@ -68,14 +68,14 @@ the E-step and the C-step).}
       and \code{sigma2}.
 
       If \code{init_kmeans = TRUE} then the curve partition is initialized by
-      the K-means algorithm. Otherwise the curve partition is initialized
+      the R-means algorithm. Otherwise the curve partition is initialized
       randomly.
 
       If \code{try_algo = 1} then \code{beta} and \code{sigma2} are
       initialized by segmenting  the time series \code{Y} uniformly into
-      \code{K} contiguous segments. Otherwise, \code{W}, \code{beta} and
+      \code{R} contiguous segments. Otherwise, \code{W}, \code{beta} and
       \code{sigma2} are initialized by segmenting randomly the time series
-      \code{Y} into \code{K} segments.}
+      \code{Y} into \code{R} segments.}
 
 \item{\code{initRegressionParam(Xg, g, try_algo = 1)}}{Initialize the matrix of polynomial regression coefficients beta_g for
 the cluster \code{g}.}

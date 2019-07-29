@@ -21,6 +21,11 @@ ParamMixHMM contains all the parameters of a MixHMM model.
 \item{\code{variance_type}}{Character indicating if the model is homoskedastic
 (\code{variance_type = "homoskedastic"}) or heteroskedastic (\code{variance_type = "heteroskedastic"}). By default the model is heteroskedastic.}
 
+\item{\code{order_constraint}}{A logical indicating whether or not a mask
+of order one should be applied to the transition matrix of the Markov
+chain. For the purpose of segmentation, it must be set to \code{TRUE} (which is
+the default value).}
+
 \item{\code{alpha}}{Cluster weights. Matrix of dimension \eqn{(K, 1)}.}
 
 \item{\code{prior}}{The prior probabilities of the Markov chains. \code{prior} is a
@@ -52,7 +57,7 @@ complexity of the model.}
 \item{\code{initGaussParamHmm(Y, k, R, variance_type, try_algo)}}{Initialize the means \code{mu} and \code{sigma2} for the cluster
 \code{k}.}
 
-\item{\code{initParam(order_constraint = TRUE, init_kmeans = TRUE, try_algo = 1)}}{Method to initialize parameters \code{alpha}, \code{prior}, \code{trans_mat},
+\item{\code{initParam(init_kmeans = TRUE, try_algo = 1)}}{Method to initialize parameters \code{alpha}, \code{prior}, \code{trans_mat},
       \code{mu} and \code{sigma2}.
 
       If \code{init_kmeans = TRUE} then the curve partition is initialized by
@@ -65,7 +70,7 @@ complexity of the model.}
       \code{sigma2} are initialized by segmenting randomly the time series
       \code{Y} into \code{R} segments.}
 
-\item{\code{MStep(statMixHMM, order_constraint = TRUE)}}{Method which implements the M-step of the EM algorithm to learn the
+\item{\code{MStep(statMixHMM)}}{Method which implements the M-step of the EM algorithm to learn the
 parameters of the MixHMM model based on statistics provided by the object
 \code{statMixHMM} of class \link{StatMixHMM} (which contains the
 E-step).}

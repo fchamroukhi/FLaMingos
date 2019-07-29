@@ -23,7 +23,7 @@ points \eqn{1,\dots,m}.}
 \item{p}{Optional. The order of the polynomial regression. By default, \code{p} is
 set at 3.}
 
-\item{variance_type}{Optional character indicating if the model is
+\item{variance_type}{Optional. character indicating if the model is
 "homoskedastic" or "heteroskedastic". By default the model is
 "heteroskedastic".}
 

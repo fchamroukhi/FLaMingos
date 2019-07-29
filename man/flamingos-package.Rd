@@ -17,10 +17,7 @@ algorithms, including EM algorithms.
 \itemize{
 \item mixRHLP;
 \item mixHMM;
-\item mixHMMR;
-\item PWRM;
-\item MixReg;
-\item unsupMixReg.
+\item mixHMMR.
 }
 
 For the advantages/differences of each of them, the user is referred to our
@@ -54,6 +51,7 @@ Chamroukhi, F. 2010. \emph{Hidden Process Regression for Curve Modeling, Classif
 Useful links:
 \itemize{
   \item \url{https://github.com/fchamroukhi/FLaMingoS}
+  \item Report bugs at \url{https://github.com/fchamroukhi/FLaMingoS/issues}
 }
 
 }

@@ -53,7 +53,7 @@ data(toydataset)
 data <- toydataset[1:190,1:21]
 
 mixrhlp <- cemMixRHLP(data$x, t(data[,2:ncol(data)]),
-                     G = 2, K = 2, p = 1, verbose = TRUE)
+                     K = 2, R = 2, p = 1, verbose = TRUE)
 
 # mixrhlp is a ModelMixRHLP object. It contains some methods such as 'summary' and 'plot'
 mixrhlp$summary()

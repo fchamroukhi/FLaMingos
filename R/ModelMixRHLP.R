@@ -16,7 +16,7 @@
 #' data <- toydataset[1:190,1:21]
 #'
 #' mixrhlp <- cemMixRHLP(data$x, t(data[,2:ncol(data)]),
-#'                      G = 2, K = 2, p = 1, verbose = TRUE)
+#'                      K = 2, R = 2, p = 1, verbose = TRUE)
 #'
 #' # mixrhlp is a ModelMixRHLP object. It contains some methods such as 'summary' and 'plot'
 #' mixrhlp$summary()
@@ -62,7 +62,7 @@ ModelMixRHLP <- setRefClass(
 
       # yaxislim <- c(min(modelMixRHLP$Y) - 2 * mean(sqrt(apply(modelMixRHLP$Y, 1, var))), max(modelMixRHLP$Y) + 2 * mean(sqrt(apply(modelMixRHLP$Y, 1, var))))
 
-      colorsvector = rainbow(param$G)
+      colorsvector = rainbow(param$K)
 
       if (any(what == "estimatedsignal")) {
         # Cluster and means
@@ -72,7 +72,7 @@ ModelMixRHLP <- setRefClass(
         matplot(param$fData$X, t(param$fData$Y), type = "l", lty = "solid", col = "black", xlab = "x", ylab = "y", ...)
         title(main = "Dataset")
 
-        for (g in 1:param$G) {
+        for (g in 1:param$K) {
           cluster_g = param$fData$Y[stat$klas == g, , drop = FALSE]
 
           if (length(cluster_g) != 0) {
@@ -85,14 +85,14 @@ ModelMixRHLP <- setRefClass(
 
       if (any(what == "regressors")) {
         par(mfrow = c(2, 1), mai = c(0.6, 0.8, 0.5, 0.5))
-        for (g in 1:param$G) {
+        for (g in 1:param$K) {
           cluster_g = param$fData$Y[stat$klas == g, , drop = FALSE]
 
           if (length(cluster_g) != 0) {
             matplot(param$fData$X, t(cluster_g), type = "l", lty = "dotted", col = colorsvector[g], xlab = "x", ylab = "y", ...)
 
             # Polynomial regressors
-            for (k in 1:param$K) {
+            for (k in 1:param$R) {
               lines(param$fData$X, stat$polynomials[, k, g], col = "black", lty = "dotted", lwd = 1.5, ...)
             }
 
@@ -131,7 +131,7 @@ ModelMixRHLP <- setRefClass(
 
       cat("\n")
       cat("\n")
-      cat(paste0("MixRHLP model with G = ", param$G, ifelse(param$G > 1, " clusters", " cluster"), " and K = ", param$K, ifelse(param$K > 1, " regimes", " regime"), ":"))
+      cat(paste0("MixRHLP model with K = ", param$K, ifelse(param$K > 1, " clusters", " cluster"), " and R = ", param$R, ifelse(param$R > 1, " regimes", " regime"), ":"))
       cat("\n")
       cat("\n")
 
@@ -145,16 +145,16 @@ ModelMixRHLP <- setRefClass(
 
       cat("\nMixing probabilities (cluster weights):\n")
       pro <- data.frame(param$alpha)
-      colnames(pro) <- 1:param$G
+      colnames(pro) <- 1:param$K
       print(pro, digits = digits, row.names = FALSE)
 
       cat("\n\n")
 
       txt <- paste(rep("-", min(nchar(title), getOption("width"))), collapse = "")
 
-      for (g in 1:param$G) {
+      for (g in 1:param$K) {
         cat(txt)
-        cat("\nCluster ", g, " (G = ", g, "):\n", sep = "")
+        cat("\nCluster ", g, " (K = ", g, "):\n", sep = "")
 
         cat("\nRegression coefficients:\n\n")
         if (param$p > 0) {
@@ -164,7 +164,7 @@ ModelMixRHLP <- setRefClass(
         }
 
         betas <- data.frame(matrix(param$beta[, , g], nrow = param$p + 1), row.names = row.names)
-        colnames(betas) <- sapply(1:param$K, function(x) paste0("Beta(K = ", x, ")"))
+        colnames(betas) <- sapply(1:param$R, function(x) paste0("Beta(R = ", x, ")"))
         print(betas, digits = digits)
 
         cat(paste0(ifelse(param$variance_type == "homoskedastic", "\n", "\nVariances:\n\n")))
@@ -173,7 +173,7 @@ ModelMixRHLP <- setRefClass(
           colnames(sigma2) <- "Sigma2"
           print(sigma2, digits = digits, row.names = FALSE)
         } else {
-          colnames(sigma2) = sapply(1:param$K, function(x) paste0("Sigma2(K = ", x, ")"))
+          colnames(sigma2) = sapply(1:param$R, function(x) paste0("Sigma2(R = ", x, ")"))
           print(sigma2, digits = digits, row.names = FALSE)
         }
         cat("\n")

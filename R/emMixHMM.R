@@ -54,7 +54,7 @@
 #' mixhmm$plot()
 emMixHMM <- function(Y, K, R, variance_type = c("heteroskedastic", "homoskedastic"), order_constraint = TRUE, init_kmeans = TRUE, n_tries = 1, max_iter = 1000, threshold = 1e-6, verbose = FALSE) {
 
-  fData <- FData$new(X = seq.int(from = 0, to = 1, length.out = ncol(Y)), Y = Y)
+  fData <- FData(X = seq.int(from = 0, to = 1, length.out = ncol(Y)), Y = Y)
 
   try_EM <- 0
   best_loglik <- -Inf
@@ -68,14 +68,15 @@ emMixHMM <- function(Y, K, R, variance_type = c("heteroskedastic", "homoskedasti
 
     # Initialization
     variance_type <- match.arg(variance_type)
-    param <- ParamMixHMM$new(fData = fData, K = K, R = R, variance_type = variance_type)
-    param$initParam(order_constraint, init_kmeans, try_EM)
+    param <- ParamMixHMM(fData = fData, K = K, R = R, variance_type = variance_type, order_constraint = order_constraint)
+
+    param$initParam(init_kmeans, try_EM)
 
     iter <- 0
     converged <- FALSE
     prev_loglik <- -Inf
 
-    stat <- StatMixHMM$new(paramMixHMM = param)
+    stat <- StatMixHMM(paramMixHMM = param)
 
     # EM
     while ((iter <= max_iter) & !converged) {
@@ -84,7 +85,7 @@ emMixHMM <- function(Y, K, R, variance_type = c("heteroskedastic", "homoskedasti
       stat$EStep(param)
 
       # M-Step
-      param$MStep(stat, order_constraint)
+      param$MStep(stat)
 
       iter <- iter + 1
 

@@ -20,7 +20,7 @@
 #' @param R The number of regimes (HMMR components) for each cluster.
 #' @param p Optional. The order of the polynomial regression. By default, `p` is
 #'   set at 3.
-#' @param variance_type Optional character indicating if the model is
+#' @param variance_type Optional. character indicating if the model is
 #'   "homoskedastic" or "heteroskedastic". By default the model is
 #'   "heteroskedastic".
 #' @param order_constraint Optional. A logical indicating whether or not a mask
@@ -59,7 +59,7 @@
 #' mixhmmr$plot()
 emMixHMMR <- function(X, Y, K, R, p = 3, variance_type = c("heteroskedastic", "homoskedastic"), order_constraint = TRUE, init_kmeans = TRUE, n_tries = 1, max_iter = 1000, threshold = 1e-6, verbose = FALSE) {
 
-  fData <- FData$new(X = X, Y = Y)
+  fData <- FData(X = X, Y = Y)
 
   try_EM <- 0
   best_loglik <- -Inf
@@ -72,14 +72,15 @@ emMixHMMR <- function(X, Y, K, R, p = 3, variance_type = c("heteroskedastic", "h
 
     # Initialization
     variance_type <- match.arg(variance_type)
-    param <- ParamMixHMMR$new(fData = fData, K = K, R = R, p = p, variance_type = variance_type)
-    param$initParam(order_constraint, init_kmeans, try_EM)
+    param <- ParamMixHMMR(fData = fData, K = K, R = R, p = p, variance_type = variance_type, order_constraint = order_constraint)
+
+    param$initParam(init_kmeans, try_EM)
 
     iter <- 0
     converged <- FALSE
     prev_loglik <- -Inf
 
-    stat <- StatMixHMMR$new(paramMixHMMR = param)
+    stat <- StatMixHMMR(paramMixHMMR = param)
 
     # EM
     while ((iter <= max_iter) & !converged) {
@@ -88,7 +89,7 @@ emMixHMMR <- function(X, Y, K, R, p = 3, variance_type = c("heteroskedastic", "h
       stat$EStep(param)
 
       # M-Step
-      param$MStep(stat, order_constraint)
+      param$MStep(stat)
 
       iter <- iter + 1
 
