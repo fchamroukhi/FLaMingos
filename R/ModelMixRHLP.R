@@ -1,9 +1,9 @@
-#' A Reference Class which represents a fitted MixRHLP model.
+#' A Reference Class which represents a fitted mixture of RHLP models.
 #'
-#' ModelMixRHLP represents an estimated MixRHLP model.
+#' ModelMixRHLP represents an estimated mixture of RHLP models.
 #'
-#' @field param A [ParamMixRHLP][ParamMixRHLP] object. It contains the
-#'   estimated values of the parameters.
+#' @field param A [ParamMixRHLP][ParamMixRHLP] object. It contains the estimated
+#'   values of the parameters.
 #' @field stat A [StatMixRHLP][StatMixRHLP] object. It contains all the
 #'   statistics associated to the MixRHLP model.
 #' @seealso [ParamMixRHLP], [StatMixRHLP]

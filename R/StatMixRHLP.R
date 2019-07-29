@@ -1,4 +1,4 @@
-#' A Reference Class which contains statistics of a MixRHLP model.
+#' A Reference Class which contains statistics of a mixture of RHLP models.
 #'
 #' StatMixRHLP contains all the statistics associated to a
 #' [MixRHLP][ParamMixRHLP] model.

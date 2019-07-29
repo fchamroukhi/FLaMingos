@@ -4,9 +4,9 @@
 \name{ParamMixHMM-class}
 \alias{ParamMixHMM-class}
 \alias{ParamMixHMM}
-\title{A Reference Class which contains parameters of a MixHMM model.}
+\title{A Reference Class which contains parameters of a mixture of HMM models.}
 \description{
-ParamMixHMM contains all the parameters of a MixHMM model.
+ParamMixHMM contains all the parameters of a mixture of HMM models.
 }
 \section{Fields}{
 

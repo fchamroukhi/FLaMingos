@@ -1,7 +1,7 @@
-#' emMixRHLP is used to fit a MixRHLP model.
+#' emMixRHLP implements the EM algorithm to fit a mixture of RHLP models.
 #'
-#' emMixRHLP is used to fit a MixRHLP model. The estimation method is performed
-#' by the Expectation-Maximization algorithm.
+#' emMixRHLP implements the maximum-likelihood parameter estimation of a mixture
+#' of RHLP models by the Expectation-Maximization (EM) algorithm.
 #'
 #' @details emMixRHLP function implements the EM algorithm. This function starts
 #'   with an initialization of the parameters done by the method `initParam` of

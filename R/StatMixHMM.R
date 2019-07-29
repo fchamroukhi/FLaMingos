@@ -1,4 +1,4 @@
-#' A Reference Class which contains statistics of a MixHMM model.
+#' A Reference Class which contains statistics of a mixture of HMM models.
 #'
 #' StatMixHMM contains all the statistics associated to a [MixHMM][ParamMixHMM]
 #' model.
@@ -18,7 +18,7 @@
 #'   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ P(z_{is} = 1 |
 #'   \boldsymbol{Y_{i}}; \boldsymbol{\Psi}) = tau\_tk;\ 0 \
 #'   \textrm{otherwise}}{z_ik = 1 if z_ik = arg max_s P(z_{is} = 1 | Y_{i};
-#'   \Psi) = tau_tk; 0 otherwise}, \eqn{k = 1,\dots,K}.
+#'   \Psi) = tau_ik; 0 otherwise}, \eqn{k = 1,\dots,K}.
 #' @field smoothed Matrix of size \eqn{(m, K)} giving the estimated mean series.
 #'   The k-th column gives the estimated mean series of cluster k.
 #' @field mean_curve To define.
@@ -74,8 +74,8 @@ StatMixHMM <- setRefClass(
 
       \\eqn{z\\_ik = 1 \\ \\textrm{if} \\ z\\_ik = \\textrm{arg} \\
       \\textrm{max}_{s} \\ P(z_{is} = 1 | \\boldsymbol{Y_{i}};
-      \\boldsymbol{\\Psi}) = tau\\_tk;\\ 0 \\ \\textrm{otherwise}}{z_ik = 1 if
-      z_ik = arg max_s P(z_{is} = 1 | Y_{i}; \\Psi) = tau_tk; 0 otherwise},
+      \\boldsymbol{\\Psi}) = tau\\_ik;\\ 0 \\ \\textrm{otherwise}}{z_ik = 1 if
+      z_ik = arg max_s P(z_{is} = 1 | Y_{i}; \\Psi) = tau_ik; 0 otherwise},
       \\eqn{k = 1,\\dots,K}."
 
       N <- nrow(tau_ik)

@@ -1,6 +1,6 @@
-#' A Reference Class which contains parameters of a MixRHLP model.
+#' A Reference Class which contains parameters of a mixture of RHLP models.
 #'
-#' ParamMixRHLP contains all the parameters of a MixRHLP model.
+#' ParamMixRHLP contains all the parameters of a mixture of RHLP models.
 #'
 #' @field fData [FData][FData] object representing the sample (covariates/inputs
 #'   `X` and observed responses/outputs `Y`).

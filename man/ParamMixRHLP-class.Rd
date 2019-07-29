@@ -4,9 +4,9 @@
 \name{ParamMixRHLP-class}
 \alias{ParamMixRHLP-class}
 \alias{ParamMixRHLP}
-\title{A Reference Class which contains parameters of a MixRHLP model.}
+\title{A Reference Class which contains parameters of a mixture of RHLP models.}
 \description{
-ParamMixRHLP contains all the parameters of a MixRHLP model.
+ParamMixRHLP contains all the parameters of a mixture of RHLP models.
 }
 \section{Fields}{
 

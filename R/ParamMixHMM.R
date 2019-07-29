@@ -1,6 +1,6 @@
-#' A Reference Class which contains parameters of a MixHMM model.
+#' A Reference Class which contains parameters of a mixture of HMM models.
 #'
-#' ParamMixHMM contains all the parameters of a MixHMM model.
+#' ParamMixHMM contains all the parameters of a mixture of HMM models.
 #'
 #' @field fData [FData][FData] object representing the sample (covariates/inputs
 #'   `X` and observed responses/outputs `Y`).

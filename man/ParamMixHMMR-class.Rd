@@ -4,9 +4,9 @@
 \name{ParamMixHMMR-class}
 \alias{ParamMixHMMR-class}
 \alias{ParamMixHMMR}
-\title{A Reference Class which contains parameters of a MixHMMR model.}
+\title{A Reference Class which contains parameters of a mixture of HMMR models.}
 \description{
-ParamMixHMMR contains all the parameters of a MixHMMR model.
+ParamMixHMMR contains all the parameters of a mixture of HMMR models.
 }
 \section{Fields}{
 
@@ -23,10 +23,10 @@ ParamMixHMMR contains all the parameters of a MixHMMR model.
 \item{\code{variance_type}}{Character indicating if the model is homoskedastic
 (\code{variance_type = "homoskedastic"}) or heteroskedastic (\code{variance_type = "heteroskedastic"}). By default the model is heteroskedastic.}
 
-\item{\code{order_constraint}}{A logical indicating whether or not a mask
-of order one should be applied to the transition matrix of the Markov
-chain. For the purpose of segmentation, it must be set to \code{TRUE} (which is
-the default value).}
+\item{\code{order_constraint}}{A logical indicating whether or not a mask of order
+one should be applied to the transition matrix of the Markov chain. For the
+purpose of segmentation, it must be set to \code{TRUE} (which is the default
+value).}
 
 \item{\code{alpha}}{Cluster weights. Matrix of dimension \eqn{(K, 1)}.}
 

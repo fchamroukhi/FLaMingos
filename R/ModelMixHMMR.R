@@ -1,9 +1,9 @@
-#' A Reference Class which represents a fitted MixHMMR model.
+#' A Reference Class which represents a fitted mixture of HMMR models.
 #'
-#' ModelMixHMMR represents an estimated MixHMMR model.
+#' ModelMixHMMR represents an estimated mixture of HMMR models.
 #'
-#' @field param A [ParamMixHMMR][ParamMixHMMR] object. It contains the
-#'   estimated values of the parameters.
+#' @field param A [ParamMixHMMR][ParamMixHMMR] object. It contains the estimated
+#'   values of the parameters.
 #' @field stat A [StatMixHMMR][StatMixHMMR] object. It contains all the
 #'   statistics associated to the MixHMMR model.
 #' @seealso [ParamMixHMMR], [StatMixHMMR]

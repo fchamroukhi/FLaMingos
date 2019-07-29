@@ -2,7 +2,7 @@
 % Please edit documentation in R/cemMixRHLP.R
 \name{cemMixRHLP}
 \alias{cemMixRHLP}
-\title{cemMixRHLP is used to fit a MixRHLP model.}
+\title{cemMixRHLP implements the CEM algorithm to fit a MixRHLP model.}
 \usage{
 cemMixRHLP(X, Y, K, R, p = 3, q = 1,
   variance_type = c("heteroskedastic", "homoskedastic"),
@@ -61,8 +61,9 @@ the EM algorithm.}
 EM returns an object of class \link{ModelMixRHLP}.
 }
 \description{
-cemMixRHLP is used to fit a MixRHLP model. The estimation method is performed
-by the Classification Expectation-Maximization algorithm (CEM algorithm).
+cemMixRHLP implements the maximum complete likelihood parameter estimation of
+mixture of RHLP models by the Classification Expectation-Maximization
+algorithm (CEM algorithm).
 }
 \details{
 cemMixRHLP function implements the CEM algorithm. This function

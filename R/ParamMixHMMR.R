@@ -1,6 +1,6 @@
-#' A Reference Class which contains parameters of a MixHMMR model.
+#' A Reference Class which contains parameters of a mixture of HMMR models.
 #'
-#' ParamMixHMMR contains all the parameters of a MixHMMR model.
+#' ParamMixHMMR contains all the parameters of a mixture of HMMR models.
 #'
 #' @field fData [FData][FData] object representing the sample (covariates/inputs
 #'   `X` and observed responses/outputs `Y`).
@@ -10,10 +10,10 @@
 #' @field variance_type Character indicating if the model is homoskedastic
 #'   (`variance_type = "homoskedastic"`) or heteroskedastic (`variance_type =
 #'   "heteroskedastic"`). By default the model is heteroskedastic.
-#' @field order_constraint A logical indicating whether or not a mask
-#'   of order one should be applied to the transition matrix of the Markov
-#'   chain. For the purpose of segmentation, it must be set to `TRUE` (which is
-#'   the default value).
+#' @field order_constraint A logical indicating whether or not a mask of order
+#'   one should be applied to the transition matrix of the Markov chain. For the
+#'   purpose of segmentation, it must be set to `TRUE` (which is the default
+#'   value).
 #' @field alpha Cluster weights. Matrix of dimension \eqn{(K, 1)}.
 #' @field prior The prior probabilities of the Markov chains. `prior` is a
 #'   matrix of dimension \eqn{(R, K)}. The k-th column represents the prior

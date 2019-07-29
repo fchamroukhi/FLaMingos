@@ -3,6 +3,23 @@ following reference. To cite the corresponding paper for a specific package
 from flamingos (e.g mixRHLP, mixHMM, mixHMMR, etc), please choose the reference(s)
 from the list provided below.")
 
+note <- sprintf("R package version %s", meta$Version)
+
+citEntry(
+  entry = "Manual",
+  title = "flamingos: Functional Latent Data Models for Clustering Heterogeneous Time-Series ('FLaMingoS')",
+  author = personList(person(given="F.", family="Chamroukhi"),
+                      person(given="M.", family="Bartcus"),
+                      person(given="F.", family="Lecocq")),
+  year = "2019",
+  note = note,
+  url = "https://github.com/fchamroukhi/FLaMingoS",
+  textVersion = paste0("Chamroukhi F, Bartcus M, Lecocq F (2019).
+  flamingos: Functional Latent Data Models for Clustering Heterogeneous
+  Time-Series ('FLaMingoS'). ", note,
+  ". <URL: https://github.com/fchamroukhi/FLaMingoS>.")
+)
+
 citEntry(
   entry = "Article",
   title = "Model-Based Clustering and Classification of Functional Data",

@@ -2,7 +2,8 @@
 % Please edit documentation in R/emMixHMM.R
 \name{emMixHMM}
 \alias{emMixHMM}
-\title{emMixHMM is used to fit a MixHMM model.}
+\title{emMixHMM implemens the EM (Baum-Welch) algorithm to fit a mixture of HMM
+models.}
 \usage{
 emMixHMM(Y, K, R, variance_type = c("heteroskedastic", "homoskedastic"),
   order_constraint = TRUE, init_kmeans = TRUE, n_tries = 1,
@@ -52,8 +53,9 @@ the log-likelihood should be printed during EM iterations.}
 EM returns an object of class \link{ModelMixHMM}.
 }
 \description{
-emMixHMM is used to fit a MixHMM model. The estimation method is performed by
-the Expectation-Maximization algorithm.
+emMixHMM implements the maximum-likelihood parameter estimation of a mixture
+of HMM models by the Expectation-Maximization (EM) algorithm, known as
+Baum-Welch algorithm in the context of mixHMM.
 }
 \details{
 emMixHMM function implements the EM algorithm. This function starts

@@ -1,7 +1,8 @@
-#' cemMixRHLP is used to fit a MixRHLP model.
+#' cemMixRHLP implements the CEM algorithm to fit a MixRHLP model.
 #'
-#' cemMixRHLP is used to fit a MixRHLP model. The estimation method is performed
-#' by the Classification Expectation-Maximization algorithm (CEM algorithm).
+#' cemMixRHLP implements the maximum complete likelihood parameter estimation of
+#' mixture of RHLP models by the Classification Expectation-Maximization
+#' algorithm (CEM algorithm).
 #'
 #' @details cemMixRHLP function implements the CEM algorithm. This function
 #'   starts with an initialization of the parameters done by the method

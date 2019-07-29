@@ -4,15 +4,15 @@
 \name{ModelMixRHLP-class}
 \alias{ModelMixRHLP-class}
 \alias{ModelMixRHLP}
-\title{A Reference Class which represents a fitted MixRHLP model.}
+\title{A Reference Class which represents a fitted mixture of RHLP models.}
 \description{
-ModelMixRHLP represents an estimated MixRHLP model.
+ModelMixRHLP represents an estimated mixture of RHLP models.
 }
 \section{Fields}{
 
 \describe{
-\item{\code{param}}{A \link{ParamMixRHLP} object. It contains the
-estimated values of the parameters.}
+\item{\code{param}}{A \link{ParamMixRHLP} object. It contains the estimated
+values of the parameters.}
 
 \item{\code{stat}}{A \link{StatMixRHLP} object. It contains all the
 statistics associated to the MixRHLP model.}

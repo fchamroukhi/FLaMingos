@@ -4,15 +4,15 @@
 \name{ModelMixHMMR-class}
 \alias{ModelMixHMMR-class}
 \alias{ModelMixHMMR}
-\title{A Reference Class which represents a fitted MixHMMR model.}
+\title{A Reference Class which represents a fitted mixture of HMMR models.}
 \description{
-ModelMixHMMR represents an estimated MixHMMR model.
+ModelMixHMMR represents an estimated mixture of HMMR models.
 }
 \section{Fields}{
 
 \describe{
-\item{\code{param}}{A \link{ParamMixHMMR} object. It contains the
-estimated values of the parameters.}
+\item{\code{param}}{A \link{ParamMixHMMR} object. It contains the estimated
+values of the parameters.}
 
 \item{\code{stat}}{A \link{StatMixHMMR} object. It contains all the
 statistics associated to the MixHMMR model.}

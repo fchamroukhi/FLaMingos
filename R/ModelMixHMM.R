@@ -1,6 +1,6 @@
-#' A Reference Class which represents a fitted MixHMM model.
+#' A Reference Class which represents a fitted Mixture of HMM models.
 #'
-#' ModelMixHMM represents an estimated MixHMM model.
+#' ModelMixHMM represents an estimated mixture of HMM models.
 #'
 #' @field param A [ParamMixHMM][ParamMixHMM] object. It contains the estimated
 #'   values of the parameters.

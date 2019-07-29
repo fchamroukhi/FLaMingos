@@ -2,7 +2,7 @@
 % Please edit documentation in R/emMixRHLP.R
 \name{emMixRHLP}
 \alias{emMixRHLP}
-\title{emMixRHLP is used to fit a MixRHLP model.}
+\title{emMixRHLP implements the EM algorithm to fit a mixture of RHLP models.}
 \usage{
 emMixRHLP(X, Y, K, R, p = 3, q = 1,
   variance_type = c("heteroskedastic", "homoskedastic"),
@@ -61,8 +61,8 @@ the EM algorithm.}
 EM returns an object of class \link{ModelMixRHLP}.
 }
 \description{
-emMixRHLP is used to fit a MixRHLP model. The estimation method is performed
-by the Expectation-Maximization algorithm.
+emMixRHLP implements the maximum-likelihood parameter estimation of a mixture
+of RHLP models by the Expectation-Maximization (EM) algorithm.
 }
 \details{
 emMixRHLP function implements the EM algorithm. This function starts

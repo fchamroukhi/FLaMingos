@@ -4,7 +4,7 @@
 \name{StatMixRHLP-class}
 \alias{StatMixRHLP-class}
 \alias{StatMixRHLP}
-\title{A Reference Class which contains statistics of a MixRHLP model.}
+\title{A Reference Class which contains statistics of a mixture of RHLP models.}
 \description{
 StatMixRHLP contains all the statistics associated to a
 \link[=ParamMixRHLP]{MixRHLP} model.

@@ -4,7 +4,7 @@
 \name{StatMixHMM-class}
 \alias{StatMixHMM-class}
 \alias{StatMixHMM}
-\title{A Reference Class which contains statistics of a MixHMM model.}
+\title{A Reference Class which contains statistics of a mixture of HMM models.}
 \description{
 StatMixHMM contains all the statistics associated to a \link[=ParamMixHMM]{MixHMM}
 model.
@@ -32,7 +32,7 @@ obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ P(z_{is} = 1 |
   \boldsymbol{Y_{i}}; \boldsymbol{\Psi}) = tau\_tk;\ 0 \
   \textrm{otherwise}}{z_ik = 1 if z_ik = arg max_s P(z_{is} = 1 | Y_{i};
-  \Psi) = tau_tk; 0 otherwise}, \eqn{k = 1,\dots,K}.}
+  \Psi) = tau_ik; 0 otherwise}, \eqn{k = 1,\dots,K}.}
 
 \item{\code{smoothed}}{Matrix of size \eqn{(m, K)} giving the estimated mean series.
 The k-th column gives the estimated mean series of cluster k.}
@@ -69,8 +69,8 @@ provided by the object \code{paramMixHMM} of class \link{ParamMixHMM}
 
       \eqn{z\_ik = 1 \ \textrm{if} \ z\_ik = \textrm{arg} \
       \textrm{max}_{s} \ P(z_{is} = 1 | \boldsymbol{Y_{i}};
-      \boldsymbol{\Psi}) = tau\_tk;\ 0 \ \textrm{otherwise}}{z_ik = 1 if
-      z_ik = arg max_s P(z_{is} = 1 | Y_{i}; \Psi) = tau_tk; 0 otherwise},
+      \boldsymbol{\Psi}) = tau\_ik;\ 0 \ \textrm{otherwise}}{z_ik = 1 if
+      z_ik = arg max_s P(z_{is} = 1 | Y_{i}; \Psi) = tau_ik; 0 otherwise},
       \eqn{k = 1,\dots,K}.}
 }}
 
