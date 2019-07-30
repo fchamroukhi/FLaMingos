@@ -15,16 +15,16 @@
 #' @field alpha Cluster weights. Matrix of dimension \eqn{(1, K)}.
 #' @field W Parameters of the logistic process. \eqn{\boldsymbol{W} =
 #'   (\boldsymbol{w}_{1},\dots,\boldsymbol{w}_{K})}{W = (w_{1},\dots,w_{K})} is
-#'   an array of dimension \eqn{(q + 1, R - 1, K)}, with \eqn{\boldsymbol{w}_{g}
-#'   = (\boldsymbol{w}_{g,1},\dots,\boldsymbol{w}_{g,R-1})}{w_{g} =
-#'   (w_{g,1},\dots,w_{g,R-1})}, \eqn{g = 1,\dots,K}, and `q` the order of the
+#'   an array of dimension \eqn{(q + 1, R - 1, K)}, with \eqn{\boldsymbol{w}_{k}
+#'   = (\boldsymbol{w}_{k,1},\dots,\boldsymbol{w}_{k,R-1})}{w_{k} =
+#'   (w_{k,1},\dots,w_{k,R-1})}, \eqn{k = 1,\dots,K}, and `q` the order of the
 #'   logistic regression. `q` is fixed to 1 by default.
 #' @field beta Parameters of the polynomial regressions. \eqn{\boldsymbol{\beta}
 #'   = (\boldsymbol{\beta}_{1},\dots,\boldsymbol{\beta}_{K})}{\beta =
 #'   (\beta_{1},\dots,\beta_{K})} is an array of dimension \eqn{(p + 1, R, K)},
-#'   with \eqn{\boldsymbol{\beta}_{g} =
-#'   (\boldsymbol{\beta}_{g,1},\dots,\boldsymbol{\beta}_{g,R})}{\beta_{g} =
-#'   (\beta_{g,1},\dots,\beta_{g,R})}, \eqn{g = 1,\dots,K}, `p` the order of the
+#'   with \eqn{\boldsymbol{\beta}_{k} =
+#'   (\boldsymbol{\beta}_{k,1},\dots,\boldsymbol{\beta}_{k,R})}{\beta_{k} =
+#'   (\beta_{k,1},\dots,\beta_{k,R})}, \eqn{k = 1,\dots,K}, `p` the order of the
 #'   polynomial regression. `p` is fixed to 3 by default.
 #' @field sigma2 The variances for the `K` clusters. If MixRHLP model is
 #'   heteroskedastic (`variance_type = "heteroskedastic"`) then `sigma2` is a
@@ -50,9 +50,9 @@ ParamMixRHLP <- setRefClass(
     nu = "numeric", # Degree of freedom
 
     alpha = "matrix", # Cluster weights
-    W = "array", # W = (W1,...WK), Wg = (Wg1,...,w_gR-1) parameters of the logistic process: matrix of dimension [(q+1)x(R-1)] with q the order of logistic regression.
-    beta = "array", # beta = (beta_1,...,beta_K), beta_g = (beta_g1,...,beta_gR) polynomial regression coefficients: matrix of dimension [(p+1)xR] p being the polynomial degree.
-    sigma2 = "matrix" # sigma2 = (sigma_g1,...,sigma_gR) : the variances for the R regmies.
+    W = "array", # W = (w_1,...w_K), w_k = (W_{k1},...,w_{k,R-1}) parameters of the logistic process: matrix of dimension [(q+1)x(R-1)] with q the order of logistic regression.
+    beta = "array", # beta = (beta_1,...,beta_K), beta_k = (beta_{k1},...,beta_{kR}) polynomial regression coefficients: matrix of dimension [(p+1)xR] p being the polynomial degree.
+    sigma2 = "matrix" # sigma2 = (sigma^2_k1,...,sigma^2_KR) : the variances for the R regmies for each cluster $k$.
   ),
   methods = list(
     initialize = function(fData = FData(numeric(1), matrix(1)), K = 1, R = 1, p = 3, q = 1, variance_type = "heteroskedastic") {
@@ -104,117 +104,114 @@ ParamMixRHLP <- setRefClass(
 
       # Setting W
       if (try_algo == 1) {
-        for (g in (1:K)) { # Random initialization of parameter vector for IRLS
-          W[, , g] <<- zeros(q + 1, R - 1)
+        for (k in (1:K)) { # Random initialization of parameter vector for IRLS
+          W[, , k] <<- zeros(q + 1, R - 1)
         }
       } else {
-        for (g in (1:K)) { # Random initialization of parameter vector for IRLS
-          W[, , g] <<- rand(q + 1, R - 1)
+        for (k in (1:K)) { # Random initialization of parameter vector for IRLS
+          W[, , k] <<- rand(q + 1, R - 1)
         }
       }
 
-      # betagk and sigma2_gk
+      # beta_kr and sigma2_kr
       if (init_kmeans) {
 
         kmeans_res <- kmeans(fData$Y, K, nbr_runs = 20, nbr_iter_max = 400, verbose = FALSE)
         klas <- kmeans_res$klas
-        for (g in 1:K) {
-          Xg <- fData$Y[klas == g,]
-          initRegressionParam(Xg, g, try_algo)
+        for (k in 1:K) {
+          Yk <- fData$Y[klas == k,]
+          initRegressionParam(Yk, k, try_algo)
         }
       } else {
         ind <- sample(fData$n)
-        for (g in 1:K) {
-          if (g < K) {
-            Xg <- fData$Y[ind[((g - 1) * round(fData$n / K) + 1):(g * round(fData$n / K))],]
+        for (k in 1:K) {
+          if (k < K) {
+            Yk <- fData$Y[ind[((k - 1) * round(fData$n / K) + 1):(k * round(fData$n / K))],]
           } else {
-            Xg <- fData$Y[ind[((g - 1) * round(fData$n / K) + 1):length(ind)],]
+            Yk <- fData$Y[ind[((k - 1) * round(fData$n / K) + 1):length(ind)],]
           }
-          initRegressionParam(Xg, g, try_algo)
+          initRegressionParam(Yk, k, try_algo)
         }
       }
     },
 
-    initRegressionParam = function(Xg, g, try_algo  = 1) {
-      "Initialize the matrix of polynomial regression coefficients beta_g for
-      the cluster \\code{g}."
-      n <- nrow(Xg)
-      m <- ncol(Xg)
+    initRegressionParam = function(Yk, k, try_algo  = 1) {
+      "Initialize the matrix of polynomial regression coefficients beta_k for
+      the cluster \\code{k}."
+      n <- nrow(Yk)
+      m <- ncol(Yk)
       if (try_algo == 1) { # Uniform segmentation into R contiguous segments, and then a regression
         zi <- round(m / R) - 1
 
         beta_k <- matrix(NA, p + 1, R)
-        sigma <- c()
+        sig2 <- c()
 
-        for (k in 1:R) {
-          i <- (k - 1) * zi + 1
-          j <- k * zi
-          Xij <- Xg[, i:j, drop = FALSE]
-          Xij <- matrix(t(Xij), ncol = 1)
+        for (r in 1:R) {
+          i <- (r - 1) * zi + 1
+          j <- r * zi
+          Yij <- Yk[, i:j, drop = FALSE]
+          Yij <- matrix(t(Yij), ncol = 1)
           phi_ij <- phi$XBeta[i:j, , drop = FALSE]
           Phi_ij <- repmat(phi_ij, n, 1)
 
-          bk <- solve(t(Phi_ij) %*% Phi_ij) %*% t(Phi_ij) %*% Xij
-          beta_k[, k] <- bk
+          br <- solve(t(Phi_ij) %*% Phi_ij) %*% t(Phi_ij) %*% Yij
+          beta_k[, r] <- br
 
           if (variance_type == "homoskedastic") {
-            sigma <- var(Xij)
+            sig2 <- var(Yij)
           } else {
-            mk <- j - i + 1 # length(Xij);
-            z <- Xij - Phi_ij %*% bk
+            mr <- j - i + 1 # length(Xij);
+            z <- Yij - Phi_ij %*% br
 
-            sk <- t(z) %*% z / (n * mk)
+            sr <- t(z) %*% z / (n * mr)
 
-            sigma[k] <- sk
+            sig2[r] <- sr
 
           }
         }
       } else {# Random segmentation into R contiguous segments, and then a regression
         Lmin <- round(m / R) # nbr pts min into one segment
-        tk_init <- zeros(1, R + 1)
+        tr_init <- zeros(1, R + 1)
         R_1 <- R
-        for (k in 2:R) {
+        for (r in 2:R) {
           R_1 <- R_1 - 1
 
-          temp <- tk_init[k - 1] + Lmin:(m - (R_1 * Lmin) - tk_init[k - 1])
+          temp <- tr_init[r - 1] + Lmin:(m - (R_1 * Lmin) - tr_init[r - 1])
 
           ind <- sample(length(temp))
 
-          tk_init[k] <- temp[ind[1]]
+          tr_init[r] <- temp[ind[1]]
         }
-        tk_init[R + 1] <- m
-        beta_k <- matrix(NA, p + 1, R)
-        sigma <- c()
-        for (k in 1:R) {
-          i <- tk_init[k] + 1
-          j <- tk_init[k + 1]
-          Xij <- Xg[, i:j]
-          Xij <- matrix(t(Xij), ncol = 1)
+        tr_init[R + 1] <- m
+        beta_r <- matrix(NA, p + 1, R)
+        sig2 <- c()
+        for (r in 1:R) {
+          i <- tr_init[r] + 1
+          j <- tr_init[r + 1]
+          Yij <- Xg[, i:j]
+          Yij <- matrix(t(Yij), ncol = 1)
           phi_ij <- phi$XBeta[i:j, , drop = FALSE]
           Phi_ij <- repmat(phi_ij, n, 1)
 
-          bk <- solve(t(Phi_ij) %*% Phi_ij) %*% t(Phi_ij) %*% Xij
-          beta_k[, k] <- bk
+          br <- solve(t(Phi_ij) %*% Phi_ij) %*% t(Phi_ij) %*% Yij
+          beta_r[, r] <- br
 
           if (variance_type == "homoskedastic") {
-            sigma <- var(Xij)
+            sig2 <- var(Yij)
           } else {
-            mk <- j - i + 1 #length(Xij);
-            z <- Xij - Phi_ij %*% bk
-
-            sk <- t(z) %*% z / (n * mk)
-
-            sigma[k] <- sk
-
+            mr <- j - i + 1 #length(Xij);
+            z <- Yij - Phi_ij %*% br
+            sr <- t(z) %*% z / (n * mr)
+            sig2[r] <- sr
           }
         }
       }
 
-      beta[, , g] <<- beta_k
+      beta[, , k] <<- beta_k
       if (variance_type == "homoskedastic") {
-        sigma2[g] <<- sigma
+        sigma2[k] <<- sig2
       } else {
-        sigma2[, g] <<- sigma
+        sigma2[, k] <<- sig2
       }
     },
 
@@ -226,44 +223,44 @@ ParamMixRHLP <- setRefClass(
 
       good_segmentation = TRUE
 
-      alpha <<- t(colSums(statMixRHLP$c_ig)) / fData$n
+      alpha <<- t(colSums(statMixRHLP$z_ik)) / fData$n
 
-      # Maximization w.r.t betagk et sigma2_gk
+      # Maximization w.r.t beta_kr et sigma2_kr
       cluster_labels <- t(repmat(statMixRHLP$klas, 1, fData$m)) # [m x n]
       cluster_labels <- as.vector(cluster_labels)
 
-      for (g in 1:K) {
-        Xg = fData$vecY[cluster_labels == g,] # Cluster g (found from a hard clustering)
-        tauijk <- as.matrix(statMixRHLP$tau_ijgk[cluster_labels == g, , g]) #[(ng xm) x R]
+      for (k in 1:K) {
+        Yk = fData$vecY[cluster_labels == k,] # Cluster k (found from a hard clustering)
+        gamma_ijk <- as.matrix(statMixRHLP$gamma_ijkr[cluster_labels == k, , k]) #[(nk xm) x R]
 
         if (variance_type == "homoskedastic") {
           s <- 0
         } else {
-          sigma_gk <- zeros(R, 1)
+          sigma2_kr <- zeros(R, 1)
         }
 
-        beta_gk <- matrix(NA, p + 1, R)
+        beta_kr <- matrix(NA, p + 1, R)
 
-        for (k in 1:R) {
+        for (r in 1:R) {
 
-          segments_weights <- tauijk[, k, drop = F]
-          phigk <- (sqrt(segments_weights) %*% ones(1, p + 1)) * phi$XBeta[cluster_labels == g,] # [(ng*m)*(p+1)]
-          Xgk <- sqrt(segments_weights) * Xg
+          segments_weights <- tauijr[, r, drop = F]
+          phikr <- (sqrt(segments_weights) %*% ones(1, p + 1)) * phi$XBeta[cluster_labels == k,] # [(nk*m)*(p+1)]
+          Ykr <- sqrt(segments_weights) * Yk
 
-          # maximization w.r.t beta_gk: Weighted least squares
-          beta_gk[, k] <- solve(t(phigk) %*% phigk + .Machine$double.eps * diag(p + 1)) %*% t(phigk) %*% Xgk # Maximization w.r.t betagk
+          # maximization w.r.t beta_kr: Weighted least squares
+          beta_kr[, r] <- solve(t(phikr) %*% phikr + .Machine$double.eps * diag(p + 1)) %*% t(phikr) %*% Ykr # Maximization w.r.t beta_kr
 
           #    the same as
-          #                 W_gk = diag(cluster_weights.*segment_weights);
-          #                 beta_gk(:,k) = inv(phiBeta'*W_gk*phiBeta)*phiBeta'*W_gk*X;
-          #   Maximization w.r.t au sigma_gk :
+          #                 W_kr = diag(cluster_weights.*segment_weights);
+          #                 beta_kr(:,r) = inv(phiBeta'*W_kr*phiBeta)*phiBeta'*W_kr*X;
+          #   Maximization w.r.t au sigma2_kr :
           if (variance_type == "homoskedastic") {
-            sk <- colSums((Xgk - phigk %*% beta_gk[, k]) ^ 2)
-            s <- s + sk
-            sigma_gk <- s / sum(tauijk)
+            sr <- colSums((Ykr - phikr %*% beta_kr[, r]) ^ 2)
+            s <- s + sr
+            sigma2_kr <- s / sum(tauijr)
           } else {
-            sigma_gk[k] <-
-              colSums((Xgk - phigk %*% beta_gk[, k]) ^ 2) / (sum(segments_weights))
+            sigma2_kr[r] <-
+              colSums((Ykr - phikr %*% beta_kr[, r]) ^ 2) / (sum(segments_weights))
             if ((sum(segments_weights) == 0)) {
               good_segmentation = FALSE
               return(list(0, good_segmentation))
@@ -271,22 +268,22 @@ ParamMixRHLP <- setRefClass(
           }
         }
 
-        beta[, , g] <<- beta_gk
+        beta[, , k] <<- beta_kr
         if (variance_type == "homoskedastic") {
-          sigma2[g] <<- sigma_gk
+          sigma2[k] <<- sigma2_kr
         } else {
-          sigma2[, g] <<- sigma_gk
+          sigma2[, k] <<- sigma2_kr
 
         }
 
         # Maximization w.r.t W
 
-        # Setting of W[,,g]
-        Wg_init <- matrix(W[, , g], nrow = q + 1)
+        # Setting of W[,,k]
+        Wk_init <- matrix(W[, , k], nrow = q + 1)
 
-        res_irls <- IRLS(phi$Xw[cluster_labels == g,], tauijk, ones(nrow(tauijk), 1), Wg_init, verbose_IRLS)
+        res_irls <- IRLS(phi$Xw[cluster_labels == k,], gamma_ijk, ones(nrow(gamma_ijk), 1), Wk_init, verbose_IRLS)
 
-        W[, , g] <<- res_irls$W
+        W[, , k] <<- res_irls$W
         piik <- res_irls$piik
         reg_irls <- res_irls$reg_irls
       }
@@ -299,57 +296,57 @@ ParamMixRHLP <- setRefClass(
       object \\code{statMixRHLP} of class \\link{StatMixRHLP} (which contains
       the E-step)."
 
-      alpha <<- t(colSums(statMixRHLP$h_ig)) / fData$n
-      for (g in 1:K) {
-        temp <- repmat(statMixRHLP$h_ig[, g], 1, fData$m) # [m x n]
+      alpha <<- t(colSums(statMixRHLP$tau_ik)) / fData$n
+      for (k in 1:K) {
+        temp <- repmat(statMixRHLP$tau_ik[, k], 1, fData$m) # [m x n]
         cluster_weights <-
           matrix(t(temp), fData$m * fData$n, 1) # Cluster_weights(:) [mn x 1]
-        tauijk <- as.matrix(statMixRHLP$tau_ijgk[, , g]) # [(nxm) x R]
+        gamma_ijk <- as.matrix(statMixRHLP$gamma_ijkr[, , k]) # [(nxm) x R]
 
         if (variance_type == "homoskedastic") {
           s <- 0
         } else {
-          sigma_gk <- zeros(R, 1)
+          sigma2_kr <- zeros(R, 1)
         }
 
-        beta_gk <- matrix(NA, p + 1, R)
+        beta_kr <- matrix(NA, p + 1, R)
 
-        for (k in 1:R) {
+        for (r in 1:R) {
 
-          segments_weights <- tauijk[, k, drop = F]
-          phigk <- (sqrt(cluster_weights * segments_weights) %*% ones(1, p + 1)) * phi$XBeta #[(n*m)*(p+1)]
-          Xgk <- sqrt(cluster_weights * segments_weights) * fData$vecY
+          segments_weights <- gamma_ijk[, r, drop = F]
+          phikr <- (sqrt(cluster_weights * segments_weights) %*% ones(1, p + 1)) * phi$XBeta #[(n*m)*(p+1)]
+          Ykr <- sqrt(cluster_weights * segments_weights) * fData$vecY
 
-          # Maximization w.r.t beta_gk: Weighted least squares
-          beta_gk[, k] <- solve(t(phigk) %*% phigk + .Machine$double.eps * diag(p + 1)) %*% t(phigk) %*% Xgk # Maximization w.r.t betagk
+          # Maximization w.r.t beta_kr: Weighted least squares
+          beta_kr[, r] <- solve(t(phikr) %*% phikr + .Machine$double.eps * diag(p + 1)) %*% t(phikr) %*% Ykr # Maximization w.r.t beta_kr
 
           #    the same as
-          #                 W_gk = diag(cluster_weights.*segment_weights);
-          #                 beta_gk(:,k) = inv(phiBeta'*W_gk*phiBeta)*phiBeta'*W_gk*X;
-          #   Maximization w.r.t au sigma_gk :
+          #                 W_kr = diag(cluster_weights.*segment_weights);
+          #                 beta_kr(:,r) = inv(phiBeta'*W_kr*phiBeta)*phiBeta'*W_kr*X;
+          #   Maximization w.r.t au sigma2_kr :
           if (variance_type == "homoskedastic") {
-            sk <- colSums((Xgk - phigk %*% beta_gk[, k]) ^ 2)
-            s <- s + sk
-            sigma_gk <- s / sum(colSums((cluster_weights %*% ones(1, R)) * tauijk))
+            sr <- colSums((Ykr - phikr %*% beta_kr[, r]) ^ 2)
+            s <- s + sr
+            sigma2_kr <- s / sum(colSums((cluster_weights %*% ones(1, R)) * gamma_ijk))
           } else {
-            sigma_gk[k] <- colSums((Xgk - phigk %*% beta_gk[, k]) ^ 2) / (colSums(cluster_weights * segments_weights))
+            sigma2_kr[r] <- colSums((Ykr - phikr %*% beta_kr[, r]) ^ 2) / (colSums(cluster_weights * segments_weights))
           }
         }
 
-        beta[, , g] <<- beta_gk
+        beta[, , k] <<- beta_kr
         if (variance_type == "homoskedastic") {
-          sigma2[g] <<- sigma_gk
+          sigma2[k] <<- sigma2_kr
         } else {
-          sigma2[, g] <<- sigma_gk
+          sigma2[, k] <<- sigma2_kr
         }
 
         # Maximization w.r.t W
-        # Setting of W[,,g]
-        Wg_init <- matrix(W[, , g], nrow = q + 1)
+        # Setting of W[,,k]
+        Wk_init <- matrix(W[, , k], nrow = q + 1)
 
-        res_irls <- IRLS(phi$Xw, tauijk, cluster_weights, Wg_init, verbose_IRLS)
+        res_irls <- IRLS(phi$Xw, gamma_ijk, cluster_weights, Wk_init, verbose_IRLS)
 
-        W[, , g] <<- res_irls$W
+        W[, , k] <<- res_irls$W
         piik <- res_irls$piik
 
       }

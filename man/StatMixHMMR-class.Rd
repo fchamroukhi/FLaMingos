@@ -7,7 +7,7 @@
 \title{A Reference Class which contains statistics of a mixture of HMMR models.}
 \description{
 StatMixHMMR contains all the statistics associated to a
-\link[=ParamMixHMMR]{MixHMMR} model.
+\link[=ParamMixHMMR]{MixHMMR} model, in particular the E-Step of the EM algorithm.
 }
 \section{Fields}{
 

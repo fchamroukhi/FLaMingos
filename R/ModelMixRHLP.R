@@ -1,6 +1,6 @@
-#' A Reference Class which represents a fitted mixture of RHLP models.
+#' A Reference Class which represents a fitted mixture of RHLP model.
 #'
-#' ModelMixRHLP represents an estimated mixture of RHLP models.
+#' ModelMixRHLP represents an estimated mixture of RHLP model.
 #'
 #' @field param A [ParamMixRHLP][ParamMixRHLP] object. It contains the estimated
 #'   values of the parameters.
@@ -42,9 +42,9 @@ ModelMixRHLP <- setRefClass(
         \\item{\\code{what}}{The type of graph requested:
           \\itemize{
             \\item \\code{\"estimatedsignal\" = } Estimated signal (field
-              \\code{Ex} of class \\link{StatMixRHLP}).
+              \\code{Ey} of class \\link{StatMixRHLP}).
             \\item \\code{\"regressors\" = } Polynomial regression components
-              (fields \\code{polynomials} and \\code{pi_jgk} of class
+              (fields \\code{polynomials} and \\code{pi_jkr} of class
               \\link{StatMixRHLP}).
             \\item \\code{\"loglikelihood\" = } Value of the log-likelihood for
               each iteration (field \\code{stored_loglik} of class
@@ -72,34 +72,34 @@ ModelMixRHLP <- setRefClass(
         matplot(param$fData$X, t(param$fData$Y), type = "l", lty = "solid", col = "black", xlab = "x", ylab = "y", ...)
         title(main = "Dataset")
 
-        for (g in 1:param$K) {
-          cluster_g = param$fData$Y[stat$klas == g, , drop = FALSE]
+        for (k in 1:param$K) {
+          cluster_k = param$fData$Y[stat$klas == k, , drop = FALSE]
 
-          if (length(cluster_g) != 0) {
-            matplot(param$fData$X, t(cluster_g), type = "l", lty = "dotted", col = colorsvector[g], xlab = "x", ylab = "y", ...)
-            lines(param$fData$X, stat$Ex[, g, drop = FALSE], col = "black", lty = "solid", lwd = 1.5, ...)
-            title(main = sprintf("Cluster %1.1i", g))
+          if (length(cluster_k) != 0) {
+            matplot(param$fData$X, t(cluster_k), type = "l", lty = "dotted", col = colorsvector[k], xlab = "x", ylab = "y", ...)
+            lines(param$fData$X, stat$Ey[, k, drop = FALSE], col = "black", lty = "solid", lwd = 1.5, ...)
+            title(main = sprintf("Cluster %1.1i", k))
           }
         }
       }
 
       if (any(what == "regressors")) {
         par(mfrow = c(2, 1), mai = c(0.6, 0.8, 0.5, 0.5))
-        for (g in 1:param$K) {
-          cluster_g = param$fData$Y[stat$klas == g, , drop = FALSE]
+        for (k in 1:param$K) {
+          cluster_k = param$fData$Y[stat$klas == k, , drop = FALSE]
 
-          if (length(cluster_g) != 0) {
-            matplot(param$fData$X, t(cluster_g), type = "l", lty = "dotted", col = colorsvector[g], xlab = "x", ylab = "y", ...)
+          if (length(cluster_k) != 0) {
+            matplot(param$fData$X, t(cluster_k), type = "l", lty = "dotted", col = colorsvector[k], xlab = "x", ylab = "y", ...)
 
             # Polynomial regressors
-            for (k in 1:param$R) {
-              lines(param$fData$X, stat$polynomials[, k, g], col = "black", lty = "dotted", lwd = 1.5, ...)
+            for (r in 1:param$R) {
+              lines(param$fData$X, stat$polynomials[, r, k], col = "black", lty = "dotted", lwd = 1.5, ...)
             }
 
-            lines(param$fData$X, stat$Ex[, g, drop = FALSE], col = "black", lty = "solid", lwd = 1.5, ...)
-            title(main = sprintf("Cluster %1.1i", g))
+            lines(param$fData$X, stat$Ey[, k, drop = FALSE], col = "black", lty = "solid", lwd = 1.5, ...)
+            title(main = sprintf("Cluster %1.1i", k))
 
-            matplot(param$fData$X, stat$pi_jgk[1:param$fData$m, , g], type = "l", lty = "solid", xlab = "x", ylab = "Logistic proportions", ylim = c(0, 1), ...)
+            matplot(param$fData$X, stat$pi_jkr[1:param$fData$m, , k], type = "l", lty = "solid", xlab = "x", ylab = "Logistic proportions", ylim = c(0, 1), ...)
           }
         }
       }
@@ -152,9 +152,9 @@ ModelMixRHLP <- setRefClass(
 
       txt <- paste(rep("-", min(nchar(title), getOption("width"))), collapse = "")
 
-      for (g in 1:param$K) {
+      for (k in 1:param$K) {
         cat(txt)
-        cat("\nCluster ", g, " (K = ", g, "):\n", sep = "")
+        cat("\nCluster ", k, " (K = ", k, "):\n", sep = "")
 
         cat("\nRegression coefficients:\n\n")
         if (param$p > 0) {
@@ -163,12 +163,12 @@ ModelMixRHLP <- setRefClass(
           row.names = "1"
         }
 
-        betas <- data.frame(matrix(param$beta[, , g], nrow = param$p + 1), row.names = row.names)
+        betas <- data.frame(matrix(param$beta[, , k], nrow = param$p + 1), row.names = row.names)
         colnames(betas) <- sapply(1:param$R, function(x) paste0("Beta(R = ", x, ")"))
         print(betas, digits = digits)
 
         cat(paste0(ifelse(param$variance_type == "homoskedastic", "\n", "\nVariances:\n\n")))
-        sigma2 <- data.frame(t(param$sigma2[, g]))
+        sigma2 <- data.frame(t(param$sigma2[, k]))
         if (param$variance_type == "homoskedastic") {
           colnames(sigma2) <- "Sigma2"
           print(sigma2, digits = digits, row.names = FALSE)

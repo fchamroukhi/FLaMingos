@@ -102,7 +102,7 @@ cemMixRHLP <- function(X, Y, K, R, p = 3, q = 1, variance_type = c("heteroskedas
 
       iter <- iter + 1
       if (verbose) {
-        cat(paste0("CEM: Iteration : ", iter, " || Complete log-likelihood : "  , stat$com_loglik, "\n"))
+        cat(paste0("CEM - mixRHLP: Iteration : ", iter, " | Complete log-likelihood : "  , stat$com_loglik, "\n"))
       }
 
       if (prev_com_loglik - stat$com_loglik > 1e-5) {

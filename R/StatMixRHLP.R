@@ -1,31 +1,31 @@
 #' A Reference Class which contains statistics of a mixture of RHLP models.
 #'
 #' StatMixRHLP contains all the statistics associated to a
-#' [MixRHLP][ParamMixRHLP] model.
+#' [MixRHLP][ParamMixRHLP] model, in particular the E-Step (and C-Step) of the (C)EM algorithm.
 #'
-#' @field pi_jgk Array of size \eqn{(nm, R, K)} representing the logistic
-#'   proportion for cluster g.
-#' @field h_ig Matrix of size \eqn{(n, K)} giving the posterior probabilities
+#' @field pi_jkr Array of size \eqn{(nm, R, K)} representing the logistic
+#'   proportion for cluster k.
+#' @field tau_ik Matrix of size \eqn{(n, K)} giving the posterior probabilities
 #'   (fuzzy segmentation matrix) that the curve \eqn{Y_{i}} originates from the
 #'   \eqn{g}-th RHLP model.
-#' @field c_ig Hard segmentation logical matrix of dimension \eqn{(n, K)}
-#'   obtained by the Maximum a posteriori (MAP) rule: \eqn{c\_ig = 1 \
-#'   \textrm{if} \ c\_ig = \textrm{arg} \ \textrm{max}_{s} \ h\_is;\ 0 \
-#'   \textrm{otherwise}}{c_ig = 1 if c_ig = arg max_s h_is; 0 otherwise}, \eqn{g
+#' @field z_ik Hard segmentation logical matrix of dimension \eqn{(n, K)}
+#'   obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
+#'   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ tau\_is;\ 0 \
+#'   \textrm{otherwise}}{z_ik = 1 if z_ik = arg max_s tau_is; 0 otherwise}, \eqn{k
 #'   = 1,\dots,K}.
-#' @field klas Column matrix of the labels issued from `c_ig`. Its elements are
-#'   \eqn{klas(i) = g}, \eqn{i = 1,\dots,n}.
-#' @field tau_ijgk Array of size \eqn{(nm, R, K)} giving the posterior
+#' @field klas Column matrix of the labels issued from `z_ik`. Its elements are
+#'   \eqn{klas(i) = k}, \eqn{i = 1,\dots,n}.
+#' @field gamma_ijkr Array of size \eqn{(nm, R, K)} giving the posterior
 #'   probabilities that the observation \eqn{Y_{ij}} originates from the
-#'   \eqn{R}-th regime of the \eqn{g}-th RHLP model.
+#'   \eqn{r}-th regime of the \eqn{k}-th RHLP model.
 #' @field polynomials Array of size \eqn{(m, R, K)} giving the values of the
 #'   estimated polynomial regression components.
 #' @field weighted_polynomials Array of size \eqn{(m, R, K)} giving the values
 #'   of the estimated polynomial regression components weighted by the prior
-#'   probabilities `pi_jgk`.
-#' @field Ex Matrix of size \emph{(m, K)}. `Ex` is the curve expectation
+#'   probabilities `pi_jkr`.
+#' @field Ey Matrix of size \emph{(m, K)}. `Ey` is the curve expectation
 #'   (estimated signal): sum of the polynomial components weighted by the
-#'   logistic probabilities `pi_jgk`.
+#'   logistic probabilities `pi_jkr`.
 #' @field loglik Numeric. Observed-data log-likelihood of the MixRHLP model.
 #' @field com_loglik Numeric. Complete-data log-likelihood of the MixRHLP model.
 #' @field stored_loglik Numeric vector. Stored values of the log-likelihood at
@@ -35,54 +35,54 @@
 #' @field BIC Numeric. Value of BIC (Bayesian Information Criterion).
 #' @field ICL Numeric. Value of ICL (Integrated Completed Likelihood).
 #' @field AIC Numeric. Value of AIC (Akaike Information Criterion).
-#' @field log_fg_xij Matrix of size \eqn{(n, K)} giving the values of the
-#'   probability density function \eqn{f(y_{i} | h_ig = 1, \boldsymbol{x},
-#'   \boldsymbol{\Psi})}{f(y_{i} | h_ig = 1, x, \Psi)}, \eqn{i = 1,\dots,n}.
-#' @field log_alphag_fg_xij Matrix of size \eqn{(n, K)} giving the values of the
-#'   logarithm of the joint probability density function \eqn{f(y_{i}, \ h_{i} =
-#'   g | \boldsymbol{x}, \boldsymbol{\Psi})}{f(y_{i}, h_{i} = g | x, \Psi)},
+#' @field log_fk_yij Matrix of size \eqn{(n, K)} giving the values of the
+#'   probability density function \eqn{f(y_{i} | z_ik = 1, \boldsymbol{x},
+#'   \boldsymbol{\Psi})}{f(y_{i} | z_ik = 1, x, \Psi)}, \eqn{i = 1,\dots,n}.
+#' @field log_alphak_fk_yij Matrix of size \eqn{(n, K)} giving the values of the
+#'   logarithm of the joint probability density function \eqn{f(y_{i}, \ z_{i} =
+#'   k | \boldsymbol{x}, \boldsymbol{\Psi})}{f(y_{i}, z_{i} = k | x, \Psi)},
 #'   \eqn{i = 1,\dots,n}.
-#' @field log_tau_ijgk Array of size \eqn{(nm, R, K)} giving the logarithm of
-#'   `tau_ijgk`.
+#' @field log_gamma_ijkr Array of size \eqn{(nm, R, K)} giving the logarithm of
+#'   `gamma_ijkr`.
 #' @seealso [ParamMixRHLP]
 #' @export
 StatMixRHLP <- setRefClass(
   "StatMixRHLP",
   fields = list(
-    pi_jgk = "array", # pi_jgk :logistic proportions for cluster g
-    h_ig = "matrix", # h_ig = prob(curve|cluster_g) : post prob (fuzzy segmentation matrix of dim [nxK])
-    c_ig = "matrix", # c_ig : Hard partition obtained by the MAP rule:  c_{ig} = 1
-    # if and only c_i = arg max_g h_ig (g=1,...,K)
+    pi_jkr = "array", # pi_jkr :logistic proportions for cluster k
+    tau_ik = "matrix", # tau_ik = prob(curve|cluster_k) : post prob (fuzzy segmentation matrix of dim [nxK])
+    z_ik = "matrix", # z_ik : Hard partition obtained by the MAP rule:  z_{ik} = 1
+    # if and only z_i = arg max_k tau_ik (k=1,...,K)
     klas = "matrix", # klas : column vector of cluster labels
-    Ex = "matrix",
-    # Ex: curve expectation: sum of the polynomial components beta_gk weighted by
-    # the logitic probabilities pi_jgk: Ex(j) = sum_{k=1}^R pi_jgk beta_gk rj, j=1,...,m. Ex
-    # is a column vector of dimension m for each g.
+    Ey = "matrix",
+    # Ey: curve expectation: sum of the polynomial components beta_kr weighted by
+    # the logitic probabilities pi_jkr: Ey(j) = sum_{r=1}^R pi_jkr beta_kr rj, j=1,...,m. Ey
+    # is a column vector of dimension m for each k.
     loglik = "numeric", # the loglikelihood of the EM or CEM algorithm
     com_loglik = "numeric", # the complete loglikelihood of the EM (computed at the convergence) or CEM algorithm
     stored_loglik = "numeric", # vector of stored valued of the comp-log-lik at each EM teration
     stored_com_loglik = "numeric",
-    tau_ijgk = "array",
-    # tau_ijgk prob(y_{ij}|kth_segment,cluster_g), fuzzy
-    # segmentation for the cluster g. matrix of dimension
-    # [nmxR] for each g  (g=1,...,K).
-    log_tau_ijgk = "array",
+    gamma_ijkr = "array",
+    # gamma_ijkr prob(y_{ij}|kth_segment,cluster_g), fuzzy
+    # segmentation for the cluster k. matrix of dimension
+    # [nmxR] for each k  (k=1,...,K).
+    log_gamma_ijkr = "array",
     BIC = "numeric", # BIC value = loglik - nu*log(nm)/2.
     ICL = "numeric", # ICL value = comp-loglik_star - nu*log(nm)/2.
     AIC = "numeric", # AIC value = loglik - nu.
-    log_fg_xij = "matrix",
-    log_alphag_fg_xij = "matrix",
+    log_fk_yij = "matrix",
+    log_alphak_fk_yij = "matrix",
     polynomials = "array",
     weighted_polynomials = "array"
   ),
   methods = list(
     initialize = function(paramMixRHLP = ParamMixRHLP()) {
 
-      pi_jgk <<- array(0, dim = c(paramMixRHLP$fData$m * paramMixRHLP$fData$n, paramMixRHLP$R, paramMixRHLP$K))
-      h_ig <<- matrix(NA, paramMixRHLP$fData$n, paramMixRHLP$K)
-      c_ig <<- matrix(NA, paramMixRHLP$fData$n, paramMixRHLP$K)
+      pi_jkr <<- array(0, dim = c(paramMixRHLP$fData$m * paramMixRHLP$fData$n, paramMixRHLP$R, paramMixRHLP$K))
+      tau_ik <<- matrix(NA, paramMixRHLP$fData$n, paramMixRHLP$K)
+      z_ik <<- matrix(NA, paramMixRHLP$fData$n, paramMixRHLP$K)
       klas <<- matrix(NA, paramMixRHLP$fData$n, 1)
-      Ex <<- matrix(NA, paramMixRHLP$fData$m, paramMixRHLP$K)
+      Ey <<- matrix(NA, paramMixRHLP$fData$m, paramMixRHLP$K)
       loglik <<- -Inf
       com_loglik <<- -Inf
       stored_loglik <<- numeric()
@@ -90,30 +90,30 @@ StatMixRHLP <- setRefClass(
       BIC <<- -Inf
       ICL <<- -Inf
       AIC <<- -Inf
-      log_fg_xij <<- matrix(0, paramMixRHLP$fData$n, paramMixRHLP$K)
-      log_alphag_fg_xij <<- matrix(0, paramMixRHLP$fData$n, paramMixRHLP$K)
+      log_fk_yij <<- matrix(0, paramMixRHLP$fData$n, paramMixRHLP$K)
+      log_alphak_fk_yij <<- matrix(0, paramMixRHLP$fData$n, paramMixRHLP$K)
       polynomials <<- array(NA, dim = c(paramMixRHLP$fData$m, paramMixRHLP$R, paramMixRHLP$K))
       weighted_polynomials <<- array(NA, dim = c(paramMixRHLP$fData$m, paramMixRHLP$R, paramMixRHLP$K))
-      tau_ijgk <<- array(0, dim = c(paramMixRHLP$fData$n * paramMixRHLP$fData$m, paramMixRHLP$R, paramMixRHLP$K))
-      log_tau_ijgk <<- array(0, dim = c(paramMixRHLP$fData$n * paramMixRHLP$fData$m, paramMixRHLP$R, paramMixRHLP$K))
+      gamma_ijkr <<- array(0, dim = c(paramMixRHLP$fData$n * paramMixRHLP$fData$m, paramMixRHLP$R, paramMixRHLP$K))
+      log_gamma_ijkr <<- array(0, dim = c(paramMixRHLP$fData$n * paramMixRHLP$fData$m, paramMixRHLP$R, paramMixRHLP$K))
     },
 
     MAP = function() {
-      "MAP calculates values of the fields \\code{c_ig} and \\code{klas}
+      "MAP calculates values of the fields \\code{z_ik} and \\code{klas}
       by applying the Maximum A Posteriori Bayes allocation rule.
 
-      \\eqn{c\\_ig = 1 \\ \\textrm{if} \\ c\\_ig = \\textrm{arg} \\
-      \\textrm{max}_{s} \\ h\\_is;\\ 0 \\ \\textrm{otherwise}
-      }{c_ig = 1 if c_ig = arg max_s h_is; 0 otherwise}, \\eqn{g = 1,\\dots,K}."
+      \\eqn{z\\_ik = 1 \\ \\textrm{if} \\ z\\_i = \\textrm{arg} \\
+      \\textrm{max}_{s} \\ tau\\_is;\\ 0 \\ \\textrm{otherwise}
+      }{z_ik = 1 if z_i = arg max_s tau_is; 0 otherwise}, \\eqn{k = 1,\\dots,K}."
 
-      N <- nrow(h_ig)
-      R <- ncol(h_ig)
-      ikmax <- max.col(h_ig)
+      N <- nrow(tau_ik)
+      K <- ncol(tau_ik)
+      ikmax <- max.col(tau_ik)
       ikmax <- matrix(ikmax, ncol = 1)
-      c_ig <<- ikmax %*% ones(1, R) == ones(N, 1) %*% (1:R)
+      z_ik <<- ikmax %*% ones(1, K) == ones(N, 1) %*% (1:K)
       klas <<- ones(N, 1)
-      for (k in 1:R) {
-        klas[c_ig[, k] == 1] <<- k
+      for (k in 1:K) {
+        klas[z_ik[, k] == 1] <<- k
       }
     },
 
@@ -122,23 +122,23 @@ StatMixRHLP <- setRefClass(
       parameters provided by the object \\code{paramMixRHLP} of class
       \\link{ParamMixRHLP}."
 
-      for (g in 1:paramMixRHLP$K) {
+      for (k in 1:paramMixRHLP$K) {
 
-        polynomials[, , g] <<- paramMixRHLP$phi$XBeta[1:paramMixRHLP$fData$m, ] %*% matrix(paramMixRHLP$beta[, , g], nrow = paramMixRHLP$p + 1)
+        polynomials[, , k] <<- paramMixRHLP$phi$XBeta[1:paramMixRHLP$fData$m, ] %*% matrix(paramMixRHLP$beta[, , k], nrow = paramMixRHLP$p + 1)
 
-        weighted_polynomials[, , g] <<- pi_jgk[1:paramMixRHLP$fData$m, , g] * polynomials[, , g]
-        Ex[, g] <<- rowSums(as.matrix(weighted_polynomials[, , g]))
+        weighted_polynomials[, , k] <<- pi_jkr[1:paramMixRHLP$fData$m, , k] * polynomials[, , k]
+        Ey[, k] <<- rowSums(as.matrix(weighted_polynomials[, , k]))
 
       }
 
-      Ex <<- matrix(Ex, nrow = paramMixRHLP$fData$m)
+      Ey <<- matrix(Ey, nrow = paramMixRHLP$fData$m)
 
       BIC <<- loglik - (paramMixRHLP$nu * log(paramMixRHLP$fData$n) / 2)
       AIC <<- loglik - paramMixRHLP$nu
 
-      cig_log_alphag_fg_xij <- (c_ig) * (log_alphag_fg_xij)
+      cig_log_alphak_fk_yij <- (z_ik) * (log_alphak_fk_yij)
 
-      com_loglik <<- sum(rowSums(cig_log_alphag_fg_xij))
+      com_loglik <<- sum(rowSums(cig_log_alphak_fk_yij))
 
       ICL <<- com_loglik - paramMixRHLP$nu * log(paramMixRHLP$fData$n) / 2
     },
@@ -146,13 +146,13 @@ StatMixRHLP <- setRefClass(
     CStep = function(reg_irls) {
       "Method used in the CEM algorithm to update statistics."
 
-      h_ig <<- exp(lognormalize(log_alphag_fg_xij))
+      tau_ik <<- exp(lognormalize(log_alphak_fk_yij))
 
-      MAP() # Setting klas and c_ig
+      MAP() # Setting klas and z_ik
 
       # Compute the optimized criterion
-      cig_log_alphag_fg_xij <- (c_ig) * log_alphag_fg_xij
-      com_loglik <<- sum(cig_log_alphag_fg_xij) +  reg_irls
+      cig_log_alphak_fk_yij <- (z_ik) * log_alphak_fk_yij
+      com_loglik <<- sum(cig_log_alphak_fk_yij) +  reg_irls
     },
 
     EStep = function(paramMixRHLP) {
@@ -160,47 +160,47 @@ StatMixRHLP <- setRefClass(
       provided by the object \\code{paramMixRHLP} of class \\link{ParamMixRHLP}
       (prior and posterior probabilities)."
 
-      for (g in 1:paramMixRHLP$K) {
+      for (k in 1:paramMixRHLP$K) {
 
-        alpha_g <- paramMixRHLP$alpha[g]
-        beta_g <- matrix(paramMixRHLP$beta[, , g], nrow = paramMixRHLP$p + 1)
-        Wg <- matrix(paramMixRHLP$W[, , g], nrow = paramMixRHLP$q + 1)
-        piik <- multinomialLogit(Wg, paramMixRHLP$phi$Xw, ones(nrow(paramMixRHLP$phi$Xw), ncol(Wg) + 1), ones(nrow(paramMixRHLP$phi$Xw), 1))$piik
-        pi_jgk[, , g] <<- as.matrix(repmat(piik[1:paramMixRHLP$fData$m,], paramMixRHLP$fData$n, 1))
+        alpha_k <- paramMixRHLP$alpha[k]
+        beta_k <- matrix(paramMixRHLP$beta[, , k], nrow = paramMixRHLP$p + 1)
+        Wk <- matrix(paramMixRHLP$W[, , k], nrow = paramMixRHLP$q + 1)
+        piik <- multinomialLogit(Wk, paramMixRHLP$phi$Xw, ones(nrow(paramMixRHLP$phi$Xw), ncol(Wk) + 1), ones(nrow(paramMixRHLP$phi$Xw), 1))$piik
+        pi_jkr[, , k] <<- as.matrix(repmat(piik[1:paramMixRHLP$fData$m,], paramMixRHLP$fData$n, 1))
 
-        log_pijgk_fgk_xij <- zeros(paramMixRHLP$fData$n * paramMixRHLP$fData$m, paramMixRHLP$R)
+        log_pijkr_fkr_yij <- zeros(paramMixRHLP$fData$n * paramMixRHLP$fData$m, paramMixRHLP$R)
 
-        for (k in 1:paramMixRHLP$R) {
+        for (r in 1:paramMixRHLP$R) {
 
-          beta_gk <- as.matrix(beta_g[, k])
+          beta_kr <- as.matrix(beta_k[, r])
           if (paramMixRHLP$variance_type == "homoskedastic") {
-            sgk <- paramMixRHLP$sigma2[g]
+            s2kr <- paramMixRHLP$sigma2[k]
           } else {
-            sgk <- paramMixRHLP$sigma2[k, g]
+            s2kr <- paramMixRHLP$sigma2[r, k]
           }
-          z <- ((paramMixRHLP$fData$vecY - paramMixRHLP$phi$XBeta %*% beta_gk) ^ 2) / sgk
-          log_pijgk_fgk_xij[, k] <- log(pi_jgk[, k, g]) - 0.5 * (log(2 * pi) + log(sgk)) - 0.5 * z # pdf cond c_i = g et z_i = k de xij
+          z <- ((paramMixRHLP$fData$vecY - paramMixRHLP$phi$XBeta %*% beta_kr) ^ 2) / s2kr
+          log_pijkr_fkr_yij[, r] <- log(pi_jkr[, r, k]) - 0.5 * (log(2 * pi) + log(s2kr)) - 0.5 * z # cond pdf of yij given z_i = k and h_i = r
         }
 
-        log_pijgk_fgk_xij <- pmin(log_pijgk_fgk_xij, log(.Machine$double.xmax))
-        log_pijgk_fgk_xij <- pmax(log_pijgk_fgk_xij, log(.Machine$double.xmin))
+        log_pijkr_fkr_yij <- pmin(log_pijkr_fkr_yij, log(.Machine$double.xmax))
+        log_pijkr_fkr_yij <- pmax(log_pijkr_fkr_yij, log(.Machine$double.xmin))
 
-        pijgk_fgk_xij <- exp(log_pijgk_fgk_xij)
-        sumk_pijgk_fgk_xij <- rowSums(pijgk_fgk_xij) # sum over k
-        log_sumk_pijgk_fgk_xij <- log(sumk_pijgk_fgk_xij) # [n*m, 1]
+        pijkr_fkr_yij <- exp(log_pijkr_fkr_yij)
+        sumk_pijkr_fkr_yij <- rowSums(pijkr_fkr_yij) # sum over k
+        log_sumk_pijkr_fkr_yij <- log(sumk_pijkr_fkr_yij) # [n*m, 1]
 
-        log_tau_ijgk[, , g] <<- log_pijgk_fgk_xij - log_sumk_pijgk_fgk_xij %*% ones(1, paramMixRHLP$R)
-        tau_ijgk[, , g] <<- exp(lognormalize(log_tau_ijgk[, , g]))
+        log_gamma_ijkr[, , k] <<- log_pijkr_fkr_yij - log_sumk_pijkr_fkr_yij %*% ones(1, paramMixRHLP$R)
+        gamma_ijkr[, , k] <<- exp(lognormalize(log_gamma_ijkr[, , k]))
 
-        log_fg_xij[, g] <<- rowSums(t(matrix(log_sumk_pijgk_fgk_xij, paramMixRHLP$fData$m, paramMixRHLP$fData$n))) # [n x 1]:  sum over j=1,...,m: fg_xij = prod_j sum_k pi_{jgk} N(x_{ij},mu_{gk},s_{gk))
-        log_alphag_fg_xij[, g] <<- log(alpha_g) + log_fg_xij[, g] # [nxg]
+        log_fk_yij[, k] <<- rowSums(t(matrix(log_sumk_pijkr_fkr_yij, paramMixRHLP$fData$m, paramMixRHLP$fData$n))) # [n x 1]:  sum over j=1,...,m: fk_yij = prod_j sum_r pi_{jkr} N(x_{ij},mu_{kr},s_{kr))
+        log_alphak_fk_yij[, k] <<- log(alpha_k) + log_fk_yij[, k] # [nxK]
       }
-      log_alphag_fg_xij <<- pmin(log_alphag_fg_xij, log(.Machine$double.xmax))
-      log_alphag_fg_xij <<- pmax(log_alphag_fg_xij, log(.Machine$double.xmin))
+      log_alphak_fk_yij <<- pmin(log_alphak_fk_yij, log(.Machine$double.xmax))
+      log_alphak_fk_yij <<- pmax(log_alphak_fk_yij, log(.Machine$double.xmin))
 
-      h_ig <<- exp(lognormalize(log_alphag_fg_xij))
+      tau_ik <<- exp(lognormalize(log_alphak_fk_yij))
 
-      loglik <<- sum(log(rowSums(exp(log_alphag_fg_xij))))
+      loglik <<- sum(log(rowSums(exp(log_alphak_fk_yij))))
     }
 
   )

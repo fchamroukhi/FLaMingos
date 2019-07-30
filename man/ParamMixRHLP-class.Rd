@@ -30,17 +30,17 @@ segmentation, it must be set to 1.}
 
 \item{\code{W}}{Parameters of the logistic process. \eqn{\boldsymbol{W} =
   (\boldsymbol{w}_{1},\dots,\boldsymbol{w}_{K})}{W = (w_{1},\dots,w_{K})} is
-an array of dimension \eqn{(q + 1, R - 1, K)}, with \eqn{\boldsymbol{w}_{g}
-  = (\boldsymbol{w}_{g,1},\dots,\boldsymbol{w}_{g,R-1})}{w_{g} =
-  (w_{g,1},\dots,w_{g,R-1})}, \eqn{g = 1,\dots,K}, and \code{q} the order of the
+an array of dimension \eqn{(q + 1, R - 1, K)}, with \eqn{\boldsymbol{w}_{k}
+  = (\boldsymbol{w}_{k,1},\dots,\boldsymbol{w}_{k,R-1})}{w_{k} =
+  (w_{k,1},\dots,w_{k,R-1})}, \eqn{k = 1,\dots,K}, and \code{q} the order of the
 logistic regression. \code{q} is fixed to 1 by default.}
 
 \item{\code{beta}}{Parameters of the polynomial regressions. \eqn{\boldsymbol{\beta}
   = (\boldsymbol{\beta}_{1},\dots,\boldsymbol{\beta}_{K})}{\beta =
   (\beta_{1},\dots,\beta_{K})} is an array of dimension \eqn{(p + 1, R, K)},
-with \eqn{\boldsymbol{\beta}_{g} =
-  (\boldsymbol{\beta}_{g,1},\dots,\boldsymbol{\beta}_{g,R})}{\beta_{g} =
-  (\beta_{g,1},\dots,\beta_{g,R})}, \eqn{g = 1,\dots,K}, \code{p} the order of the
+with \eqn{\boldsymbol{\beta}_{k} =
+  (\boldsymbol{\beta}_{k,1},\dots,\boldsymbol{\beta}_{k,R})}{\beta_{k} =
+  (\beta_{k,1},\dots,\beta_{k,R})}, \eqn{k = 1,\dots,K}, \code{p} the order of the
 polynomial regression. \code{p} is fixed to 3 by default.}
 
 \item{\code{sigma2}}{The variances for the \code{K} clusters. If MixRHLP model is
@@ -77,8 +77,8 @@ the E-step and the C-step).}
       \code{sigma2} are initialized by segmenting randomly the time series
       \code{Y} into \code{R} segments.}
 
-\item{\code{initRegressionParam(Xg, g, try_algo = 1)}}{Initialize the matrix of polynomial regression coefficients beta_g for
-the cluster \code{g}.}
+\item{\code{initRegressionParam(Yk, k, try_algo = 1)}}{Initialize the matrix of polynomial regression coefficients beta_k for
+the cluster \code{k}.}
 
 \item{\code{MStep(statMixRHLP, verbose_IRLS = FALSE)}}{Method which implements the M-step of the EM algorithm to learn the
 parameters of the MixRHLP model based on statistics provided by the

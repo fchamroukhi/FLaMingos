@@ -1,12 +1,12 @@
 #' FLaMingoS: Functional Latent datA Models for clusterING heterogeneOus time-Series
 #'
-#' @description `flamingos` is a toolbox for the simultaneous clustering (or
+#' @description `flamingos` is an open-source toolbox for the simultaneous clustering (or
 #' classification) and segmentation of heterogeneous functional data (i.e
 #' time-series ore more generally longitudinal data), with original and
 #' flexible functional latent variable models, fitted by unsupervised
 #' algorithms, including EM algorithms.
 #'
-#' `flamingos` contains the following time series segmentation models:
+#' `flamingos` contains the following time series clustering and segmentation models:
 #'
 #' \itemize{
 #' \item mixRHLP;

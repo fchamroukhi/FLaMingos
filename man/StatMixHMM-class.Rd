@@ -4,10 +4,10 @@
 \name{StatMixHMM-class}
 \alias{StatMixHMM-class}
 \alias{StatMixHMM}
-\title{A Reference Class which contains statistics of a mixture of HMM models.}
+\title{A Reference Class which contains statistics of a mixture of HMM model.}
 \description{
 StatMixHMM contains all the statistics associated to a \link[=ParamMixHMM]{MixHMM}
-model.
+model, in particular the E-Step of the EM algorithm.
 }
 \section{Fields}{
 

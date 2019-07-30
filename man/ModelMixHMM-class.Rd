@@ -4,9 +4,9 @@
 \name{ModelMixHMM-class}
 \alias{ModelMixHMM-class}
 \alias{ModelMixHMM}
-\title{A Reference Class which represents a fitted Mixture of HMM models.}
+\title{A Reference Class which represents a fitted Mixture of HMM model.}
 \description{
-ModelMixHMM represents an estimated mixture of HMM models.
+ModelMixHMM represents an estimated mixture of HMM model.
 }
 \section{Fields}{
 

@@ -4,9 +4,9 @@
 \name{ModelMixRHLP-class}
 \alias{ModelMixRHLP-class}
 \alias{ModelMixRHLP}
-\title{A Reference Class which represents a fitted mixture of RHLP models.}
+\title{A Reference Class which represents a fitted mixture of RHLP model.}
 \description{
-ModelMixRHLP represents an estimated mixture of RHLP models.
+ModelMixRHLP represents an estimated mixture of RHLP model.
 }
 \section{Fields}{
 
@@ -26,9 +26,9 @@ statistics associated to the MixRHLP model.}
   \item{\code{what}}{The type of graph requested:
     \itemize{
       \item \code{"estimatedsignal" = } Estimated signal (field
-        \code{Ex} of class \link{StatMixRHLP}).
+        \code{Ey} of class \link{StatMixRHLP}).
       \item \code{"regressors" = } Polynomial regression components
-        (fields \code{polynomials} and \code{pi_jgk} of class
+        (fields \code{polynomials} and \code{pi_jkr} of class
         \link{StatMixRHLP}).
       \item \code{"loglikelihood" = } Value of the log-likelihood for
         each iteration (field \code{stored_loglik} of class

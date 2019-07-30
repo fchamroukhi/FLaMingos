@@ -1,7 +1,7 @@
-#' A Reference Class which contains statistics of a mixture of HMM models.
+#' A Reference Class which contains statistics of a mixture of HMM model.
 #'
 #' StatMixHMM contains all the statistics associated to a [MixHMM][ParamMixHMM]
-#' model.
+#' model, in particular the E-Step of the EM algorithm.
 #'
 #' @field tau_ik Matrix of size \eqn{(n, K)} giving the posterior probabilities
 #'   that the curve \eqn{Y_{i}} originates from the \eqn{k}-th HMM model.

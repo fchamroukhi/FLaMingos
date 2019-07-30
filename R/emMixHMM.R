@@ -92,7 +92,7 @@ emMixHMM <- function(Y, K, R, variance_type = c("heteroskedastic", "homoskedasti
       iter <- iter + 1
 
       if (verbose) {
-        cat(paste0("EM: Iteration : ", iter, " || log-likelihood : "  , stat$loglik, "\n"))
+        cat(paste0("EM - mixHMMs: Iteration : ", iter, " | log-likelihood : "  , stat$loglik, "\n"))
       }
 
       if (prev_loglik - stat$loglik > 1e-4) {
