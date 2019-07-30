@@ -19,11 +19,11 @@
 #'   \item{y11}{Time series generated as follows:
 #'     \itemize{
 #'       \item  First regime: 120 values of Normally distributed random numbers
-#'         with mean 5.
+#'         with mean 5 and variance 1.
 #'       \item Second regime: 70 values of Normally distributed random numbers
-#'         with mean 7.
+#'         with mean 7 and variance 1.
 #'       \item Third regime: 160 values of Normally distributed random numbers
-#'         with mean 5.
+#'         with mean 5 variance 1.
 #'     }
 #'   }
 #'   \item{y12}{Same as \code{y11}.}
@@ -38,11 +38,11 @@
 #'   \item{y21}{Time series generated as follows:
 #'     \itemize{
 #'       \item  First regime: 80 values of Normally distributed random numbers
-#'         with mean 7.
+#'         with mean 7 variance 1.
 #'       \item Second regime: 130 values of Normally distributed random numbers
-#'         with mean 5.
+#'         with mean 5 variance 1.
 #'       \item Third regime: 140 values of Normally distributed random numbers
-#'         with mean 4.
+#'         with mean 4 variance 1.
 #'     }
 #'   }
 #'   \item{y22}{Same as \code{y21}.}

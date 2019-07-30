@@ -28,9 +28,9 @@ set at 3.}
 "heteroskedastic".}
 
 \item{order_constraint}{Optional. A logical indicating whether or not a mask
-of order one should be applied to the transition matrix of the Markov
-chain. For the purpose of segmentation, it must be set to \code{TRUE} (which is
-the default value).}
+of order one should be applied to the transition matrix of the Markov chain
+to provide ordered states. For the purpose of segmentation, it must be set
+to \code{TRUE} (which is the default value).}
 
 \item{init_kmeans}{Optional. A logical indicating whether or not the curve
 partition should be initialized by the K-means algorithm. Otherwise the

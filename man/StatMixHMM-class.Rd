@@ -13,7 +13,7 @@ model, in particular the E-Step of the EM algorithm.
 
 \describe{
 \item{\code{tau_ik}}{Matrix of size \eqn{(n, K)} giving the posterior probabilities
-that the curve \eqn{Y_{i}} originates from the \eqn{k}-th HMM model.}
+that the curve \eqn{\boldsymbol{y}_{i}}{y_{i}} originates from the \eqn{k}-th HMM model.}
 
 \item{\code{gamma_ikjr}}{Array of size \eqn{(nm, R, K)} giving the posterior
 probabilities that the observation \eqn{Y_{ij}} originates from the
@@ -25,7 +25,7 @@ probabilities that the observation \eqn{Y_{ij}} originates from the
 each iteration of the EM algorithm.}
 
 \item{\code{klas}}{Row matrix of the labels issued from \code{tau_ik}. Its elements are
-\eqn{klas(i) = k}, \eqn{i = 1,\dots,n}.}
+\eqn{klas(i) = z_i}, \eqn{i = 1,\dots,n}.}
 
 \item{\code{z_ik}}{Hard segmentation logical matrix of dimension \eqn{(n, K)}
 obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \

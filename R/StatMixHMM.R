@@ -4,7 +4,7 @@
 #' model, in particular the E-Step of the EM algorithm.
 #'
 #' @field tau_ik Matrix of size \eqn{(n, K)} giving the posterior probabilities
-#'   that the curve \eqn{Y_{i}} originates from the \eqn{k}-th HMM model.
+#'   that the curve \eqn{\boldsymbol{y}_{i}}{y_{i}} originates from the \eqn{k}-th HMM model.
 #' @field gamma_ikjr Array of size \eqn{(nm, R, K)} giving the posterior
 #'   probabilities that the observation \eqn{Y_{ij}} originates from the
 #'   \eqn{r}-th regime of the \eqn{k}-th HMM model.
@@ -12,7 +12,7 @@
 #' @field stored_loglik Numeric vector. Stored values of the log-likelihood at
 #'   each iteration of the EM algorithm.
 #' @field klas Row matrix of the labels issued from `tau_ik`. Its elements are
-#'   \eqn{klas(i) = k}, \eqn{i = 1,\dots,n}.
+#'   \eqn{klas(i) = z_i}, \eqn{i = 1,\dots,n}.
 #' @field z_ik Hard segmentation logical matrix of dimension \eqn{(n, K)}
 #'   obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
 #'   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ P(z_{is} = 1 |
@@ -140,7 +140,7 @@ StatMixHMM <- setRefClass(
             mukr <- mu_kr[r]
 
             if (paramMixHMM$variance_type == "homoskedastic") {
-              sigma2 <- paramMixHMM$sigma2[, k]
+              sigma2 <- paramMixHMM$sigma2[k]
               sk <- sigma2
             } else {
               sigma2 <- paramMixHMM$sigma2[, k]

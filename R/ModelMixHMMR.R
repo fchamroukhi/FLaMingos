@@ -138,9 +138,9 @@ ModelMixHMMR <- setRefClass(
 
       for (k in 1:param$K) {
         cat(txt)
-        cat("\nCluster ", k, " (K = ", k, "):\n", sep = "")
+        cat("\nCluster ", k, " (k = ", k, "):\n", sep = "")
 
-        cat("\nRegression coefficients:\n\n")
+        cat("\nRegression coefficients for each regime/segment r (r=1...R):\n\n")
         if (param$p > 0) {
           row.names = c("1", sapply(1:param$p, function(x) paste0("X^", x)))
         } else {
@@ -154,16 +154,18 @@ ModelMixHMMR <- setRefClass(
           row.names = "1"
           betas <- data.frame(t(param$beta[, , k]), row.names = row.names)
         }
-        colnames(betas) <- sapply(1:param$R, function(x) paste0("Beta(R = ", x, ")"))
+        colnames(betas) <- sapply(1:param$R, function(x) paste0("Beta(r = ", x, ")"))
         print(betas, digits = digits)
 
-        cat(paste0(ifelse(param$variance_type == "homoskedastic", "\n", "\nVariances:\n\n")))
-        sigma2 <- data.frame(t(param$sigma2[, k]))
         if (param$variance_type == "homoskedastic") {
+          sigma2 <- data.frame(param$sigma2[k])
           colnames(sigma2) <- "Sigma2"
+          cat(paste0("\nVariance:\n\n"))
           print(sigma2, digits = digits, row.names = FALSE)
         } else {
-          colnames(sigma2) = sapply(1:param$R, function(x) paste0("Sigma2(R = ", x, ")"))
+          sigma2 <- data.frame(t(param$sigma2[, k]))
+          colnames(sigma2) <- sapply(1:param$R, function(x) paste0("Sigma2(r = ", x, ")"))
+          cat(paste0("\nVariances:\n\n"))
           print(sigma2, digits = digits, row.names = FALSE)
         }
         cat("\n")

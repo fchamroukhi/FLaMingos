@@ -22,9 +22,9 @@
 #'   "homoskedastic" or "heteroskedastic". By default the model is
 #'   "heteroskedastic".
 #' @param order_constraint Optional. A logical indicating whether or not a mask
-#'   of order one should be applied to the transition matrix of the Markov
-#'   chain. For the purpose of segmentation, it must be set to `TRUE` (which is
-#'   the default value).
+#'   of order one should be applied to the transition matrix of the Markov chain
+#'   to provide ordered states. For the purpose of segmentation, it must be set
+#'   to `TRUE` (which is the default value).
 #' @param init_kmeans Optional. A logical indicating whether or not the curve
 #'   partition should be initialized by the K-means algorithm. Otherwise the
 #'   curve partition is initialized randomly.

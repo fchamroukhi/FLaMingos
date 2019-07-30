@@ -11,9 +11,9 @@
 #'   (`variance_type = "homoskedastic"`) or heteroskedastic (`variance_type =
 #'   "heteroskedastic"`). By default the model is heteroskedastic.
 #' @field order_constraint A logical indicating whether or not a mask of order
-#'   one should be applied to the transition matrix of the Markov chain. For the
-#'   purpose of segmentation, it must be set to `TRUE` (which is the default
-#'   value).
+#'   one should be applied to the transition matrix of the Markov chain to
+#'   provide ordered states. For the purpose of segmentation, it must be set to
+#'   `TRUE` (which is the default value).
 #' @field alpha Cluster weights. Matrix of dimension \eqn{(K, 1)}.
 #' @field prior The prior probabilities of the Markov chains. `prior` is a
 #'   matrix of dimension \eqn{(R, K)}. The k-th column represents the prior
@@ -304,10 +304,7 @@ ParamMixHMMR <- setRefClass(
 
         gamma_ijk <- statMixHMMR$gamma_ikjr[, , k] # [n*m R]
 
-        nm_kr <- apply(as.matrix(gamma_ijk), 2, sum) # Cardinal nbr of the segments r,r=1,...,R within each cluster k, at iteration q
-
         for (r in 1:R) {
-          nmkr <- nm_kr[r] # Cardinal nbr of segment k for the cluster k
 
           weights_seg_k <- matrix(as.matrix(gamma_ijk)[, r])
 
@@ -322,8 +319,7 @@ ParamMixHMMR <- setRefClass(
 
           if (variance_type == "homoskedastic") {
             s <- s + (t(z) %*% z)
-            ngm <- sum(sum(weights_cluster_k %*% matrix(1, 1, R)) * gamma_ijk)
-
+            ngm <- sum((weights_cluster_k %*% matrix(1, 1, R)) * gamma_ijk)
             sigma2[k] <<- s / ngm
           } else {
             ngmk <- sum(weights_cluster_k * weights_seg_k)

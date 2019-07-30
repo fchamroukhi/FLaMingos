@@ -306,46 +306,46 @@ mixrhlp$summary()
 #> 
 #> 
 #> --------------------
-#> Cluster 1 (K = 1):
+#> Cluster 1 (k = 1):
 #> 
-#> Regression coefficients:
+#> Regression coefficients for each regime/segment r (r=1...R):
 #> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1     6.8902863   5.1134337  3.90153421
-#> X^1   0.9265632  -0.3959402  0.08748466
-#> 
-#> Variances:
-#> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>       0.981915     0.9787717     0.9702211
-#> 
-#> --------------------
-#> Cluster 2 (K = 2):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1     6.3513369    4.214736   6.6536553
 #> X^1  -0.2449377    0.839666   0.1024863
 #> 
 #> Variances:
 #> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9498285     0.9270384      1.001413
 #> 
 #> --------------------
-#> Cluster 3 (K = 3):
+#> Cluster 2 (k = 2):
 #> 
-#> Regression coefficients:
+#> Regression coefficients for each regime/segment r (r=1...R):
 #> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1    4.96556671   6.7326717   4.8807183
 #> X^1  0.08880479   0.4984443   0.1350271
 #> 
 #> Variances:
 #> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9559969       1.03849     0.9506928
+#> 
+#> --------------------
+#> Cluster 3 (k = 3):
+#> 
+#> Regression coefficients for each regime/segment r (r=1...R):
+#> 
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
+#> 1     6.8902863   5.1134337  3.90153421
+#> X^1   0.9265632  -0.3959402  0.08748466
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>       0.981915     0.9787717     0.9702211
 
 mixrhlp$plot()
 ```
@@ -404,43 +404,43 @@ mixhmm$summary()
 #> 
 #> 
 #> -------------------
-#> Cluster 1 (K = 1):
+#> Cluster 1 (k = 1):
 #> 
 #> Means:
 #> 
-#>     R = 1    R = 2    R = 3
-#>  6.319189 4.583954 6.722627
-#> 
-#> Variances:
-#> 
-#>      R = 1     R = 2   R = 3
-#>  0.9571803 0.9504731 1.01553
-#> 
-#> -------------------
-#> Cluster 2 (K = 2):
-#> 
-#> Means:
-#> 
-#>     R = 1    R = 2    R = 3
+#>     r = 1    r = 2    r = 3
 #>  4.987066 6.963998 4.987279
 #> 
 #> Variances:
 #> 
-#>      R = 1    R = 2    R = 3
-#>  0.9578459 1.045573 0.952294
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9578459      1.045573      0.952294
 #> 
 #> -------------------
-#> Cluster 3 (K = 3):
+#> Cluster 2 (k = 2):
 #> 
 #> Means:
 #> 
-#>    R = 1    R = 2    R = 3
+#>     r = 1    r = 2    r = 3
+#>  6.319189 4.583954 6.722627
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9571803     0.9504731       1.01553
+#> 
+#> -------------------
+#> Cluster 3 (k = 3):
+#> 
+#> Means:
+#> 
+#>    r = 1    r = 2    r = 3
 #>  7.00202 4.964273 3.979626
 #> 
 #> Variances:
 #> 
-#>      R = 1     R = 2     R = 3
-#>  0.9858726 0.9884542 0.9651437
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9858726     0.9884542     0.9651437
 
 mixhmm$plot()
 ```
@@ -469,8 +469,8 @@ threshold <- 1e-6
 verbose <- TRUE
 
 mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]), K, R, p,
-                     variance_type, ordered_states, init_kmeans, n_tries, max_iter,
-                     threshold, verbose)
+                     variance_type, ordered_states, init_kmeans, n_tries, 
+                     max_iter, threshold, verbose)
 #> EM - mixHMMR: Iteration: 1 || log-likelihood: -18975.6323298895
 #> EM - mixHMMR: Iteration: 2 || log-likelihood: -15198.5811534058
 #> EM - mixHMMR: Iteration: 3 || log-likelihood: -15118.0350455527
@@ -514,46 +514,46 @@ mixhmmr$summary()
 #> 
 #> 
 #> --------------------
-#> Cluster 1 (K = 1):
+#> Cluster 1 (k = 1):
 #> 
-#> Regression coefficients:
+#> Regression coefficients for each regime/segment r (r=1...R):
 #> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1     6.3552432   4.2868818   6.5327846
 #> X^1  -0.2865404   0.6907212   0.2429291
 #> 
 #> Variances:
 #> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9587975     0.9481068       1.01388
 #> 
 #> --------------------
-#> Cluster 2 (K = 2):
+#> Cluster 2 (k = 2):
 #> 
-#> Regression coefficients:
+#> Regression coefficients for each regime/segment r (r=1...R):
 #> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
-#> 1      6.870328   5.1511267   3.9901300
-#> X^1    1.204150  -0.4601777  -0.0155753
-#> 
-#> Variances:
-#> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
-#>      0.9776399     0.9895623       0.96457
-#> 
-#> --------------------
-#> Cluster 3 (K = 3):
-#> 
-#> Regression coefficients:
-#> 
-#>     Beta(R = 1) Beta(R = 2) Beta(R = 3)
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1     4.9512819   6.8393804   4.9076599
 #> X^1   0.2099508   0.2822775   0.1031626
 #> 
 #> Variances:
 #> 
-#>  Sigma2(R = 1) Sigma2(R = 2) Sigma2(R = 3)
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9576192      1.045043      0.952047
+#> 
+#> --------------------
+#> Cluster 3 (k = 3):
+#> 
+#> Regression coefficients for each regime/segment r (r=1...R):
+#> 
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
+#> 1      6.870328   5.1511267   3.9901300
+#> X^1    1.204150  -0.4601777  -0.0155753
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9776399     0.9895623       0.96457
 
 mixhmmr$plot()
 ```

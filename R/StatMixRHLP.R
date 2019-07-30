@@ -1,20 +1,21 @@
 #' A Reference Class which contains statistics of a mixture of RHLP models.
 #'
 #' StatMixRHLP contains all the statistics associated to a
-#' [MixRHLP][ParamMixRHLP] model, in particular the E-Step (and C-Step) of the (C)EM algorithm.
+#' [MixRHLP][ParamMixRHLP] model, in particular the E-Step (and C-Step) of the
+#' (C)EM algorithm.
 #'
 #' @field pi_jkr Array of size \eqn{(nm, R, K)} representing the logistic
 #'   proportion for cluster k.
 #' @field tau_ik Matrix of size \eqn{(n, K)} giving the posterior probabilities
-#'   (fuzzy segmentation matrix) that the curve \eqn{Y_{i}} originates from the
-#'   \eqn{g}-th RHLP model.
+#'   (fuzzy segmentation matrix) that the curve \eqn{\boldsymbol{y}_{i}}{y_{i}}
+#'   originates from the \eqn{k}-th RHLP model.
 #' @field z_ik Hard segmentation logical matrix of dimension \eqn{(n, K)}
 #'   obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
-#'   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ tau\_is;\ 0 \
-#'   \textrm{otherwise}}{z_ik = 1 if z_ik = arg max_s tau_is; 0 otherwise}, \eqn{k
-#'   = 1,\dots,K}.
+#'   \textrm{if} \ z\_i = \textrm{arg} \ \textrm{max}_{s} \ tau\_is;\ 0 \
+#'   \textrm{otherwise}}{z_ik = 1 if z_i = arg max_s tau_is; 0 otherwise},
+#'   \eqn{k = 1,\dots,K}.
 #' @field klas Column matrix of the labels issued from `z_ik`. Its elements are
-#'   \eqn{klas(i) = k}, \eqn{i = 1,\dots,n}.
+#'   \eqn{klas(i) = z_i}, \eqn{i = 1,\dots,n}.
 #' @field gamma_ijkr Array of size \eqn{(nm, R, K)} giving the posterior
 #'   probabilities that the observation \eqn{Y_{ij}} originates from the
 #'   \eqn{r}-th regime of the \eqn{k}-th RHLP model.
@@ -36,12 +37,13 @@
 #' @field ICL Numeric. Value of ICL (Integrated Completed Likelihood).
 #' @field AIC Numeric. Value of AIC (Akaike Information Criterion).
 #' @field log_fk_yij Matrix of size \eqn{(n, K)} giving the values of the
-#'   probability density function \eqn{f(y_{i} | z_ik = 1, \boldsymbol{x},
-#'   \boldsymbol{\Psi})}{f(y_{i} | z_ik = 1, x, \Psi)}, \eqn{i = 1,\dots,n}.
+#'   probability density function \eqn{f(\boldsymbol{y}_{i} | z_i = k,
+#'   \boldsymbol{x}, \boldsymbol{\Psi})}{f(y_{i} | z_i = k, x, \Psi)}, \eqn{i =
+#'   1,\dots,n}.
 #' @field log_alphak_fk_yij Matrix of size \eqn{(n, K)} giving the values of the
-#'   logarithm of the joint probability density function \eqn{f(y_{i}, \ z_{i} =
-#'   k | \boldsymbol{x}, \boldsymbol{\Psi})}{f(y_{i}, z_{i} = k | x, \Psi)},
-#'   \eqn{i = 1,\dots,n}.
+#'   logarithm of the joint probability density function
+#'   \eqn{f(\boldsymbol{y}_{i}, \ z_{i} = k | \boldsymbol{x},
+#'   \boldsymbol{\Psi})}{f(y_{i}, z_{i} = k | x, \Psi)}, \eqn{i = 1,\dots,n}.
 #' @field log_gamma_ijkr Array of size \eqn{(nm, R, K)} giving the logarithm of
 #'   `gamma_ijkr`.
 #' @seealso [ParamMixRHLP]

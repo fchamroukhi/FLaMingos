@@ -137,21 +137,22 @@ ModelMixHMM <- setRefClass(
 
       for (k in 1:param$K) {
         cat(txt)
-        cat("\nCluster ", k, " (K = ", k, "):\n", sep = "")
+        cat("\nCluster ", k, " (k = ", k, "):\n", sep = "")
 
         cat("\nMeans:\n\n")
         means <- data.frame(t(param$mu[, k]))
-        colnames(means) <- sapply(1:param$R, function(x) paste0("R = ", x))
+        colnames(means) <- sapply(1:param$R, function(x) paste0("r = ", x))
         print(means, digits = digits, row.names = FALSE)
 
-        cat(paste0(ifelse(param$variance_type == "homoskedastic", "\n", "\nVariances:\n\n")))
-        sigma2 <- data.frame(t(param$sigma2[, k]))
         if (param$variance_type == "homoskedastic") {
+          sigma2 <- data.frame(param$sigma2[k])
           colnames(sigma2) <- "Sigma2"
+          cat(paste0("\nVariance:\n\n"))
           print(sigma2, digits = digits, row.names = FALSE)
         } else {
-          colnames(sigma2) = sapply(1:param$R, function(x)
-            paste0("R = ", x))
+          sigma2 <- data.frame(t(param$sigma2[, k]))
+          colnames(sigma2) <- sapply(1:param$R, function(x) paste0("Sigma2(r = ", x, ")"))
+          cat(paste0("\nVariances:\n\n"))
           print(sigma2, digits = digits, row.names = FALSE)
         }
         cat("\n")

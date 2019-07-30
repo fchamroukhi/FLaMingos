@@ -144,8 +144,8 @@ threshold <- 1e-6
 verbose <- TRUE
 
 mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]), K, R, p,
-                     variance_type, ordered_states, init_kmeans, n_tries, max_iter,
-                     threshold, verbose)
+                     variance_type, ordered_states, init_kmeans, n_tries, 
+                     max_iter, threshold, verbose)
 
 mixhmmr$summary()
 
