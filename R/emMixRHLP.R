@@ -93,7 +93,7 @@ emMixRHLP <- function(X, Y, K, R, p = 3, q = 1, variance_type = c("heteroskedast
 
       iter <- iter + 1
       if (verbose) {
-        cat(paste0("EM - mixRHLP: Iteration : ", iter, " | log-likelihood : "  , stat$loglik, "\n"))
+        cat(paste0("EM - mixRHLP: Iteration: ", iter, " | log-likelihood: "  , stat$loglik, "\n"))
       }
 
       if (prev_loglik - stat$loglik > 1e-5) {

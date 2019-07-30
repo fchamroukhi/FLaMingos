@@ -243,7 +243,7 @@ ParamMixRHLP <- setRefClass(
 
         for (r in 1:R) {
 
-          segments_weights <- tauijr[, r, drop = F]
+          segments_weights <- gamma_ijk[, r, drop = F]
           phikr <- (sqrt(segments_weights) %*% ones(1, p + 1)) * phi$XBeta[cluster_labels == k,] # [(nk*m)*(p+1)]
           Ykr <- sqrt(segments_weights) * Yk
 
@@ -257,7 +257,7 @@ ParamMixRHLP <- setRefClass(
           if (variance_type == "homoskedastic") {
             sr <- colSums((Ykr - phikr %*% beta_kr[, r]) ^ 2)
             s <- s + sr
-            sigma2_kr <- s / sum(tauijr)
+            sigma2_kr <- s / sum(gamma_ijk)
           } else {
             sigma2_kr[r] <-
               colSums((Ykr - phikr %*% beta_kr[, r]) ^ 2) / (sum(segments_weights))

@@ -114,7 +114,9 @@ init_kmeans <- TRUE
 threshold <- 1e-6
 verbose <- TRUE
 
-mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K, R, variance_type, ordered_states, init_kmeans, n_tries, max_iter, threshold, verbose)
+mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K, R, variance_type,
+                   ordered_states, init_kmeans, n_tries, max_iter, 
+                   threshold, verbose)
 
 mixhmm$summary()
 
