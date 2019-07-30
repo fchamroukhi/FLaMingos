@@ -47,7 +47,7 @@ matrix of size \eqn{(R, K)} (otherwise MixHMM model is homoskedastic
 (\code{variance_type = "homoskedastic"}) and \code{sigma2} is a matrix of size
 \eqn{(1, K)}).}
 
-\item{\code{nu}}{The degree of freedom of the MixHMM model representing the
+\item{\code{nu}}{The degrees of freedom of the MixHMM model representing the
 complexity of the model.}
 }}
 

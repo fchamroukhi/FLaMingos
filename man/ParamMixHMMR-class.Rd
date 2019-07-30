@@ -52,8 +52,7 @@ matrix of size \eqn{(R, K)} (otherwise MixHMMR model is homoskedastic
 \item{\code{nu}}{The degree of freedom of the MixHMMR model representing the
 complexity of the model.}
 
-\item{\code{phi}}{A list giving the regression design matrices for the polynomial
-and the logistic regressions.}
+\item{\code{phi}}{A list giving the regression design matrix for the polynomial regressions.}
 }}
 
 \section{Methods}{

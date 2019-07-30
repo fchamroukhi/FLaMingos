@@ -4,24 +4,28 @@
 #' [MixHMMR][ParamMixHMMR] model, in particular the E-Step of the EM algorithm.
 #'
 #' @field tau_ik Matrix of size \eqn{(n, K)} giving the posterior probabilities
-#'   that the curve \eqn{\boldsymbol{y}_{i}}{y_{i}} originates from the \eqn{k}-th HMMR model.
+#'   that the curve \eqn{\boldsymbol{y}_{i}}{y_{i}} originates from the
+#'   \eqn{k}-th HMMR model.
 #' @field gamma_ikjr Array of size \eqn{(nm, R, K)} giving the posterior
-#'   probabilities that the observation \eqn{Y_{ij}} originates from the
-#'   \eqn{r}-th regime of the \eqn{k}-th HMM model.
+#'   probabilities that the observation \eqn{\boldsymbol{y}_{ij}}{y_{ij}}
+#'   originates from the \eqn{r}-th regime of the \eqn{k}-th HMM model.
 #' @field loglik Numeric. Log-likelihood of the MixHMMR model.
 #' @field stored_loglik Numeric vector. Stored values of the log-likelihood at
 #'   each iteration of the EM algorithm.
 #' @field klas Row matrix of the labels issued from `tau_ik`. Its elements are
-#'   \eqn{klas(i) = z_i}, \eqn{i = 1,\dots,n}.
+#'   \eqn{klas[i] = z\_i}{klas[i] = z_i}, \eqn{i = 1,\dots,n}.
 #' @field z_ik Hard segmentation logical matrix of dimension \eqn{(n, K)}
 #'   obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
-#'   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ P(z_{is} = 1 |
+#'   \textrm{if} \ z\_i = \textrm{arg} \ \textrm{max}_{k} \ P(z_{ik} = 1 |
 #'   \boldsymbol{y}_{i}; \boldsymbol{\Psi}) = tau\_ik;\ 0 \
-#'   \textrm{otherwise}}{z_ik = 1 if z_ik = arg max_s P(z_{is} = 1 | Y_{i};
-#'   \Psi) = tau_ik; 0 otherwise}, \eqn{k = 1,\dots,K}.
-#' @field smoothed Matrix of size \eqn{(m, K)} giving the estimated mean series.
-#'   The k-th column gives the estimated mean series of cluster k.
-#' @field mean_curve To define.
+#'   \textrm{otherwise}}{z_ik = 1 if z_i = arg max_k P(z_{ik} = 1 | y_{i}; \Psi)
+#'   = tau_ik; 0 otherwise}.
+#' @field smoothed Matrix of size \eqn{(m, K)} giving the smoothed time series.
+#'   The smoothed time series are computed by combining the polynomial
+#'   regression components with both the estimated posterior regime
+#'   probabilities `gamma_ikjr` and the corresponding estimated posterior
+#'   cluster probability `tau_ik`. The k-th column gives the estimated mean
+#'   series of cluster k.
 #' @field BIC Numeric. Value of BIC (Bayesian Information Criterion).
 #' @field AIC Numeric. Value of AIC (Akaike Information Criterion).
 #' @field ICL1 Numeric. Value of ICL (Integrated Completed Likelihood
@@ -74,10 +78,10 @@ StatMixHMMR <- setRefClass(
       "MAP calculates values of the fields \\code{z_ik} and \\code{klas}
       by applying the Maximum A Posteriori Bayes allocation rule.
 
-      \\eqn{z\\_ik = 1 \\ \\textrm{if} \\ z\\_ik = \\textrm{arg} \\
-      \\textrm{max}_{s} \\ P(z_{is} = 1 | \\boldsymbol{y}_{i};
+      \\eqn{z\\_ik = 1 \\ \\textrm{if} \\ z\\_i = \\textrm{arg} \\
+      \\textrm{max}_{k} \\ P(z_{ik} = 1 | \\boldsymbol{y}_{i};
       \\boldsymbol{\\Psi}) = tau\\_ik;\\ 0 \\ \\textrm{otherwise}}{z_ik = 1 if
-      z_i = arg max_s P(z_{is} = 1 | y_{i}; \\Psi) = tau_ik; 0 otherwise}"
+      z_i = arg max_k P(z_{ik} = 1 | y_{i}; \\Psi) = tau_ik; 0 otherwise}."
 
       N <- nrow(tau_ik)
       K <- ncol(tau_ik)

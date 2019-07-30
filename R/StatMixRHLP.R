@@ -11,14 +11,13 @@
 #'   originates from the \eqn{k}-th RHLP model.
 #' @field z_ik Hard segmentation logical matrix of dimension \eqn{(n, K)}
 #'   obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
-#'   \textrm{if} \ z\_i = \textrm{arg} \ \textrm{max}_{s} \ tau\_is;\ 0 \
-#'   \textrm{otherwise}}{z_ik = 1 if z_i = arg max_s tau_is; 0 otherwise},
-#'   \eqn{k = 1,\dots,K}.
+#'   \textrm{if} \ z\_i = \textrm{arg} \ \textrm{max}_{k} \ tau\_ik;\ 0 \
+#'   \textrm{otherwise}}{z_ik = 1 if z_i = arg max_k tau_ik; 0 otherwise}.
 #' @field klas Column matrix of the labels issued from `z_ik`. Its elements are
-#'   \eqn{klas(i) = z_i}, \eqn{i = 1,\dots,n}.
+#'   \eqn{klas[i] = z\_i}{klas[i] = z_i}, \eqn{i = 1,\dots,n}.
 #' @field gamma_ijkr Array of size \eqn{(nm, R, K)} giving the posterior
-#'   probabilities that the observation \eqn{Y_{ij}} originates from the
-#'   \eqn{r}-th regime of the \eqn{k}-th RHLP model.
+#'   probabilities that the observation \eqn{\boldsymbol{y}_{ij}}{y_{ij}}
+#'   originates from the \eqn{r}-th regime of the \eqn{k}-th RHLP model.
 #' @field polynomials Array of size \eqn{(m, R, K)} giving the values of the
 #'   estimated polynomial regression components.
 #' @field weighted_polynomials Array of size \eqn{(m, R, K)} giving the values
@@ -105,8 +104,8 @@ StatMixRHLP <- setRefClass(
       by applying the Maximum A Posteriori Bayes allocation rule.
 
       \\eqn{z\\_ik = 1 \\ \\textrm{if} \\ z\\_i = \\textrm{arg} \\
-      \\textrm{max}_{s} \\ tau\\_is;\\ 0 \\ \\textrm{otherwise}
-      }{z_ik = 1 if z_i = arg max_s tau_is; 0 otherwise}, \\eqn{k = 1,\\dots,K}."
+      \\textrm{max}_{k} \\ tau\\_ik;\\ 0 \\ \\textrm{otherwise}
+      }{z_ik = 1 if z_i = arg max_k tau_ik; 0 otherwise}."
 
       N <- nrow(tau_ik)
       K <- ncol(tau_ik)
