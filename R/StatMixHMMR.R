@@ -16,7 +16,7 @@
 #' @field z_ik Hard segmentation logical matrix of dimension \eqn{(n, K)}
 #'   obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
 #'   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ P(z_{is} = 1 |
-#'   \boldsymbol{Y_{i}}; \boldsymbol{\Psi}) = tau\_ik;\ 0 \
+#'   \boldsymbol{y}_{i}; \boldsymbol{\Psi}) = tau\_ik;\ 0 \
 #'   \textrm{otherwise}}{z_ik = 1 if z_ik = arg max_s P(z_{is} = 1 | Y_{i};
 #'   \Psi) = tau_ik; 0 otherwise}, \eqn{k = 1,\dots,K}.
 #' @field smoothed Matrix of size \eqn{(m, K)} giving the estimated mean series.
@@ -26,7 +26,7 @@
 #' @field AIC Numeric. Value of AIC (Akaike Information Criterion).
 #' @field ICL1 Numeric. Value of ICL (Integrated Completed Likelihood
 #'   Criterion).
-#' @field log_w_k_fyi Private. Only defined for calculations.
+#' @field log_alpha_k_fyi Private. Only defined for calculations.
 #' @field exp_num_trans Private. Only defined for calculations.
 #' @field exp_num_trans_from_l Private. Only defined for calculations.
 
@@ -37,7 +37,7 @@ StatMixHMMR <- setRefClass(
   fields = list(
     tau_ik = "matrix",
     gamma_ikjr = "array",
-    log_w_k_fyi = "matrix",
+    log_alpha_k_fyi = "matrix",
     exp_num_trans = "array",
     exp_num_trans_from_l = "array",
     loglik = "numeric",
@@ -55,7 +55,7 @@ StatMixHMMR <- setRefClass(
 
       tau_ik <<- matrix(NA, paramMixHMMR$fData$n, paramMixHMMR$K)
       gamma_ikjr <<- array(NA, dim = c(paramMixHMMR$fData$n * paramMixHMMR$fData$m, paramMixHMMR$R, paramMixHMMR$K))
-      log_w_k_fyi <<- matrix(NA, paramMixHMMR$fData$n, paramMixHMMR$K)
+      log_alpha_k_fyi <<- matrix(NA, paramMixHMMR$fData$n, paramMixHMMR$K)
       exp_num_trans <<- array(NA, dim = c( paramMixHMMR$R, paramMixHMMR$R, paramMixHMMR$fData$n, paramMixHMMR$K))
       exp_num_trans_from_l <<- array(NA, dim = c(paramMixHMMR$R, paramMixHMMR$fData$n, paramMixHMMR$K))
       loglik <<- -Inf
@@ -75,9 +75,9 @@ StatMixHMMR <- setRefClass(
       by applying the Maximum A Posteriori Bayes allocation rule.
 
       \\eqn{z\\_ik = 1 \\ \\textrm{if} \\ z\\_ik = \\textrm{arg} \\
-      \\textrm{max}_{s} \\ P(z_{is} = 1 | \\boldsymbol{Y_{i}};
+      \\textrm{max}_{s} \\ P(z_{is} = 1 | \\boldsymbol{y}_{i};
       \\boldsymbol{\\Psi}) = tau\\_ik;\\ 0 \\ \\textrm{otherwise}}{z_ik = 1 if
-      z_ik = arg max_s P(z_{is} = 1 | Y_{i}; \\Psi) = tau_ik; 0 otherwise}"
+      z_i = arg max_s P(z_{is} = 1 | y_{i}; \\Psi) = tau_ik; 0 otherwise}"
 
       N <- nrow(tau_ik)
       K <- ncol(tau_ik)
@@ -109,8 +109,8 @@ StatMixHMMR <- setRefClass(
       AIC <<- loglik - paramMixHMMR$nu
       # ICL*
       # Compute the comp-log-lik
-      cik_log_w_k_fyi <- z_ik * log_w_k_fyi
-      comp_loglik <- sum(cik_log_w_k_fyi)
+      cik_log_alpha_k_fyi <- z_ik * log_alpha_k_fyi
+      comp_loglik <- sum(cik_log_alpha_k_fyi)
       ICL1 <<- comp_loglik - paramMixHMMR$nu * log(paramMixHMMR$fData$n) / 2 #n*m/2!
 
     },
@@ -179,17 +179,17 @@ StatMixHMMR <- setRefClass(
         exp_num_trans[, , , k] <<- exp_num_trans_ck # [R R n K]
 
         # For computing the global loglik
-        # w_k_fyi[, k] <- paramMixHMMR$alpha[k] * exp(Li)#[nx1]
-        log_w_k_fyi[, k] <<- log(paramMixHMMR$alpha[k]) + Li
+        # alpha_k_fyi[, k] <- paramMixHMMR$alpha[k] * exp(Li)#[nx1]
+        log_alpha_k_fyi[, k] <<- log(paramMixHMMR$alpha[k]) + Li
       }
 
-      log_w_k_fyi <<- pmin(log_w_k_fyi, log(.Machine$double.xmax))
-      log_w_k_fyi <<- pmax(log_w_k_fyi, log(.Machine$double.xmin))
+      log_alpha_k_fyi <<- pmin(log_alpha_k_fyi, log(.Machine$double.xmax))
+      log_alpha_k_fyi <<- pmax(log_alpha_k_fyi, log(.Machine$double.xmin))
 
-      tau_ik <<- exp(log_w_k_fyi) / (apply(exp(log_w_k_fyi), 1, sum) %*% matrix(1, 1, paramMixHMMR$K)) # Cluster post prob
+      tau_ik <<- exp(log_alpha_k_fyi) / (apply(exp(log_alpha_k_fyi), 1, sum) %*% matrix(1, 1, paramMixHMMR$K)) # Cluster post prob
 
       # Log-likelihood for the n curves
-      loglik <<- sum(log(apply(exp(log_w_k_fyi), 1, sum)))
+      loglik <<- sum(log(apply(exp(log_alpha_k_fyi), 1, sum)))
 
     }
   )

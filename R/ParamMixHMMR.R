@@ -31,8 +31,7 @@
 #'   (`variance_type = "homoskedastic"`) and `sigma2` is a matrix of size
 #' @field nu The degree of freedom of the MixHMMR model representing the
 #'   complexity of the model.
-#' @field phi A list giving the regression design matrices for the polynomial
-#'   and the logistic regressions.
+#' @field phi A list giving the regression design matrix for the polynomial regressions.
 #' @export
 ParamMixHMMR <- setRefClass(
   "ParamMixHMMR",
@@ -45,7 +44,7 @@ ParamMixHMMR <- setRefClass(
     p = "numeric", # Dimension of beta (order of polynomial regression)
     variance_type = "character",
     order_constraint = "logical",
-    nu = "numeric", # Degree of freedom
+    nu = "numeric", # Degrees of freedom
 
     alpha = "matrix", # Cluster weights
     prior = "matrix", # Initial distributions
@@ -263,12 +262,12 @@ ParamMixHMMR <- setRefClass(
 
         weights_cluster_k <- statMixHMMR$tau_ik[, k]
 
-        # Maximization of Q2 w.r.t \pi^g
+        # Maximization of Q2 w.r.t \pi_k
         exp_num_trans_k_from_l <- (matrix(1, R, 1) %*% t(weights_cluster_k)) * statMixHMMR$exp_num_trans_from_l[, , k] # [R x n]
 
         prior[, k] <<- (1 / sum(statMixHMMR$tau_ik[, k])) * apply(exp_num_trans_k_from_l, 1, sum) # sum over i
 
-        # Maximization of Q3 w.r.t A^g
+        # Maximization of Q3 w.r.t A_k
         for (r in 1:R) {
           if (fData$n == 1) {
             exp_num_trans_k[r, ,] <- t(matrix(1, R, 1) %*% weights_cluster_k) * drop(statMixHMMR$exp_num_trans[r, , , k])
@@ -290,17 +289,17 @@ ParamMixHMMR <- setRefClass(
           trans_mat[, , k] <<- mkStochastic(mask * trans_mat[, , k])
         }
 
-        # Maximisation of Q4 w.r.t with betak et sigmak
+        # Maximisation of Q4 w.r.t with betak et sigma2k
 
-        Ng <- apply(statMixHMMR$tau_ik, 2, sum) # Nbr of individuals within the cluster k ,k=1...K estimated at iteration q
-        ng <- Ng # Cardinal nbr of the cluster k
+        Nk <- apply(statMixHMMR$tau_ik, 2, sum) # Nbr of individuals within the cluster k ,k=1...K estimated at iteration q
+        nk <- Nk # Cardinal nbr of the cluster k
         # Each sequence i (m observations) is first weighted by the cluster weights
         weights_cluster_k <- matrix(t(statMixHMMR$tau_ik[, k]), nrow = fData$m, ncol = ncol(t(statMixHMMR$tau_ik)), byrow = T)
         weights_cluster_k <- matrix(as.vector(weights_cluster_k), length(as.vector(weights_cluster_k)), 1)
 
         # Secondly, the m observations of each sequence are weighted by the
         # weights of each segment k (post prob of the segments for each
-        # cluster g)
+        # cluster k)
 
         gamma_ijk <- statMixHMMR$gamma_ikjr[, , k] # [n*m R]
 
@@ -314,17 +313,17 @@ ParamMixHMMR <- setRefClass(
           # Weighted least squares: maximization w.r.t beta
           beta[, r, k] <<- solve(t(Xkr) %*% Xkr) %*% t(Xkr) %*% Ykr # Maximization w.r.t beta
 
-          # Maximization w.r.t sigmak :
+          # Maximization w.r.t sigma2k :
           z <- sqrt(weights_cluster_k * weights_seg_k) * (fData$vecY - repmat(phi, fData$n, 1) %*% beta[, r, k])
 
           if (variance_type == "homoskedastic") {
             s <- s + (t(z) %*% z)
-            ngm <- sum((weights_cluster_k %*% matrix(1, 1, R)) * gamma_ijk)
-            sigma2[k] <<- s / ngm
+            nkm <- sum((weights_cluster_k %*% matrix(1, 1, R)) * gamma_ijk)
+            sigma2[k] <<- s / nkm
           } else {
-            ngmk <- sum(weights_cluster_k * weights_seg_k)
+            nkmr <- sum(weights_cluster_k * weights_seg_k)
 
-            sigma2[r, k] <<- (t(z) %*% z) / ngmk
+            sigma2[r, k] <<- (t(z) %*% z) / nkmr
           }
         }
       }

@@ -16,7 +16,7 @@
 #' @field z_ik Hard segmentation logical matrix of dimension \eqn{(n, K)}
 #'   obtained by the Maximum a posteriori (MAP) rule: \eqn{z\_ik = 1 \
 #'   \textrm{if} \ z\_ik = \textrm{arg} \ \textrm{max}_{s} \ P(z_{is} = 1 |
-#'   \boldsymbol{Y_{i}}; \boldsymbol{\Psi}) = tau\_tk;\ 0 \
+#'   \boldsymbol{y}_{i}; \boldsymbol{\Psi}) = tau\_tk;\ 0 \
 #'   \textrm{otherwise}}{z_ik = 1 if z_ik = arg max_s P(z_{is} = 1 | Y_{i};
 #'   \Psi) = tau_ik; 0 otherwise}, \eqn{k = 1,\dots,K}.
 #' @field smoothed Matrix of size \eqn{(m, K)} giving the estimated mean series.
@@ -26,7 +26,7 @@
 #' @field AIC Numeric. Value of AIC (Akaike Information Criterion).
 #' @field ICL1 Numeric. Value of ICL (Integrated Completed Likelihood
 #'   Criterion).
-#' @field log_w_k_fyi Private. Only defined for calculations.
+#' @field log_alpha_k_fyi Private. Only defined for calculations.
 #' @field exp_num_trans Private. Only defined for calculations.
 #' @field exp_num_trans_from_l Private. Only defined for calculations.
 #' @seealso [ParamMixHMM]
@@ -36,7 +36,7 @@ StatMixHMM <- setRefClass(
   fields = list(
     tau_ik = "matrix",
     gamma_ikjr = "array",
-    log_w_k_fyi = "matrix",
+    log_alpha_k_fyi = "matrix",
     exp_num_trans = "array",
     exp_num_trans_from_l = "array",
     loglik = "numeric",
@@ -53,7 +53,7 @@ StatMixHMM <- setRefClass(
     initialize = function(paramMixHMM = ParamMixHMM()) {
       tau_ik <<- matrix(NA, paramMixHMM$fData$n, paramMixHMM$K)
       gamma_ikjr <<- array(NA, dim = c(paramMixHMM$fData$n * paramMixHMM$fData$m, paramMixHMM$R, paramMixHMM$K))
-      log_w_k_fyi <<- matrix(NA, paramMixHMM$fData$n, paramMixHMM$K)
+      log_alpha_k_fyi <<- matrix(NA, paramMixHMM$fData$n, paramMixHMM$K)
       exp_num_trans <<- array(NA, dim = c(paramMixHMM$R, paramMixHMM$R, paramMixHMM$fData$n, paramMixHMM$K))
       exp_num_trans_from_l <<- array(NA, dim = c(paramMixHMM$R, paramMixHMM$fData$n, paramMixHMM$K))
       loglik <<- -Inf
@@ -73,9 +73,9 @@ StatMixHMM <- setRefClass(
       by applying the Maximum A Posteriori Bayes allocation rule.
 
       \\eqn{z\\_ik = 1 \\ \\textrm{if} \\ z\\_ik = \\textrm{arg} \\
-      \\textrm{max}_{s} \\ P(z_{is} = 1 | \\boldsymbol{Y_{i}};
+      \\textrm{max}_{s} \\ P(z_{is} = 1 | \\boldsymbol{y}_{i};
       \\boldsymbol{\\Psi}) = tau\\_ik;\\ 0 \\ \\textrm{otherwise}}{z_ik = 1 if
-      z_ik = arg max_s P(z_{is} = 1 | Y_{i}; \\Psi) = tau_ik; 0 otherwise},
+      z_i = arg max_s P(z_{is} = 1 | Y_{i}; \\Psi) = tau_ik; 0 otherwise},
       \\eqn{k = 1,\\dots,K}."
 
       N <- nrow(tau_ik)
@@ -107,9 +107,9 @@ StatMixHMM <- setRefClass(
       AIC <<- loglik - paramMixHMM$nu
       # ICL*
       # Compute the comp-log-lik
-      cik_log_w_k_fyi <- (z_ik) * (log_w_k_fyi)
-      comp_loglik <- sum(cik_log_w_k_fyi)
-      ICL1 <<- comp_loglik - paramMixHMM$nu * log(paramMixHMM$fData$n) / 2 # n*m/2!
+      cik_log_alpha_k_fyi <- (z_ik) * (log_alpha_k_fyi)
+      comp_loglik <- sum(cik_log_alpha_k_fyi)
+      ICL1 <<- comp_loglik - paramMixHMM$nu * log(paramMixHMM$fData$n) / 2 # n*m/2
 
     },
 
@@ -121,7 +121,7 @@ StatMixHMM <- setRefClass(
       exp_num_trans_ck  <- array(0, dim = c(paramMixHMM$R, paramMixHMM$R, paramMixHMM$fData$n))
       exp_num_trans_from_l_ck <- matrix(0, paramMixHMM$R, paramMixHMM$fData$n)
 
-      w_k_fyi <- matrix(0, paramMixHMM$fData$n, paramMixHMM$K)
+      alpha_k_fyi <- matrix(0, paramMixHMM$fData$n, paramMixHMM$K)
 
       for (k in 1:paramMixHMM$K) {
         # Run a hmm for each sequence
@@ -141,14 +141,14 @@ StatMixHMM <- setRefClass(
 
             if (paramMixHMM$variance_type == "homoskedastic") {
               sigma2 <- paramMixHMM$sigma2[k]
-              sk <- sigma2
+              sig2kr <- sigma2
             } else {
               sigma2 <- paramMixHMM$sigma2[, k]
-              sk <- sigma2[r]
+              sig2kr <- sigma2[r]
             }
-            z <- ((y_i - mukr * matrix(1, 1, paramMixHMM$fData$m)) ^ 2) / sk
-            log_fkr_yij[r,] <- -0.5 * matrix(1, 1, paramMixHMM$fData$m) * (log(2 * pi) + log(sk)) - 0.5 * z# pdf cond ? c_i = g et z_i = k de yij
-            fkr_yij[r,] <- dnorm(y_i, mukr * matrix(1, 1, paramMixHMM$fData$m), sqrt(sk))
+            z <- ((y_i - mukr * matrix(1, 1, paramMixHMM$fData$m)) ^ 2) / sig2kr
+            log_fkr_yij[r,] <- -0.5 * matrix(1, 1, paramMixHMM$fData$m) * (log(2 * pi) + log(sig2kr)) - 0.5 * z# log pdf yij |z_i = k, h_i = r
+            fkr_yij[r,] <- dnorm(y_i, mukr * matrix(1, 1, paramMixHMM$fData$m), sqrt(sig2kr))
 
           }
 
@@ -161,33 +161,33 @@ StatMixHMM <- setRefClass(
           backw_ik <- fb$beta_tk
           loglik_i <- fb$loglik
 
-          Li[i] <- loglik_i # Loglik of the ith curve
+          Li[i] <- loglik_i # loglik for the ith curve  ( logProb(Yi)
 
-          gamma_ikjr[(((i - 1) * paramMixHMM$fData$m + 1):(i * paramMixHMM$fData$m)), , k] <<- t(gamma_ik) # [n*m K G]
+          gamma_ikjr[(((i - 1) * paramMixHMM$fData$m + 1):(i * paramMixHMM$fData$m)), , k] <<- t(gamma_ik) # [n*m R K]
 
-          exp_num_trans_ck[, , i] <- apply(xi_ik, MARGIN = c(1, 2), sum) # [K K n]
-          exp_num_trans_from_l_ck[, i] <- gamma_ik[, 1] # [K x n]
+          exp_num_trans_ck[, , i] <- apply(xi_ik, MARGIN = c(1, 2), sum) # [R R n]
+          exp_num_trans_from_l_ck[, i] <- gamma_ik[, 1] # [R x n]
         }
 
-        exp_num_trans_from_l[, , k] <<- exp_num_trans_from_l_ck # [K n G]
-        exp_num_trans[, , , k] <<- exp_num_trans_ck # [K K n G]
+        exp_num_trans_from_l[, , k] <<- exp_num_trans_from_l_ck # [R n K]
+        exp_num_trans[, , , k] <<- exp_num_trans_ck # [R R n K]
 
         # For the MAP partition:  the numerator of the cluster post probabilities
         # num_log_post_prob[,k] <- log(param$alpha[k]) + Li
 
         # For computing the global loglik
-        w_k_fyi[, k] <- paramMixHMM$alpha[k] * exp(Li) # [nx1]
+        alpha_k_fyi[, k] <- paramMixHMM$alpha[k] * exp(Li) # [nx1]
 
-        log_w_k_fyi[, k] <<- log(paramMixHMM$alpha[k]) + Li
+        log_alpha_k_fyi[, k] <<- log(paramMixHMM$alpha[k]) + Li
       }
 
-      log_w_k_fyi <<- pmin(log_w_k_fyi, log(.Machine$double.xmax))
-      log_w_k_fyi <<- pmax(log_w_k_fyi, log(.Machine$double.xmin))
+      log_alpha_k_fyi <<- pmin(log_alpha_k_fyi, log(.Machine$double.xmax))
+      log_alpha_k_fyi <<- pmax(log_alpha_k_fyi, log(.Machine$double.xmin))
 
-      tau_ik <<- exp(log_w_k_fyi) / (apply(exp(log_w_k_fyi), 1, sum) %*% matrix(1, 1, paramMixHMM$K))
+      tau_ik <<- exp(log_alpha_k_fyi) / (apply(exp(log_alpha_k_fyi), 1, sum) %*% matrix(1, 1, paramMixHMM$K))
 
       # Log-likelihood
-      loglik <<- sum(log(apply(exp(log_w_k_fyi), 1, sum)))
+      loglik <<- sum(log(apply(exp(log_alpha_k_fyi), 1, sum)))
 
     }
   )
