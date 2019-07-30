@@ -1,4 +1,4 @@
-#' FLaMingoS: Functional Latent datA Models for clusterING heterogeneOus time-Series
+#' FLaMingos: Functional Latent datA Models for clusterING heterogeneOus curveS
 #'
 #' @description `flamingos` is an open-source toolbox for the simultaneous clustering (or
 #' classification) and segmentation of heterogeneous functional data (i.e

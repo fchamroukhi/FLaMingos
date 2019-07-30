@@ -17,10 +17,10 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/fchamroukhi/FLaMingoS.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingoS)
+[![Travis build status](https://travis-ci.org/fchamroukhi/FLaMingos.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingos)
 <!-- badges: end -->
 
-# **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
+# **FLaMingos**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us curve**S**
 
 flamingos is an open-source toolbox (available in R and in Matlab) for the 
 simultaneous clustering and segmentation of heterogeneous functional data (i.e
@@ -28,7 +28,7 @@ time-series ore more generally longitudinal data), with original and flexible
 functional latent variable models, fitted by unsupervised algorithms, 
 including EM algorithms.
 
-Our nice FLaMingoS are mainly:
+Our nice FLaMingos are mainly:
 
 * mixRHLP;
 * mixHMM;
@@ -40,18 +40,18 @@ Marius Bartcus and Faicel Chamroukhi.
 
 # Installation
 
-You can install the **flamingos** package from [GitHub](https://github.com/fchamroukhi/FLaMingoS) with:
+You can install the **flamingos** package from [GitHub](https://github.com/fchamroukhi/FLaMingos) with:
 
 ```{r, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("fchamroukhi/FLaMingoS")
+devtools::install_github("fchamroukhi/FLaMingos")
 ```
 
 To build *vignettes* for examples of usage, type the command below instead:
 
 ```{r, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("fchamroukhi/FLaMingoS", 
+devtools::install_github("fchamroukhi/FLaMingos", 
                          build_opts = c("--no-resave-data", "--no-manual"), 
                          build_vignettes = TRUE)
 ```
@@ -59,7 +59,7 @@ devtools::install_github("fchamroukhi/FLaMingoS",
 Use the following command to display vignettes:
 
 ```{r, eval = FALSE}
-browseVignettes("FLaMingoS")
+browseVignettes("flamingos")
 ```
 
 # Usage

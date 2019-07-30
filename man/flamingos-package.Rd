@@ -4,7 +4,7 @@
 \name{flamingos-package}
 \alias{flamingos}
 \alias{flamingos-package}
-\title{FLaMingoS: Functional Latent datA Models for clusterING heterogeneOus time-Series}
+\title{FLaMingos: Functional Latent datA Models for clusterING heterogeneOus curveS}
 \description{
 \code{flamingos} is an open-source toolbox for the simultaneous clustering (or
 classification) and segmentation of heterogeneous functional data (i.e
@@ -50,8 +50,8 @@ Chamroukhi, F. 2010. \emph{Hidden Process Regression for Curve Modeling, Classif
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/fchamroukhi/FLaMingoS}
-  \item Report bugs at \url{https://github.com/fchamroukhi/FLaMingoS/issues}
+  \item \url{https://github.com/fchamroukhi/FLaMingos}
+  \item Report bugs at \url{https://github.com/fchamroukhi/FLaMingos/issues}
 }
 
 }

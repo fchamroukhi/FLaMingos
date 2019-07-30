@@ -7,17 +7,17 @@ note <- sprintf("R package version %s", meta$Version)
 
 citEntry(
   entry = "Manual",
-  title = "flamingos: Functional Latent Data Models for Clustering Heterogeneous Time-Series ('FLaMingoS')",
+  title = "flamingos: Functional Latent Data Models for Clustering Heterogeneous Curves ('FLaMingos')",
   author = personList(person(given="F.", family="Chamroukhi"),
                       person(given="M.", family="Bartcus"),
                       person(given="F.", family="Lecocq")),
   year = "2019",
   note = note,
-  url = "https://github.com/fchamroukhi/FLaMingoS",
+  url = "https://github.com/fchamroukhi/FLaMingos",
   textVersion = paste0("Chamroukhi F, Bartcus M, Lecocq F (2019).
   flamingos: Functional Latent Data Models for Clustering Heterogeneous
-  Time-Series ('FLaMingoS'). ", note,
-  ". <URL: https://github.com/fchamroukhi/FLaMingoS>.")
+  Curves ('FLaMingos'). ", note,
+  ". <URL: https://github.com/fchamroukhi/FLaMingos>.")
 )
 
 citEntry(
