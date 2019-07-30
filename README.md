@@ -9,11 +9,11 @@ status](https://travis-ci.org/fchamroukhi/FLaMingoS.svg?branch=master)](https://
 
 # **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
 
-flamingos is an open-source toolbox for the simultaneous clustering and
-segmentation of heterogeneous functional data (i.e time-series ore more
-generally longitudinal data), with original and flexible functional
-latent variable models, fitted by unsupervised algorithms, including EM
-algorithms.
+flamingos is an open-source toolbox (available in R and in Matlab) for
+the simultaneous clustering and segmentation of heterogeneous functional
+data (i.e time-series ore more generally longitudinal data), with
+original and flexible functional latent variable models, fitted by
+unsupervised algorithms, including EM algorithms.
 
 Our nice FLaMingoS are mainly:
 
@@ -311,13 +311,13 @@ mixrhlp$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1     6.3513369    4.214736   6.6536553
-#> X^1  -0.2449377    0.839666   0.1024863
+#> 1     6.8902863   5.1134337  3.90153421
+#> X^1   0.9265632  -0.3959402  0.08748466
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9498285     0.9270384      1.001413
+#>       0.981915     0.9787717     0.9702211
 #> 
 #> --------------------
 #> Cluster 2 (k = 2):
@@ -339,13 +339,13 @@ mixrhlp$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1     6.8902863   5.1134337  3.90153421
-#> X^1   0.9265632  -0.3959402  0.08748466
+#> 1     6.3513369    4.214736   6.6536553
+#> X^1  -0.2449377    0.839666   0.1024863
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>       0.981915     0.9787717     0.9702211
+#>      0.9498285     0.9270384      1.001413
 
 mixrhlp$plot()
 ```
@@ -409,19 +409,6 @@ mixhmm$summary()
 #> Means:
 #> 
 #>     r = 1    r = 2    r = 3
-#>  4.987066 6.963998 4.987279
-#> 
-#> Variances:
-#> 
-#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9578459      1.045573      0.952294
-#> 
-#> -------------------
-#> Cluster 2 (k = 2):
-#> 
-#> Means:
-#> 
-#>     r = 1    r = 2    r = 3
 #>  6.319189 4.583954 6.722627
 #> 
 #> Variances:
@@ -430,7 +417,7 @@ mixhmm$summary()
 #>      0.9571803     0.9504731       1.01553
 #> 
 #> -------------------
-#> Cluster 3 (k = 3):
+#> Cluster 2 (k = 2):
 #> 
 #> Means:
 #> 
@@ -441,6 +428,19 @@ mixhmm$summary()
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9858726     0.9884542     0.9651437
+#> 
+#> -------------------
+#> Cluster 3 (k = 3):
+#> 
+#> Means:
+#> 
+#>     r = 1    r = 2    r = 3
+#>  4.987066 6.963998 4.987279
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9578459      1.045573      0.952294
 
 mixhmm$plot()
 ```
@@ -519,20 +519,6 @@ mixhmmr$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1     6.3552432   4.2868818   6.5327846
-#> X^1  -0.2865404   0.6907212   0.2429291
-#> 
-#> Variances:
-#> 
-#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9587975     0.9481068       1.01388
-#> 
-#> --------------------
-#> Cluster 2 (k = 2):
-#> 
-#> Regression coefficients for each regime/segment r (r=1...R):
-#> 
-#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1     4.9512819   6.8393804   4.9076599
 #> X^1   0.2099508   0.2822775   0.1031626
 #> 
@@ -540,6 +526,20 @@ mixhmmr$summary()
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9576192      1.045043      0.952047
+#> 
+#> --------------------
+#> Cluster 2 (k = 2):
+#> 
+#> Regression coefficients for each regime/segment r (r=1...R):
+#> 
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
+#> 1     6.3552432   4.2868818   6.5327846
+#> X^1  -0.2865404   0.6907212   0.2429291
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9587975     0.9481068       1.01388
 #> 
 #> --------------------
 #> Cluster 3 (k = 3):

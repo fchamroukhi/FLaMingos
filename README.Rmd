@@ -22,10 +22,11 @@ knitr::opts_chunk$set(
 
 # **FLaMingoS**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us time-**S**eries
 
-flamingos is an open-source toolbox for the simultaneous clustering and 
-segmentation of heterogeneous functional data (i.e time-series ore more 
-generally longitudinal data), with original and flexible functional latent 
-variable models, fitted by unsupervised algorithms, including EM algorithms.
+flamingos is an open-source toolbox (available in R and in Matlab) for the 
+simultaneous clustering and segmentation of heterogeneous functional data (i.e
+time-series ore more generally longitudinal data), with original and flexible
+functional latent variable models, fitted by unsupervised algorithms, 
+including EM algorithms.
 
 Our nice FLaMingoS are mainly:
 
