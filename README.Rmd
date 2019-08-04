@@ -73,6 +73,8 @@ library(flamingos)
 
 ```{r, message = FALSE}
 data("toydataset")
+x <- toydataset$x
+Y <- t(toydataset[,2:ncol(toydataset)])
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes (polynomial regression components)
@@ -87,9 +89,8 @@ verbose <- TRUE
 verbose_IRLS <- FALSE
 init_kmeans <- TRUE
 
-mixrhlp <- emMixRHLP(toydataset$x, t(toydataset[,2:ncol(toydataset)]), 
-                     K, R, p, q, variance_type, init_kmeans, n_tries, max_iter, 
-                     threshold, verbose, verbose_IRLS)
+mixrhlp <- emMixRHLP(X = x, Y = Y, K, R, p, q, variance_type, init_kmeans, 
+                     n_tries, max_iter, threshold, verbose, verbose_IRLS)
 
 mixrhlp$summary()
 
@@ -103,6 +104,7 @@ mixrhlp$plot()
 
 ```{r, message = FALSE}
 data("toydataset")
+Y <- t(toydataset[,2:ncol(toydataset)])
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes (HMM states)
@@ -115,9 +117,8 @@ init_kmeans <- TRUE
 threshold <- 1e-6
 verbose <- TRUE
 
-mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K, R, variance_type,
-                   ordered_states, init_kmeans, n_tries, max_iter, 
-                   threshold, verbose)
+mixhmm <- emMixHMM(Y = Y, K, R, variance_type, ordered_states, init_kmeans, 
+                   n_tries, max_iter, threshold, verbose)
 
 mixhmm$summary()
 
@@ -131,6 +132,8 @@ mixhmm$plot()
   
 ```{r, message = FALSE}
 data("toydataset")
+x <- toydataset$x
+Y <- t(toydataset[,2:ncol(toydataset)])
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes/states
@@ -144,9 +147,8 @@ init_kmeans <- TRUE
 threshold <- 1e-6
 verbose <- TRUE
 
-mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]), K, R, p,
-                     variance_type, ordered_states, init_kmeans, n_tries, 
-                     max_iter, threshold, verbose)
+mixhmmr <- emMixHMMR(X = x, Y = Y, K, R, p, variance_type, ordered_states, 
+                     init_kmeans, n_tries, max_iter, threshold, verbose)
 
 mixhmmr$summary()
 

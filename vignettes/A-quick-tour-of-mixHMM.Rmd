@@ -45,6 +45,7 @@ See `help(package="flamingos")` for further details and references provided by
 
 ```{r}
 data("toydataset")
+Y <- t(toydataset[,2:ncol(toydataset)])
 ```
 
 # Set up mixHMM model parameters
@@ -69,7 +70,8 @@ verbose <- TRUE
 # Estimation
 
 ```{r}
-mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K, R, variance_type, ordered_states, init_kmeans, n_tries, max_iter, threshold, verbose)
+mixhmm <- emMixHMM(Y = Y, K, R, variance_type, ordered_states, init_kmeans, 
+                   n_tries, max_iter, threshold, verbose)
 ```
 
 # Summary

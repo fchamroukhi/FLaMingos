@@ -63,6 +63,8 @@ library(flamingos)
 
 ``` r
 data("toydataset")
+x <- toydataset$x
+Y <- t(toydataset[,2:ncol(toydataset)])
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes (polynomial regression components)
@@ -77,9 +79,8 @@ verbose <- TRUE
 verbose_IRLS <- FALSE
 init_kmeans <- TRUE
 
-mixrhlp <- emMixRHLP(toydataset$x, t(toydataset[,2:ncol(toydataset)]), 
-                     K, R, p, q, variance_type, init_kmeans, n_tries, max_iter, 
-                     threshold, verbose, verbose_IRLS)
+mixrhlp <- emMixRHLP(X = x, Y = Y, K, R, p, q, variance_type, init_kmeans, 
+                     n_tries, max_iter, threshold, verbose, verbose_IRLS)
 #> EM - mixRHLP: Iteration: 1 | log-likelihood: -18129.8169520025
 #> EM - mixRHLP: Iteration: 2 | log-likelihood: -16642.732267463
 #> EM - mixRHLP: Iteration: 3 | log-likelihood: -16496.947898833
@@ -311,13 +312,13 @@ mixrhlp$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1    4.96556671   6.7326717   4.8807183
-#> X^1  0.08880479   0.4984443   0.1350271
+#> 1     6.8902863   5.1134337  3.90153421
+#> X^1   0.9265632  -0.3959402  0.08748466
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9559969       1.03849     0.9506928
+#>       0.981915     0.9787717     0.9702211
 #> 
 #> --------------------
 #> Cluster 2 (k = 2):
@@ -339,13 +340,13 @@ mixrhlp$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1     6.8902863   5.1134337  3.90153421
-#> X^1   0.9265632  -0.3959402  0.08748466
+#> 1    4.96556671   6.7326717   4.8807183
+#> X^1  0.08880479   0.4984443   0.1350271
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>       0.981915     0.9787717     0.9702211
+#>      0.9559969       1.03849     0.9506928
 
 mixrhlp$plot()
 ```
@@ -360,6 +361,7 @@ mixrhlp$plot()
 
 ``` r
 data("toydataset")
+Y <- t(toydataset[,2:ncol(toydataset)])
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes (HMM states)
@@ -372,9 +374,8 @@ init_kmeans <- TRUE
 threshold <- 1e-6
 verbose <- TRUE
 
-mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K, R, variance_type,
-                   ordered_states, init_kmeans, n_tries, max_iter, 
-                   threshold, verbose)
+mixhmm <- emMixHMM(Y = Y, K, R, variance_type, ordered_states, init_kmeans, 
+                   n_tries, max_iter, threshold, verbose)
 #> EM - mixHMMs: Iteration: 1 | log-likelihood: -19054.7157954833
 #> EM - mixHMMs: Iteration: 2 | log-likelihood: -15386.7973253636
 #> EM - mixHMMs: Iteration: 3 | log-likelihood: -15141.8435629464
@@ -408,19 +409,6 @@ mixhmm$summary()
 #> 
 #> Means:
 #> 
-#>    r = 1    r = 2    r = 3
-#>  7.00202 4.964273 3.979626
-#> 
-#> Variances:
-#> 
-#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9858726     0.9884542     0.9651437
-#> 
-#> -------------------
-#> Cluster 2 (k = 2):
-#> 
-#> Means:
-#> 
 #>     r = 1    r = 2    r = 3
 #>  4.987066 6.963998 4.987279
 #> 
@@ -428,6 +416,19 @@ mixhmm$summary()
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9578459      1.045573      0.952294
+#> 
+#> -------------------
+#> Cluster 2 (k = 2):
+#> 
+#> Means:
+#> 
+#>    r = 1    r = 2    r = 3
+#>  7.00202 4.964273 3.979626
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9858726     0.9884542     0.9651437
 #> 
 #> -------------------
 #> Cluster 3 (k = 3):
@@ -455,6 +456,8 @@ mixhmm$plot()
 
 ``` r
 data("toydataset")
+x <- toydataset$x
+Y <- t(toydataset[,2:ncol(toydataset)])
 
 K <- 3 # Number of clusters
 R <- 3 # Number of regimes/states
@@ -468,9 +471,8 @@ init_kmeans <- TRUE
 threshold <- 1e-6
 verbose <- TRUE
 
-mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]), K, R, p,
-                     variance_type, ordered_states, init_kmeans, n_tries, 
-                     max_iter, threshold, verbose)
+mixhmmr <- emMixHMMR(X = x, Y = Y, K, R, p, variance_type, ordered_states, 
+                     init_kmeans, n_tries, max_iter, threshold, verbose)
 #> EM - mixHMMR: Iteration: 1 || log-likelihood: -18975.6323298895
 #> EM - mixHMMR: Iteration: 2 || log-likelihood: -15198.5811534058
 #> EM - mixHMMR: Iteration: 3 || log-likelihood: -15118.0350455527
@@ -519,13 +521,13 @@ mixhmmr$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1     6.3552432   4.2868818   6.5327846
-#> X^1  -0.2865404   0.6907212   0.2429291
+#> 1     4.9512819   6.8393804   4.9076599
+#> X^1   0.2099508   0.2822775   0.1031626
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9587975     0.9481068       1.01388
+#>      0.9576192      1.045043      0.952047
 #> 
 #> --------------------
 #> Cluster 2 (k = 2):
@@ -547,13 +549,13 @@ mixhmmr$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1     4.9512819   6.8393804   4.9076599
-#> X^1   0.2099508   0.2822775   0.1031626
+#> 1     6.3552432   4.2868818   6.5327846
+#> X^1  -0.2865404   0.6907212   0.2429291
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9576192      1.045043      0.952047
+#>      0.9587975     0.9481068       1.01388
 
 mixhmmr$plot()
 ```

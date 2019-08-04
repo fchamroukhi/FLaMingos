@@ -46,8 +46,9 @@ associated to the MixHMM model.}
 
 \examples{
 data(toydataset)
+Y <- t(toydataset[,2:ncol(toydataset)])
 
-mixhmm <- emMixHMM(t(toydataset[,2:ncol(toydataset)]), K = 3, R = 3, verbose = TRUE)
+mixhmm <- emMixHMM(Y = Y, K = 3, R = 3, verbose = TRUE)
 
 # mixhmm is a ModelMixHMM object. It contains some methods such as 'summary' and 'plot'
 mixhmm$summary()

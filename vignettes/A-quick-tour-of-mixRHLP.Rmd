@@ -46,6 +46,8 @@ See `help(package="flamingos")` for further details and references provided by
 
 ```{r}
 data("toydataset")
+x <- toydataset$x
+Y <- t(toydataset[,2:ncol(toydataset)])
 ```
 
 # Set up mixRHLP model parameters
@@ -72,9 +74,8 @@ init_kmeans <- TRUE
 # Estimation
 
 ```{r}
-mixrhlp <- emMixRHLP(toydataset$x, t(toydataset[,2:ncol(toydataset)]), 
-                     K, R, p, q, variance_type, init_kmeans, n_tries, max_iter, 
-                     threshold, verbose, verbose_IRLS)
+mixrhlp <- emMixRHLP(X = x, Y = Y, K, R, p, q, variance_type, init_kmeans, 
+                     n_tries, max_iter, threshold, verbose, verbose_IRLS)
 ```
 
 # Summary

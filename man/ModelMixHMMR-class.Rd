@@ -46,9 +46,10 @@ statistics associated to the MixHMMR model.}
 
 \examples{
 data(toydataset)
+x <- toydataset$x
+Y <- t(toydataset[,2:ncol(toydataset)])
 
-mixhmmr <- emMixHMMR(toydataset$x, t(toydataset[,2:ncol(toydataset)]),
-                     K = 3, R = 3, p = 1, verbose = TRUE)
+mixhmmr <- emMixHMMR(X = x, Y = Y, K = 3, R = 3, p = 1, verbose = TRUE)
 
 # mixhmmr is a ModelMixHMMR object. It contains some methods such as 'summary' and 'plot'
 mixhmmr$summary()

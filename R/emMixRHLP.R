@@ -54,9 +54,10 @@
 #'
 #' # Let's fit a mixRHLP model on a dataset containing 2 clusters:
 #' data <- toydataset[1:190,1:21]
+#' x <- data$x
+#' Y <- t(data[,2:ncol(data)])
 #'
-#' mixrhlp <- emMixRHLP(data$x, t(data[,2:ncol(data)]),
-#'                      K = 2, R = 2, p = 1, verbose = TRUE)
+#' mixrhlp <- emMixRHLP(X = x, Y = Y, K = 2, R = 2, p = 1, verbose = TRUE)
 #'
 #' mixrhlp$summary()
 #'
