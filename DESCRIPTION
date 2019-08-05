@@ -1,6 +1,6 @@
 Type: Package
 Package: flamingos
-Title: Functional Latent Data Models for Clustering Heterogeneous Curves
+Title: Functional Latent Data Models for Clustering Heterogeneous Curves ('FLaMingos')
 Version: 0.1.0
 Authors@R: c(person("Faicel", "Chamroukhi", role = c("aut"),
     email = "faicel.chamroukhi@unicaen.fr",
