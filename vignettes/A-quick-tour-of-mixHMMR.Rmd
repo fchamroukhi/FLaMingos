@@ -72,7 +72,7 @@ verbose <- TRUE
 
 # Estimation
 
-```{r}
+```{r, echo=TRUE}
 mixhmmr <- emMixHMMR(X = x, Y = Y, K, R, p, variance_type, ordered_states, 
                      init_kmeans, n_tries, max_iter, threshold, verbose)
 ```

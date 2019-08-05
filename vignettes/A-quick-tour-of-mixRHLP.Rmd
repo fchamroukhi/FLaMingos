@@ -73,7 +73,7 @@ init_kmeans <- TRUE
 
 # Estimation
 
-```{r}
+```{r, echo=TRUE}
 mixrhlp <- emMixRHLP(X = x, Y = Y, K, R, p, q, variance_type, init_kmeans, 
                      n_tries, max_iter, threshold, verbose, verbose_IRLS)
 ```

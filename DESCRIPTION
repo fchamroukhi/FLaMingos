@@ -16,7 +16,7 @@ Description: Provides a variety of original and flexible user-friendly
     segmentation of heterogeneous functional data (i.e time series, or more 
     generally longitudinal data, fitted by unsupervised algorithms, including 
     EM algorithms. Functional Latent Data Models for Clustering heterogeneous 
-    curves ('FLaMingos') are originally introduced and written in Matlab by
+    curves ('FLaMingos') are originally introduced and written in 'Matlab' by
     Faicel Chamroukhi 
     <https://github.com/fchamroukhi?utf8=?&tab=repositories&q=mix&type=public&language=matlab>. 
     The references are mainly the following ones.

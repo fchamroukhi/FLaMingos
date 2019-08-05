@@ -71,7 +71,7 @@ library(flamingos)
 <details>
   <summary>mixRHLP</summary>
 
-```{r, message = FALSE}
+```{r, echo=TRUE}
 data("toydataset")
 x <- toydataset$x
 Y <- t(toydataset[,2:ncol(toydataset)])
@@ -102,7 +102,7 @@ mixrhlp$plot()
 <details>
   <summary>mixHMM</summary>
 
-```{r, message = FALSE}
+```{r, echo=TRUE}
 data("toydataset")
 Y <- t(toydataset[,2:ncol(toydataset)])
 
@@ -130,7 +130,7 @@ mixhmm$plot()
 <details>
   <summary>mixHMMR</summary>
   
-```{r, message = FALSE}
+```{r, echo=TRUE}
 data("toydataset")
 x <- toydataset$x
 Y <- t(toydataset[,2:ncol(toydataset)])

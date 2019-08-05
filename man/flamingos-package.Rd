@@ -6,10 +6,10 @@
 \alias{flamingos-package}
 \title{FLaMingos: Functional Latent datA Models for clusterING heterogeneOus curveS}
 \description{
-\code{flamingos} is an open-source toolbox for the simultaneous clustering (or
-classification) and segmentation of heterogeneous functional data (i.e
-time-series ore more generally longitudinal data), with original and
-flexible functional latent variable models, fitted by unsupervised
+\code{flamingos} is an open-source toolbox for the simultaneous
+clustering (or classification) and segmentation of heterogeneous functional
+data (i.e time-series ore more generally longitudinal data), with original
+and flexible functional latent variable models, fitted by unsupervised
 algorithms, including EM algorithms.
 
 \code{flamingos} contains the following time series clustering and segmentation models:

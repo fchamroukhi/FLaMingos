@@ -75,7 +75,7 @@ cemMixRHLP <- function(X, Y, K, R, p = 3, q = 1, variance_type = c("heteroskedas
   while (try_CEM < n_tries) {
     try_CEM <- try_CEM + 1
     if (n_tries > 1 && verbose) {
-      cat(paste0("EM try number: ", try_CEM, "\n\n"))
+      message("EM try number: ", try_CEM, "\n")
     }
 
     # Initialization
@@ -103,11 +103,11 @@ cemMixRHLP <- function(X, Y, K, R, p = 3, q = 1, variance_type = c("heteroskedas
 
       iter <- iter + 1
       if (verbose) {
-        cat(paste0("CEM - mixRHLP: Iteration: ", iter, " | Complete log-likelihood: "  , stat$com_loglik, "\n"))
+        message("CEM - mixRHLP: Iteration: ", iter, " | Complete log-likelihood: "  , stat$com_loglik)
       }
 
       if (prev_com_loglik - stat$com_loglik > 1e-5) {
-        warning(paste0("CEM complete log-likelihood is decreasing from ", prev_com_loglik, "to ", stat$com_loglik, " !"))
+        warning("CEM complete log-likelihood is decreasing from ", prev_com_loglik, "to ", stat$com_loglik, " !")
         top <- top + 1
         if (top > 20)
           break
@@ -129,12 +129,12 @@ cemMixRHLP <- function(X, Y, K, R, p = 3, q = 1, variance_type = c("heteroskedas
       best_com_loglik <- stat$com_loglik
     }
     if (n_tries > 1 && verbose) {
-      cat(paste0("Max value of the complete log-likelihood: ", stat$com_loglik, "\n\n"))
+      message("Max value of the complete log-likelihood: ", stat$com_loglik, "\n\n")
     }
   }
 
   if (n_tries > 1 && verbose) {
-    cat(paste0("Best value of the complete log-likelihood: ", statSolution$com_loglik, "\n"))
+    message("Best value of the complete log-likelihood: ", statSolution$com_loglik, "\n")
   }
 
   statSolution$computeStats(paramSolution)

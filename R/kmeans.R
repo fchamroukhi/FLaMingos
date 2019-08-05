@@ -28,7 +28,7 @@ kmeans = function(X, K, nbr_runs = 20, nbr_iter_max = 300, verbose = FALSE) {
     while (nb_run < nbr_runs) {
       nb_run = nb_run + 1
       if (nbr_runs > 0 && verbose) {
-        cat(sprintf("Kmeans : run n?? %1i", nb_run), "\n")
+        message(sprintf("Kmeans : run # %1i", nb_run), "\n")
       }
 
       iter = 0
@@ -91,7 +91,7 @@ kmeans = function(X, K, nbr_runs = 20, nbr_iter_max = 300, verbose = FALSE) {
         previous_err = current_err
 
         if (verbose) {
-          cat(sprintf("Kmeans : Iteration  %1.1i, Objective %2.2f", iter, current_err), "\n")
+          message(sprintf("Kmeans : Iteration  %1.1i, Objective %2.2f", iter, current_err), "\n")
         }
         solution$stored_err = cbind(solution$stored_err, current_err)
       }
