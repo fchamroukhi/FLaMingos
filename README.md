@@ -1,13 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# **FLaMingos**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us curve**S**
+
 <!-- badges: start -->
 
 [![Travis build
 status](https://travis-ci.org/fchamroukhi/FLaMingos.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingos)
+[![CRAN
+versions](https://www.r-pkg.org/badges/version/flamingos)](https://cran.r-project.org/web/packages/flamingos/index.html)
 <!-- badges: end -->
-
-# **FLaMingos**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us curve**S**
 
 flamingos is an open-source toolbox (available in R and in Matlab) for
 the simultaneous clustering and segmentation of heterogeneous functional
@@ -312,20 +314,6 @@ mixrhlp$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1    4.96556671   6.7326717   4.8807183
-#> X^1  0.08880479   0.4984443   0.1350271
-#> 
-#> Variances:
-#> 
-#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9559969       1.03849     0.9506928
-#> 
-#> --------------------
-#> Cluster 2 (k = 2):
-#> 
-#> Regression coefficients for each regime/segment r (r=1...R):
-#> 
-#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1     6.8902863   5.1134337  3.90153421
 #> X^1   0.9265632  -0.3959402  0.08748466
 #> 
@@ -333,6 +321,20 @@ mixrhlp$summary()
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>       0.981915     0.9787717     0.9702211
+#> 
+#> --------------------
+#> Cluster 2 (k = 2):
+#> 
+#> Regression coefficients for each regime/segment r (r=1...R):
+#> 
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
+#> 1    4.96556671   6.7326717   4.8807183
+#> X^1  0.08880479   0.4984443   0.1350271
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9559969       1.03849     0.9506928
 #> 
 #> --------------------
 #> Cluster 3 (k = 3):
@@ -423,12 +425,12 @@ mixhmm$summary()
 #> Means:
 #> 
 #>     r = 1    r = 2    r = 3
-#>  4.987066 6.963998 4.987279
+#>  6.319189 4.583954 6.722627
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9578459      1.045573      0.952294
+#>      0.9571803     0.9504731       1.01553
 #> 
 #> -------------------
 #> Cluster 3 (k = 3):
@@ -436,12 +438,12 @@ mixhmm$summary()
 #> Means:
 #> 
 #>     r = 1    r = 2    r = 3
-#>  6.319189 4.583954 6.722627
+#>  4.987066 6.963998 4.987279
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9571803     0.9504731       1.01553
+#>      0.9578459      1.045573      0.952294
 
 mixhmm$plot()
 ```

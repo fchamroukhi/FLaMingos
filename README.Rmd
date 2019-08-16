@@ -16,11 +16,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+# **FLaMingos**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us curve**S**
+
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/fchamroukhi/FLaMingos.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingos)
+[![CRAN versions](https://www.r-pkg.org/badges/version/flamingos)](https://cran.r-project.org/web/packages/flamingos/index.html)
 <!-- badges: end -->
-
-# **FLaMingos**: **F**unctional **L**atent dat**A** **M**odels for cluster**ING** heterogene**O**us curve**S**
 
 flamingos is an open-source toolbox (available in R and in Matlab) for the 
 simultaneous clustering and segmentation of heterogeneous functional data (i.e
