@@ -33,7 +33,7 @@ Chamroukhi, F. 2016. \emph{Unsupervised Learning of Regression Mixture Models wi
 
 Chamroukhi, Faicel. 2016. \emph{Piecewise Regression Mixture for Simultaneous Functional Data Clustering and Optimal Segmentation.} Journal of Classification 33 (3): 374--411. \url{https://chamroukhi.com/papers/Chamroukhi-PWRM-JournalClassif-2016.pdf}.
 
-Chamroukhi, F. 2015. \emph{Statistical Learning of Latent Data Models for Complex Data Analysis.} Habilitation Thesis (HDR), Universite de Toulon. \url{https://chamroukhi.com/Dossier/FChamroukhi-Habilitation.pdf}.
+Chamroukhi, F. 2015. \emph{Statistical Learning of Latent Data Models for Complex Data Analysis.} Habilitation Thesis (HDR), Universite de Toulon. \url{https://chamroukhi.com/FChamroukhi-HDR.pdf}.
 
 Chamroukhi, F., H. Glotin, and A. Same. 2013. \emph{Model-Based Functional Mixture Discriminant Analysis with Hidden Process Regression for Curve Classification.} Neurocomputing 112: 153--63. \url{https://chamroukhi.com/papers/chamroukhi_et_al_neucomp2013a.pdf}.
 
@@ -45,7 +45,7 @@ Chamroukhi, F., A. Same, P. Aknin, and G. Govaert. 2011. \emph{Model-Based Clust
 
 Chamroukhi, F., A. Same, G. Govaert, and P. Aknin. 2010. \emph{A Hidden Process Regression Model for Functional Data Description. Application to Curve Discrimination.} Neurocomputing 73 (7-9): 1210--21. \url{https://chamroukhi.com/papers/chamroukhi_neucomp_2010.pdf}.
 
-Chamroukhi, F. 2010. \emph{Hidden Process Regression for Curve Modeling, Classification and Tracking.} Ph.D. Thesis, Universite de Technologie de Compiegne. \url{https://chamroukhi.com/papers/FChamroukhi-Thesis.pdf}.
+Chamroukhi, F. 2010. \emph{Hidden Process Regression for Curve Modeling, Classification and Tracking.} Ph.D. Thesis, Universite de Technologie de Compiegne. \url{https://chamroukhi.com/FChamroukhi-PhD.pdf}.
 }
 \seealso{
 Useful links:

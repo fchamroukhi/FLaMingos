@@ -98,7 +98,7 @@ emMixRHLP <- function(X, Y, K, R, p = 3, q = 1, variance_type = c("heteroskedast
       }
 
       if (prev_loglik - stat$loglik > 1e-5) {
-        warning("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, " !")
+        warning("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, "!")
         top <- top + 1
         if (top > 20) {
           break

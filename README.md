@@ -9,6 +9,8 @@
 status](https://travis-ci.org/fchamroukhi/FLaMingos.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingos)
 [![CRAN
 versions](https://www.r-pkg.org/badges/version/flamingos)](https://cran.r-project.org/web/packages/flamingos/index.html)
+[![CRAN
+logs](https://cranlogs.r-pkg.org/badges/flamingos)](https://cran.rstudio.com/web/packages/flamingos/index.html)
 <!-- badges: end -->
 
 flamingos is an open-source toolbox (available in R and in Matlab) for
@@ -328,20 +330,6 @@ mixrhlp$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1    4.96556671   6.7326717   4.8807183
-#> X^1  0.08880479   0.4984443   0.1350271
-#> 
-#> Variances:
-#> 
-#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9559969       1.03849     0.9506928
-#> 
-#> --------------------
-#> Cluster 3 (k = 3):
-#> 
-#> Regression coefficients for each regime/segment r (r=1...R):
-#> 
-#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1     6.3513369    4.214736   6.6536553
 #> X^1  -0.2449377    0.839666   0.1024863
 #> 
@@ -349,6 +337,20 @@ mixrhlp$summary()
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9498285     0.9270384      1.001413
+#> 
+#> --------------------
+#> Cluster 3 (k = 3):
+#> 
+#> Regression coefficients for each regime/segment r (r=1...R):
+#> 
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
+#> 1    4.96556671   6.7326717   4.8807183
+#> X^1  0.08880479   0.4984443   0.1350271
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9559969       1.03849     0.9506928
 
 mixrhlp$plot()
 ```
@@ -425,12 +427,12 @@ mixhmm$summary()
 #> Means:
 #> 
 #>     r = 1    r = 2    r = 3
-#>  6.319189 4.583954 6.722627
+#>  4.987066 6.963998 4.987279
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9571803     0.9504731       1.01553
+#>      0.9578459      1.045573      0.952294
 #> 
 #> -------------------
 #> Cluster 3 (k = 3):
@@ -438,12 +440,12 @@ mixhmm$summary()
 #> Means:
 #> 
 #>     r = 1    r = 2    r = 3
-#>  4.987066 6.963998 4.987279
+#>  6.319189 4.583954 6.722627
 #> 
 #> Variances:
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9578459      1.045573      0.952294
+#>      0.9571803     0.9504731       1.01553
 
 mixhmm$plot()
 ```
@@ -475,27 +477,27 @@ verbose <- TRUE
 
 mixhmmr <- emMixHMMR(X = x, Y = Y, K, R, p, variance_type, ordered_states, 
                      init_kmeans, n_tries, max_iter, threshold, verbose)
-#> EM - mixHMMR: Iteration: 1 || log-likelihood: -18975.6323298895
-#> EM - mixHMMR: Iteration: 2 || log-likelihood: -15198.5811534058
-#> EM - mixHMMR: Iteration: 3 || log-likelihood: -15118.0350455527
-#> EM - mixHMMR: Iteration: 4 || log-likelihood: -15086.2933826057
-#> EM - mixHMMR: Iteration: 5 || log-likelihood: -15084.2502053712
-#> EM - mixHMMR: Iteration: 6 || log-likelihood: -15083.7770153797
-#> EM - mixHMMR: Iteration: 7 || log-likelihood: -15083.3586992156
-#> EM - mixHMMR: Iteration: 8 || log-likelihood: -15082.8291034608
-#> EM - mixHMMR: Iteration: 9 || log-likelihood: -15082.2407744542
-#> EM - mixHMMR: Iteration: 10 || log-likelihood: -15081.6808462523
-#> EM - mixHMMR: Iteration: 11 || log-likelihood: -15081.175618676
-#> EM - mixHMMR: Iteration: 12 || log-likelihood: -15080.5819574865
-#> EM - mixHMMR: Iteration: 13 || log-likelihood: -15079.3118011276
-#> EM - mixHMMR: Iteration: 14 || log-likelihood: -15076.8073408977
-#> EM - mixHMMR: Iteration: 15 || log-likelihood: -15073.8399600893
-#> EM - mixHMMR: Iteration: 16 || log-likelihood: -15067.6884092484
-#> EM - mixHMMR: Iteration: 17 || log-likelihood: -15054.9127597414
-#> EM - mixHMMR: Iteration: 18 || log-likelihood: -15049.4000307536
-#> EM - mixHMMR: Iteration: 19 || log-likelihood: -15049.0221351022
-#> EM - mixHMMR: Iteration: 20 || log-likelihood: -15048.997021329
-#> EM - mixHMMR: Iteration: 21 || log-likelihood: -15048.9949507534
+#> EM - mixHMMR: Iteration: 1 | log-likelihood: -18975.6323298895
+#> EM - mixHMMR: Iteration: 2 | log-likelihood: -15198.5811534058
+#> EM - mixHMMR: Iteration: 3 | log-likelihood: -15118.0350455527
+#> EM - mixHMMR: Iteration: 4 | log-likelihood: -15086.2933826057
+#> EM - mixHMMR: Iteration: 5 | log-likelihood: -15084.2502053712
+#> EM - mixHMMR: Iteration: 6 | log-likelihood: -15083.7770153797
+#> EM - mixHMMR: Iteration: 7 | log-likelihood: -15083.3586992156
+#> EM - mixHMMR: Iteration: 8 | log-likelihood: -15082.8291034608
+#> EM - mixHMMR: Iteration: 9 | log-likelihood: -15082.2407744542
+#> EM - mixHMMR: Iteration: 10 | log-likelihood: -15081.6808462523
+#> EM - mixHMMR: Iteration: 11 | log-likelihood: -15081.175618676
+#> EM - mixHMMR: Iteration: 12 | log-likelihood: -15080.5819574865
+#> EM - mixHMMR: Iteration: 13 | log-likelihood: -15079.3118011276
+#> EM - mixHMMR: Iteration: 14 | log-likelihood: -15076.8073408977
+#> EM - mixHMMR: Iteration: 15 | log-likelihood: -15073.8399600893
+#> EM - mixHMMR: Iteration: 16 | log-likelihood: -15067.6884092484
+#> EM - mixHMMR: Iteration: 17 | log-likelihood: -15054.9127597414
+#> EM - mixHMMR: Iteration: 18 | log-likelihood: -15049.4000307536
+#> EM - mixHMMR: Iteration: 19 | log-likelihood: -15049.0221351022
+#> EM - mixHMMR: Iteration: 20 | log-likelihood: -15048.997021329
+#> EM - mixHMMR: Iteration: 21 | log-likelihood: -15048.9949507534
 
 mixhmmr$summary()
 #> ------------------------
@@ -523,6 +525,20 @@ mixhmmr$summary()
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
 #>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
+#> 1     6.3552432   4.2868818   6.5327846
+#> X^1  -0.2865404   0.6907212   0.2429291
+#> 
+#> Variances:
+#> 
+#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
+#>      0.9587975     0.9481068       1.01388
+#> 
+#> --------------------
+#> Cluster 2 (k = 2):
+#> 
+#> Regression coefficients for each regime/segment r (r=1...R):
+#> 
+#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
 #> 1      6.870328   5.1511267   3.9901300
 #> X^1    1.204150  -0.4601777  -0.0155753
 #> 
@@ -532,7 +548,7 @@ mixhmmr$summary()
 #>      0.9776399     0.9895623       0.96457
 #> 
 #> --------------------
-#> Cluster 2 (k = 2):
+#> Cluster 3 (k = 3):
 #> 
 #> Regression coefficients for each regime/segment r (r=1...R):
 #> 
@@ -544,20 +560,6 @@ mixhmmr$summary()
 #> 
 #>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
 #>      0.9576192      1.045043      0.952047
-#> 
-#> --------------------
-#> Cluster 3 (k = 3):
-#> 
-#> Regression coefficients for each regime/segment r (r=1...R):
-#> 
-#>     Beta(r = 1) Beta(r = 2) Beta(r = 3)
-#> 1     6.3552432   4.2868818   6.5327846
-#> X^1  -0.2865404   0.6907212   0.2429291
-#> 
-#> Variances:
-#> 
-#>  Sigma2(r = 1) Sigma2(r = 2) Sigma2(r = 3)
-#>      0.9587975     0.9481068       1.01388
 
 mixhmmr$plot()
 ```
@@ -601,7 +603,7 @@ Classification* 33 (3): 374–411.
 
 Chamroukhi, F. 2015. “Statistical Learning of Latent Data Models for
 Complex Data Analysis.” Habilitation Thesis (HDR), Université de Toulon.
-<https://chamroukhi.com/Dossier/FChamroukhi-Habilitation.pdf>.
+<https://chamroukhi.com/FChamroukhi-HDR.pdf>.
 
 </div>
 
@@ -656,7 +658,7 @@ Curve Discrimination.” *Neurocomputing* 73 (7-9): 1210–21.
 
 Chamroukhi, F. 2010. “Hidden Process Regression for Curve Modeling,
 Classification and Tracking.” Ph.D. Thesis, Université de Technologie de
-Compiègne. <https://chamroukhi.com/papers/FChamroukhi-Thesis.pdf>.
+Compiègne. <https://chamroukhi.com/FChamroukhi-PhD.pdf>.
 
 </div>
 

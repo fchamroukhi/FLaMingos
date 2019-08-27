@@ -95,11 +95,11 @@ emMixHMMR <- function(X, Y, K, R, p = 3, variance_type = c("heteroskedastic", "h
       iter <- iter + 1
 
       if (verbose) {
-        message("EM - mixHMMR: Iteration: ", iter, " || log-likelihood: "  , stat$loglik)
+        message("EM - mixHMMR: Iteration: ", iter, " | log-likelihood: "  , stat$loglik)
       }
 
       if (prev_loglik - stat$loglik > 1e-4) {
-        warning("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, " !")
+        warning("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, "!")
       }
 
       converged <- (abs((stat$loglik - prev_loglik) / prev_loglik) < threshold)

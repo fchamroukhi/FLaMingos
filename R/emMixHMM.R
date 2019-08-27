@@ -97,7 +97,7 @@ emMixHMM <- function(Y, K, R, variance_type = c("heteroskedastic", "homoskedasti
       }
 
       if (prev_loglik - stat$loglik > 1e-4) {
-        warning("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, " !")
+        warning("EM log-likelihood is decreasing from ", prev_loglik, "to ", stat$loglik, "!")
       }
 
       converged <- (abs((stat$loglik - prev_loglik) / prev_loglik) <= threshold)

@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/fchamroukhi/FLaMingos.svg?branch=master)](https://travis-ci.org/fchamroukhi/FLaMingos)
 [![CRAN versions](https://www.r-pkg.org/badges/version/flamingos)](https://cran.r-project.org/web/packages/flamingos/index.html)
+[![CRAN logs](https://cranlogs.r-pkg.org/badges/flamingos)](https://cran.rstudio.com/web/packages/flamingos/index.html)
 <!-- badges: end -->
 
 flamingos is an open-source toolbox (available in R and in Matlab) for the 
